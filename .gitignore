@@ -1,0 +1,13 @@
+# Data / secrets
+/data/*.xml
+/data/avatars/
+/data/webhook.log
+
+# Local env / temp
+.env
+*.log
+*.tmp
+
+# OS / editor
+.DS_Store
+Thumbs.db

@@ -1,0 +1,40 @@
+<?php
+require_once __DIR__ . '/config.php';
+
+function enlil_page_header(string $title): void {
+    $config = require __DIR__ . '/config.php';
+    $logoPath = __DIR__ . '/../enlil.png';
+    $logoUrl = file_exists($logoPath) ? '/assets/enlil.png' : '';
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><?php echo htmlspecialchars($title); ?> | <?php echo htmlspecialchars($config['app_name']); ?></title>
+        <link rel="stylesheet" href="/assets/styles.css">
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="brand">
+                <?php if ($logoUrl): ?>
+                    <img class="logo small" src="<?php echo $logoUrl; ?>" alt="<?php echo htmlspecialchars($config['app_name']); ?>">
+                <?php endif; ?>
+                <strong><?php echo htmlspecialchars($config['app_name']); ?></strong>
+            </div>
+            <nav class="main-nav">
+                <a href="/dashboard.php">Panel</a>
+                <a href="/equipos_personas.php">Equipos y personas</a>
+                <a href="/proyectos_list.php">Proyectos</a>
+                <a href="/logout.php">Cerrar sesión</a>
+            </nav>
+        </header>
+    <?php
+}
+
+function enlil_page_footer(): void {
+    ?>
+    </body>
+    </html>
+    <?php
+}
