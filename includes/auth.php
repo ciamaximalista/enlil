@@ -4,6 +4,12 @@ require_once __DIR__ . '/db.php';
 function enlil_start_session(): void {
     $config = require __DIR__ . '/config.php';
     if (session_status() === PHP_SESSION_NONE) {
+        if (!empty($config['session_path'])) {
+            if (!is_dir($config['session_path'])) {
+                mkdir($config['session_path'], 0770, true);
+            }
+            session_save_path($config['session_path']);
+        }
         session_name($config['session_name']);
         session_start();
     }

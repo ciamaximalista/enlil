@@ -6,6 +6,7 @@ require_once __DIR__ . '/includes/people.php';
 require_once __DIR__ . '/includes/avatars.php';
 
 enlil_require_login();
+enlil_start_session();
 $teams = enlil_teams_all();
 $people = enlil_people_all();
 $peopleByTeam = [];
@@ -17,6 +18,10 @@ foreach ($people as $person) {
         $peopleByTeam[$teamId][] = $person;
     }
 }
+
+$flashSuccess = $_SESSION['flash_success'] ?? '';
+$flashError = $_SESSION['flash_error'] ?? '';
+unset($_SESSION['flash_success'], $_SESSION['flash_error']);
 
 enlil_page_header('Equipos');
 ?>
@@ -31,6 +36,18 @@ enlil_page_header('Equipos');
             <a class="tab" href="/personas_list.php">Personas</a>
         </div>
 
+        <?php if ($flashSuccess): ?>
+            <div class="alert success">
+                <?php echo htmlspecialchars($flashSuccess); ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($flashError): ?>
+            <div class="alert">
+                <?php echo htmlspecialchars($flashError); ?>
+            </div>
+        <?php endif; ?>
+
         <?php if (!$teams): ?>
             <p class="empty">Aún no hay equipos. Crea el primero.</p>
         <?php else: ?>
@@ -40,6 +57,7 @@ enlil_page_header('Equipos');
                         <tr>
                             <th>Nombre</th>
                             <th>Personas</th>
+                            <th>Mensaje de prueba</th>
                             <th>Editar</th>
                         </tr>
                     </thead>
@@ -73,6 +91,12 @@ enlil_page_header('Equipos');
                                             </a>
                                         <?php endforeach; ?>
                                     </div>
+                                </td>
+                                <td>
+                                    <form class="inline-form" method="post" action="/equipos_send_test.php">
+                                        <input type="hidden" name="team_id" value="<?php echo (int)$team['id']; ?>">
+                                        <button class="btn small" type="submit">Enviar</button>
+                                    </form>
                                 </td>
                                 <td>
                                     <a class="btn small" href="/equipos_edit.php?id=<?php echo (int)$team['id']; ?>">Editar</a>

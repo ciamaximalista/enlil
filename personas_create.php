@@ -14,7 +14,6 @@ $teamIds = array_map(function ($team) {
 $errors = [];
 $name = '';
 $telegramUser = '';
-$telegramUserId = '';
 $selectedTeams = [];
 // existing people for validation
 $people = enlil_people_all();
@@ -22,7 +21,6 @@ $people = enlil_people_all();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $telegramUser = trim($_POST['telegram_user'] ?? '');
-    $telegramUserId = trim($_POST['telegram_user_id'] ?? '');
     $selectedTeams = $_POST['team_ids'] ?? [];
     if (!is_array($selectedTeams)) {
         $selectedTeams = [];
@@ -39,24 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $telegramUser = '@' . $telegramUser;
     }
 
-    if ($telegramUserId !== '' && !ctype_digit($telegramUserId)) {
-        $errors[] = 'El ID de usuario de Telegram debe ser numérico.';
-    }
-    if ($telegramUserId !== '') {
-        foreach ($people as $p) {
-            if ((string)$p['telegram_user_id'] === $telegramUserId) {
-                $errors[] = 'Ese ID de Telegram ya está asignado a otra persona.';
-                break;
-            }
-        }
-    }
-
     $selectedTeams = array_values(array_filter(array_map('intval', $selectedTeams), function ($id) use ($teamIds) {
         return in_array($id, $teamIds, true);
     }));
 
     if (!$errors) {
-        enlil_people_add($name, $telegramUser, $telegramUserId, $selectedTeams);
+        enlil_people_add($name, $telegramUser, '', $selectedTeams);
         header('Location: /personas_list.php');
         exit;
     }
@@ -92,10 +78,6 @@ enlil_page_header('Crear persona');
             <label>Usuario de Telegram
                 <input type="text" name="telegram_user" required value="<?php echo htmlspecialchars($telegramUser); ?>" placeholder="@usuario">
             </label>
-            <label>ID de usuario de Telegram (para expulsiones)
-                <input type="text" name="telegram_user_id" value="<?php echo htmlspecialchars($telegramUserId); ?>" placeholder="Ej: 123456789">
-            </label>
-
             <fieldset>
                 <legend>Equipos</legend>
                 <?php if (!$teams): ?>

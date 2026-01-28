@@ -47,7 +47,8 @@ function enlil_people_add(string $name, string $telegramUser, string $telegramUs
     if (file_exists($path)) {
         $xml = @simplexml_load_file($path);
         if (!$xml) {
-            throw new RuntimeException('No se pudo leer el XML de personas.');
+            // recover from empty/corrupt file by reinitializing
+            $xml = new SimpleXMLElement('<people></people>');
         }
     } else {
         $xml = new SimpleXMLElement('<people></people>');
@@ -149,6 +150,50 @@ function enlil_people_update(int $id, string $name, string $telegramUser, string
     if (!flock($fp, LOCK_EX)) {
         fclose($fp);
         throw new RuntimeException('No se pudo bloquear el XML temporal de personas.');
+    }
+
+    fwrite($fp, $xml->asXML());
+    fflush($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+
+    rename($tempPath, $path);
+    chmod($path, 0660);
+    return true;
+}
+
+function enlil_people_update_telegram_id(int $id, string $telegramUserId): bool {
+    $path = enlil_people_xml_path();
+    if (!file_exists($path)) {
+        return false;
+    }
+
+    $xml = @simplexml_load_file($path);
+    if (!$xml) {
+        return false;
+    }
+
+    $updated = false;
+    foreach ($xml->person as $person) {
+        if ((int)$person['id'] === $id) {
+            $person->telegram_user_id = $telegramUserId;
+            $updated = true;
+            break;
+        }
+    }
+
+    if (!$updated) {
+        return false;
+    }
+
+    $tempPath = $path . '.tmp';
+    $fp = fopen($tempPath, 'wb');
+    if (!$fp) {
+        return false;
+    }
+    if (!flock($fp, LOCK_EX)) {
+        fclose($fp);
+        return false;
     }
 
     fwrite($fp, $xml->asXML());

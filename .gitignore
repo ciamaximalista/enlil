@@ -2,6 +2,7 @@
 /data/*.xml
 /data/avatars/
 /data/webhook.log
+/data/sessions/
 
 # Local env / temp
 .env

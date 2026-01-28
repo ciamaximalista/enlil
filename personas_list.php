@@ -51,6 +51,9 @@ enlil_page_header('Personas');
                 <div class="page-header">
                     <h1>Personas</h1>
                     <div class="actions">
+                        <form method="post" action="/people_bulk_lookup.php" class="inline-form">
+                            <button class="btn secondary" type="submit">Buscar IDs en Telegram</button>
+                        </form>
                         <a class="btn secondary" href="/avatars_refresh.php">Actualizar avatares</a>
                         <a class="btn" href="/personas_create.php">Crear persona</a>
                     </div>
@@ -63,7 +66,12 @@ enlil_page_header('Personas');
 
         <?php if ($events): ?>
             <div class="section-card events-card">
-                <h2>Actualizaciones de tareas</h2>
+                <div class="page-header">
+                    <h2>Actualizaciones de tareas</h2>
+                    <form method="post" action="/checklist_clear.php" class="inline-form">
+                        <button class="btn small danger" type="submit">Borrar</button>
+                    </form>
+                </div>
                 <ul class="event-list">
                     <?php foreach ($events as $event): ?>
                         <?php
@@ -129,6 +137,7 @@ enlil_page_header('Personas');
                         <tr>
                             <th>Nombre</th>
                             <th>Usuario Telegram</th>
+                            <th>ID</th>
                             <th>Equipos</th>
                             <th>Mensaje de prueba</th>
                             <th>Editar</th>
@@ -164,6 +173,13 @@ enlil_page_header('Personas');
                                     </div>
                                 </td>
                                 <td class="mono"><?php echo htmlspecialchars($person['telegram_user']); ?></td>
+                                <td>
+                                    <?php if (!empty($person['telegram_user_id'])): ?>
+                                        <span class="badge success">✓</span>
+                                    <?php else: ?>
+                                        <span class="badge">✗</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td>
                                     <?php
                                     $names = [];

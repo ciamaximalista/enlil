@@ -7,5 +7,6 @@ return [
     'people_xml' => __DIR__ . '/../data/people.xml',
     'projects_xml' => __DIR__ . '/../data/projects.xml',
     'bot_xml' => __DIR__ . '/../data/bot.xml',
+    'session_path' => __DIR__ . '/../data/sessions',
     'session_name' => 'enlil_session',
 ];

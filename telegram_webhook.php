@@ -6,6 +6,30 @@ require_once __DIR__ . '/includes/checklists.php';
 require_once __DIR__ . '/includes/business_connections.php';
 require_once __DIR__ . '/includes/customers.php';
 
+function enlil_checklist_extract_ids($items): array {
+    $ids = [];
+    if (!is_array($items)) {
+        return $ids;
+    }
+    foreach ($items as $item) {
+        if (is_int($item) || ctype_digit((string)$item)) {
+            $ids[] = (string)$item;
+            continue;
+        }
+        if (is_array($item)) {
+            if (isset($item['id']) && ctype_digit((string)$item['id'])) {
+                $ids[] = (string)$item['id'];
+                continue;
+            }
+            if (isset($item['task_id']) && ctype_digit((string)$item['task_id'])) {
+                $ids[] = (string)$item['task_id'];
+                continue;
+            }
+        }
+    }
+    return array_values(array_unique($ids));
+}
+
 // Identify which bot sent this update via token parameter.
 $token = trim($_GET['token'] ?? '');
 if ($token === '') {
@@ -99,6 +123,21 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
         }
     }
 
+    $doneList = $done;
+    if (is_array($done) && isset($done['marked_as_done_task_ids'])) {
+        $doneList = $done['marked_as_done_task_ids'];
+    } elseif (is_array($done) && isset($done['task_ids'])) {
+        $doneList = $done['task_ids'];
+    }
+    $notDoneList = $notDone;
+    if (is_array($notDone) && isset($notDone['marked_as_not_done_task_ids'])) {
+        $notDoneList = $notDone['marked_as_not_done_task_ids'];
+    } elseif (is_array($notDone) && isset($notDone['task_ids'])) {
+        $notDoneList = $notDone['task_ids'];
+    }
+
+    $doneIds = enlil_checklist_extract_ids($doneList);
+    $notDoneIds = enlil_checklist_extract_ids($notDoneList);
     $event = [
         'created_at' => date('c'),
         'person_id' => $personId,
@@ -107,8 +146,8 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
         'team_id' => $teamId,
         'chat_id' => (string)$chatId,
         'message_id' => $msgId,
-        'done_ids' => is_array($done) ? implode(',', $done) : '',
-        'not_done_ids' => is_array($notDone) ? implode(',', $notDone) : '',
+        'done_ids' => $doneIds ? implode(',', $doneIds) : '',
+        'not_done_ids' => $notDoneIds ? implode(',', $notDoneIds) : '',
     ];
     enlil_checklist_add($event);
     http_response_code(200);
