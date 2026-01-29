@@ -1,0 +1,20 @@
+---
+Title: XVII, Corrupción
+Date: 09/09/2012
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Category: 
+  - hacia-un-nuevo-relato
+Description: 
+Img: 35079
+coverImage: Take_the_money_and_run.jpg
+---
+
+[![](images/Take_the_money_and_run.jpg "Take the money and run")](http://juan.urrutiaelejalde.org/files/2012/09/Take_the_money_and_run.jpg)Es hora de continuar con la serie sobre el camino hacia un nuevo relato que quedó interrumpida por las vacaciones. Es cierto que [el post sobre la desigualdad](http://juan.urrutiaelejalde.org/desigualdad-capital/) debería haber formado parte de esta serie, pero está bien así pues poco añadía a las dos últimas entradas ([esta](http://juan.urrutiaelejalde.org/hacia-un-nuevo-relato-xv-integrando-la-desigualdad-en-el-marco-teorico/) y [esta](http://juan.urrutiaelejalde.org/hacia-un-nuevo-relato-xvi-la-importancia-de-la-distribucion/)) ambas relacionadas con la desigualdad en la distribución de la renta. Parecía que esas reflexiones podrían llevarnos a una suerte de activismo por parte de los economistas o similares que aclarara un poco la inteligibilidad de la situación. Pues bien [el artículo de César Molinas de hoy en El País](http://politica.elpais.com/politica/2012/09/08/actualidad/1347129185_745267.html) resulta oportuno pues es un ejemplo de activismo que parece ser todavía tiene munición y al mismo tiempo aporta al nuevo relato al iniciar una teoría de la clase política española que ha sido incapaz de diagnosticar la situación y de ofrecer el dibujo de una salida posible.
+
+Nada exime de su lectura, pero esa obligación que yo ya he cumplido, no me libra de la obligación de glosarlo aunque sea de manera muy indirecta. Primero porque me reconozco en algunas líneas de su argumentación especialmente las relacionadas con la extracción de rentas y con el juego que hacen [Acemoglu y Robinson](http://juan.urrutiaelejalde.org/hacia-un-nuevo-relato-xvi-la-importancia-de-la-distribucion/) con esa extracción. Segundo porque merece la pena elaborar un poco más la idea de corrupción que César utiliza sin nombrarla en ningún momento. El hacerse con rentas mediante el monopolio otorgado a cambio del sostenimiento de una clase dominante que no dice su nombre es, ciertamente, corrupción pero se trata de una corrupción de una clase que ya ha sido identificada aunque su denuncia no forme parte todavía de la conversación general. Pero lo que sostiene la posibilidad de ejercer impunemente la corrupción es un tipo de eso mismo, corrupción, que sí dice su nombre porque está orgullosa de sí misma.
+
+Lo que estoy tratando de denunciar y/o identificar es una actitud odiosa que nada tiene que ver con trincar dinero de una u otra manera. Esa avaricia oportunista es propia de pobre gente que solo merecería eso: dinero. La tierra en la que crece esa lacra es, sin embargo de otra naturaleza bien difícil de detectar. Es esa tierra inmaterial en donde crece la flor de la honradez y el desinterés material. Es una tierra cuyos hijos se ven a sí mismos como gente ejemplar y generosa que por tradición y estudios tiene la última palabra en cuestiones políticas y de moral pública, una posición ésta bien ganada a base de admoniciones públicas siempre basadas en su entendimiento preclaro y en las plataformas que indefectiblemente ocupan. Nada piden a cambio pues no hay dinero para pagar su aportación social.Sería pues inconcebible que alguien tratara de desenmascáralos. No tienen máscara, simplemente tienen razón y lo único que piden, ¡qué digo piden!, que exigen es que se les coloque en primera fila de cualquier acto público y que se escuche con respeto su palabra o, en cualquier caso, que se haga lo que ellos dicen que hay que hacer basándose en su evidente buen y certero juicio de mostrado por el hecho de que están siempre en el sitio de honor de la conciencia pública. Fin del argumento...de autoridad.
+
+La tarea es sencilla. Nos bastaría en gritar que el Señor exhibe una desnudez mendicante y ofrecerle un retiro sencillo en una residencia donde su psique pueda ser estudiada con cuidado.

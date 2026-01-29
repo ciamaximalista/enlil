@@ -156,7 +156,7 @@ button:hover {
 }
 
 .container {
-    width: min(900px, 92vw);
+    width: min(1400px, 96vw);
     margin: 28px auto;
 }
 
@@ -533,17 +533,6 @@ legend {
     margin-top: 12px;
 }
 
-.tasks-grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    align-items: start;
-}
-
-.tasks-column {
-    display: grid;
-    gap: 12px;
-    align-content: start;
-}
-
 .column-label {
     font-size: 12px;
     text-transform: uppercase;
@@ -567,33 +556,21 @@ legend {
     min-height: 90px;
 }
 
-.graph {
-    position: relative;
-    padding: 24px 8px 8px;
-    overflow: visible;
-}
-
-.graph-columns {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    position: relative;
-    z-index: 1;
-}
-
-.graph-column {
+.objective-matrix {
     display: grid;
-    gap: 18px;
-    align-content: start;
-    flex: 1 1 320px;
-    min-width: 260px;
+    gap: 32px;
+    margin-top: 8px;
 }
 
-.graph-lines {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
+.objective-row {
+    display: grid;
+    grid-template-columns: repeat(var(--obj-cols), minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+.objective-cell.empty {
+    min-height: 60px;
 }
 
 .graph-node {
@@ -627,10 +604,52 @@ legend {
     padding: 4px 10px;
     font-size: 12px;
     display: inline-block;
+    white-space: nowrap;
 }
 
 .task-pill.done {
     background: rgba(27, 142, 237, 0.14);
+}
+
+.task-date {
+    margin-left: 8px;
+    color: #1b8eed;
+    font-weight: 600;
+}
+
+.task-matrix {
+    display: grid;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.task-row-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--task-cols), minmax(0, 1fr));
+    gap: 16px;
+    align-items: start;
+}
+
+.task-cell {
+    display: grid;
+    align-content: start;
+}
+
+.task-cell.empty {
+    min-height: 26px;
+}
+
+.tasks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    align-items: start;
+}
+
+.tasks-column {
+    display: grid;
+    gap: 12px;
+    align-content: start;
 }
 
 .link {

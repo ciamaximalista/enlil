@@ -1,0 +1,22 @@
+---
+Title: Bygones are bygones
+Date: 27/08/2015
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 46882
+coverImage: ouroboros.jpg
+---
+
+[![ouroboros 2](images/ouroboros-2.jpg)](http://juan.urrutiaelejalde.org/files/2015/08/ouroboros-2.jpg)Un día ya lejano me encontré preguntándome qué ideas en Economía eran realmente una aportación al conocimiento. Y para mi sorpresa solo di con dos: el [coste de oportunidad](https://es.wikipedia.org/wiki/Coste_de_oportunidad) y el [coste fijo](https://www.google.es/search?rls=aso&client=gmail&q=coste+fijo&authuser=0&gws_rd=cr&ei=wO7eVYPYN4uAUdGxuYAG). Ambas nociones parecen sencillas, pero encierran su complejidad intelectual para comprender esto hay que alejarse un poco de las explicaciones convencionales.
+
+El coste de oportunidad de una cierta decisión es lo que dejas de ganar por no haber decidido la siguiente mejor alternativa. Ni que decir tiene que hay algo misterioso en la idea de que hay un mundo raro (la competencia perfecta) en el que todo el mundo gana su coste de oportunidad de manera que nadie puede pretender aprovecharse de la amenaza de abandonar esa economía perfectamente competitiva pues no está aportando nada especial. El coste fijo de la producción de algo es esa cantidad de inversión que no cambia con la cantidad producida y que, por lo tanto, no puede recuperarse por el procedimiento de abandonar la producción emprendida.
+
+En ambos casos y al referirnos a esos conceptos estamos aplicando implícitamente una concepción del tiempo determinada. Explícitamente el futuro es finito e incluso cercano y el pasado no llega más atrás que una vida humana normal. Y sin embargo cuando nos movemos en la teoría neoclásica del mercado basada en la competencia perfecta, pensamos en un tiempo sin principio y sin final. Es por esta ambigüedad que utilizo el título de _bygones are bygones_, una forma poco precisa de utilizar el lenguaje natural para convencer y convencernos de que no hay que enredarse con el pasado y hay que mirar solo al futuro inmediato.
+
+Esta idea inunda el final de la tercera temporada en Antena tres de [Amar es para siempre](http://www.antena3.com/series/amar/). No tiene sentido llorar por un asesinato cometido en el pasado pues ya no tiene arreglo. Despertarse con miedo a ser maltratada por un marido ya muerto es una tontería pues esto ya no va a volver a pasar si ella sabe elegir bien su nuevo compañero. Dejar de soñar con un futuro distinto que se desea es algo que no tiene por qué darse por el simple hecho de que el primer intento haya sido frustrante. Incluso la muerte ajena no debería ser causa de tristeza o de reflexión pues no tiene remedio. Por todas estas razones podríamos decir que esta serie (que procuro no perderme) estaría llena de trampas psíquicas e intelectuales y reflejaría una concepción del tiempo no muy pensada. Nuestro pasado nos tiene a veces atrapados y no podemos librarnos, por ejemplo, del sentido de culpa. Nuestro futuro nos aterra o nos entusiasma dependiendo de cosas inciertas en el corto plazo como podrían ser una lesión corporal o la esperanza de una experiencia amorosa que creemos alcanzable y nueva.
+
+[![ouroboros](images/ouroboros.jpg)](http://juan.urrutiaelejalde.org/files/2015/08/ouroboros.jpg)Esta concepción finita del tiempo nos lleva a una concepción finita del mundo y sin esta última la narración o el drama no existiría. La [teoría del big bang](https://es.wikipedia.org/wiki/Big_Bang) vista como lo que es, una narración, podrá ser sustituía por otra teoría que piense el tiempo como algo infinito en cualquier dirección. Este es el destino poco brillante de la [teoría del steady state](https://es.wikipedia.org/wiki/Teor%C3%ADa_del_estado_estacionario) que no pretende ser una narración sino una simple manera de hablar más libre.
+
+[Benet i Jornet](https://es.wikipedia.org/wiki/Josep_Maria_Benet), y ya desde la primera temporada de [Amar en tiempos revueltos](http://www.rtve.es/television/amarentiemposrevueltos/2008-2012.shtml) en la primera cadena de TVE, pretendía, como todo dramaturgo, tocarnos esos recovecos de la conciencia asociados a una concepción finita del tiempo tal como cualquier otro que nos pueda venir a las mientes con excepciones escasas y que nos desconciertan como podrían ser Beckett o Ionesco. Quizá nunca puedan ser el origen de una serie televisiva de entretenimiento, pero siempre serán el campo de juego de una radicalmente nueva manera de pensar y de relacionarte con los demás.

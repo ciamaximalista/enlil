@@ -1,0 +1,31 @@
+---
+Title: LXXIX, Grado cero de  tartamudez y transparencia total
+Date: 11/04/2014
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Category: 
+  - hacia-un-nuevo-relato
+Description: 
+Img: 
+---
+
+De manera casi simultánea he experimentado muy recientemente dos sensaciones complementarias que me han impactado y me han hecho pensar. Todo comenzó con una sensación yo diría que acústica en medio de la presentación de un libro. Uno de los presentadores efectuó sus comentarios de una forma tal que me hizo buscar algo sobre lo que escribir para tomar una nota, pues me parecía extrañamente urgente asegurar que no me olvidaba. Solo encontré un kleenex en mi bolsillo y escribí sobre él lo que ahora copio:
+
+> Grado cero de la [tartamudez](http://es.wikipedia.org/wiki/Tartamudez), hasta las comas se hacen sentir, resta credibilidad pues el que habla no responde a la audiencia ni se mete con nadie
+
+No lo entiendo muy bien, aunque me parece que no está muy lejos de lo que me ha evocado la lectura del primer ensayo de [Byung-Chul Han en su libro **La sociedad de la transparencia**](http://redfilosofia.es/blog/2014/03/23/entrevista-al-filosofo-coreano-aleman-byung-chul-han/), un breve comentario que denomina **La sociedad positiva**. No estoy seguro de poder comunicar con claridad y rasgos limpios la similitud y complementariedad de ambas sensaciones, la que he llamado acústica y la que podría denominar con poca propiedad intelectual.
+
+Pensando pausadamente durante mi vuelta a casa después de la presentación sentía que ese presentador no había dicho nada, aunque el número de palabras utilizado por minuto fue de récord mundial. Agotaba los sinónimos sin intentar en ningún momento decir algo que hiciera ver que los sinónimos nunca son del todo equivalentes, solo trataba de agotar las entradas de uno de esos diccionarios llamados de sinónimos. El discurso era como una corriente de agua a velocidad constante, mansa y sin ningún obstáculo que matizara el rumor o produjera una pequeña olita de espuma. El lenguaje corporal con el que acompañaba ese río sereno era el de la dicotomía entre la mano izquierda o la derecha, con un mínimo balanceo del cuerpo en una u otra dirección. Sería yo totalmente incapaz de repetir ni uno solo de sus comentarios simplemente porque estaba extasiado por la monotonía.
+
+Recordé mi leve tartamudez infantil, especialmente notable en las palabras que comenzaran por M o por T, y cómo poco a poco fuí respirando un poco más profundamente antes de atacar cualquiera de ellas. Recordé compañeros de colegio que sufrían por este defecto del habla, y volví a simpatizar con ellos recordando cómo yo esperaba sereno a que acabaran de pronunciar la palabra que actuaba de valla, y cómo se me abría la mente cuando la valla había sido superada, de manera que podía contestar a aquello que el tiempo de espera me había hecho ver que subyacía a lo que el lenguaje acabó diciendo. Nunca el lenguaje comunicaba literalmente todo lo que aquella cabeza había elaborado en sus conexiones neuronales. Mucho quedaba implícito, y esa parte es la que me hacía pensar creativamente a mí. Justo lo contrario de lo que me ocurrió con el presentador del libro al que me he referido. Nada quedaba implícito más allá de la serena riada de palabras, nada de lo dicho significaba un reto para pensar y colaborar en una conversación generadora de sentido. Me vino a la cabeza la distinción entre [Erklärung y Verstehen](http://juan.urrutiaelejalde.org/verstehen-y-erklarung-otra-vez) que tantas veces he utilizado para señalar el abismo entre entender alguna dificultad lógica o ambigüedad semántica, y llegar a comprender cómo unas ideas colaboraban a reorganizar la tupida red de otras muchas idas acumuladas. Una ficha burocrática frente una iluminación vital.
+
+Y a los dos días cae en mis manos el comentario de este coreano afincado en Alemania sobre la transparencia. Una sociedad basada en esta exigencia es, según él, una sociedad positiva en la que la negatividad ha sido eliminada, despreciando todo el potencial creativo de esa negatividad que se opone al flujo incesante de ideas que va conformando un campo de operaciones en el que no hay batalla posible pues todo está claro. Destaco en una cita aparte este pensamiento en favor de la negatividad:
+
+> La sociedad de la transparencia es un _infierno de lo igual_. La transparencia es una coacción sistémica que se apodera de todos los sucesos sociales y los somete a un profundo cambio. El sistema social somete hoy todos sus procesos a una coacción de transparencia para hacerlos operacionales y acelerados. La presión de la aceleración va de la mano del desmontaje de la negatividad. La comunicación alcanza su máxima velocidad allí donde lo igual responde a lo igual, cuando tiene lugar una _reacción en cadena de lo igual_. La negatividad de lo _otro y de lo extraño_, o la resistencia de lo _otro_, perturba y retarda la lisa comunicación de lo igual... Esta coacción sistémica convierte a la sociedad de la transparencia en una sociedad uniformada.
+
+Mira por dónde llegamos a que la transparencia o la ausencia de negatividad, es decir, el lenguaje liso, sin tartamudeos, nos lleva a los uniformes. Y como los uniformes, lo mismo que los sables, me dan miedo, reivindico la tartamudez. Pero lo hago mediante la analogía de ese defecto del habla con la teoría (y los modelos) frente a la acumulación de datos e inflación de la información. Dice Han:
+
+> También la teoría en sentido enfático es una _aparición de la negatividad_. Es una _decisión_ que dictamina qué pertenece a ella y qué no. Como una _narración_ muy selectiva, coloca un _cortafuegos_. En virtud de esta negatividad, la teoría es _violenta_.
+
+**Violencia sin uniforme**, dicho esto en un sentido muy general, es algo que me gusta haber hecho durante toda mi vida. Acabo de caer en que fue mi tartamudez infantil la que me llevó a hacer teoría, o a intentar hacerla, y ahí está sin duda mi forma aparentemente arbitraria de distinguir entre las teorías aquellas que me llaman y aquellas otras que me parecen repeticiones de lo mismo. Ahora entiendo también por qué no se confundía quien me llamaba de pequeño «el espíritu de la contradicción», o un [Kontraren Kontra](http://juan.urrutiaelejalde.org/kontraren-kontra).

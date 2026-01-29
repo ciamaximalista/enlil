@@ -12,7 +12,9 @@ function enlil_page_header(string $title): void {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><?php echo htmlspecialchars($title); ?> | <?php echo htmlspecialchars($config['app_name']); ?></title>
-        <link rel="stylesheet" href="/assets/styles.css">
+        <?php $cssVer = file_exists(__DIR__ . '/../assets/styles.css') ? filemtime(__DIR__ . '/../assets/styles.css') : time(); ?>
+        <link rel="icon" href="/assets/enlil.png?v=<?php echo $cssVer; ?>" type="image/png">
+        <link rel="stylesheet" href="/assets/styles.css?v=<?php echo $cssVer; ?>">
     </head>
     <body>
         <header class="topbar">

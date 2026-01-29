@@ -1,0 +1,24 @@
+---
+Title: Un día de cine
+Date: 27/01/2016
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 47674
+coverImage: charlot.jpg
+---
+
+[![charlot](images/charlot-800x572.jpg)](http://juan.urrutiaelejalde.org/files/2016/01/charlot.jpg) Ayer me vi a mí mismo como he visto mil veces a [Charlot](https://es.wikipedia.org/wiki/Charlot) en cualquiera de sus películas en las que parece ir corriendo de aquí para allá un tanto enfadado pero tratando de exhibir ante sí mismo una sonrisa complaciente.
+
+Tenía que acudir a la UAB, situada en Bellaterra (Barcelona) para asistir a la reunión del Patronato de [MOVE](http://www.movebarcelona.eu/) para lo que, la noche anterior solicité a teletaxi que me enviaran un coche a mi casa a las 7.45 de la mañana del día siguiente para trasladarme con tranquilidad a Atocha y coger un AVE directo a Barcelona.
+
+Procuré acostarme un poco antes de lo habitual, lo que no me fue muy costoso dada la pobre calidad de los programas de televisión, y puse el despertador del teléfono movil a la hora pertinente. En estas ocasiones siempre duermo mal pensando que igual no suena el despertador. Me desperté antes de tiempo y después de constatar que todavía tenía un par de horas para seguir durmiendo antes de que sonara la alarma caí en un sueño profundo del que fui despertado por la insistencia del timbre de entrada a la casa.
+
+Naturalmente era el taxista avisando que ya había llegado. Si quería no perder el tren, lo que hubiera equivalido a no poder cumplir con mi deber de acudir a la reunión a la que había prometido asistir, tenía que darme una prisa loca equivalente a no asearme, no afeitarme y a salir de casa con la ropa en la mano apenas cubierto por una camisa sucia y unos pantalones sin abrochar convenientemente. No pude menos que reir cuando me vi a mí mismo vistiéndome en el taxi. Para cuando llegamos a Atocha todavía estaba atándome los cordones de los zapatos; pero lo conseguí: ocupé mi sitio justo un minuto antes de que el tren de alta velocidad se pusiera lentamente el marcha.
+
+Para cuando me tranquilicé mi cabeza fue asentándose y las consecuancias de mi despiste se me fueron apareciendo con nitidez. La mochila, en la que la noche anterior había tenido la precaución de almacenar los papeles necesarios para la reunión, se había quedado en casa junto con otros variados y numerosos documentos y lecturas pendientes. No solo no podía preparar la reunión sino tampoco aprovechar el tiempo leyendo estos otros papeles, entre los que estaba un borrador de un trabajo propio de hace unos años que había encontrado entre los papeles desordenados de mi despacho. Se trataba de [A la Individuación por la Pertenencia](http://juan.urrutiaelejalde.org/trabajos/individuacion_por_pertenencia.pdf) que fue publicado en la revista mejicana de filosofía de la ciencia Energeia. Así que fueron tres horas largas de charlotadas yendo y viniendo del asiento al coche bar, desayunando dos veces, saludando al baño de vez en cuando y leyendo tres periódicos que no se cómo encontré o, mejor dicho, robé.
+
+[![](images/charlot-nieve-350x250.jpg)](http://juan.urrutiaelejalde.org/files/2016/01/charlot-nieve.jpg)Lo curioso es que con los pantalones a lo Charlot, pues no me había dado tiempo a salir de casa con el cinturón, al menos en la mano, mis paseos por el tren solo se diferenciaban de los de Charlot en que no uso bastón todavía. Pero lo realmente inusitado es que, como a menudo le ocurría al personaje del genial Chaplin al que las buenas ideas le venían a la cabeza justo en esos momentos en los que se deja llevar por los engranajes de una máquina o se come educadamente una suela de zapato a mí, ayer por la mañana, se me abrió la cabeza y no solo preparé con cierta brillantez mi intervención en el Patronato de MOVE, sino que de repente me vino a la cabeza algo que supuse, y he confirmado hoy, debería de haber estado en el artículo cuyo borrador introduje la noche anterior en esa mochila que ayer, con las prisas, olvidé en casa.
+
+Se trata, acabo de confirmar, de una versión elaborada de esa idea que a veces llamo el «[elogio de la traición](http://juan.urrutiaelejalde.org/trabajos/individuacion_por_pertenencia.pdf)» y que, además de desesperar a muchos amigos y a los indianos en particular, estaba buscando inconscientemente hace días para dar fundamento y lustre al artículo que estoy escribiendo para el libro de homenaje a un amigo. Naturamente no voy a entrar ahora y aquí en el contenido y en la fundamentación de esa manera de llegar a alcanzar una personalidad genuina. Lo que me interesa destacar es que todo esto volvió a mi cabeza cuando ésta, gracias al fallo del despertador, funcionaba libremente sin apoyatura ninguna, un poco a lo Charlot. Constaté que el origen de las ideas válidas está en la autoconcesión de tiempo libre insospechado más allá del cumplimiento de las obligaciones que nos exige la convivencia.

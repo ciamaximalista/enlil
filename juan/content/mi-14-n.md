@@ -1,0 +1,13 @@
+---
+Title: Mi 14-N
+Date: 14/11/2012
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+[![](images/cejas.jpg "cejas")](http://juan.urrutiaelejalde.org/files/2012/11/cejas.jpg)Hoy, es decir ayer, he hecho huelga por solidaridad con los que lo pasan mal y están cabreados, me gusten o no los convocantes. Pero ¿cómo hace huelga un jubilado? Para empezar no he escrito nada en el blog pues no había post adecuado a la ocasión. No he andado los cinco kilómetros que un infartado debe andar al día (bueno en realidad son 35 a la semana). No he comido segundo plato como cuando, en la infancia, sí lo comía por los chinitos que no podían hacerlo, y no he acompañado el primero con vino. No he echado siesta al final del telediario del mediodía, esas noticias alargadas artificialmente que tampoco he visto. He leído eso sí, pero solo cartas que no había recogido del buzón en días. Muchos anuncios de reformas de pisos, innumerables cartas de banco, como siempre indescifrables, invitaciones a inauguraciones de exposiciones de arte, ofertas resistibles de apuntarte a algo, lo que fuere, la introducción de [un libro nuevo de Ariel Rubinstein](http://marginalrevolution.com/marginalrevolution/2012/06/economic-fables-the-new-ariel-rubinstein-book.html) que me envía por correo postal a pesar de que se puede leer _on line_, la puesta al día de una ONG con la que colaboro,y mucha otra publicidad que he leído palabra por palabra y no sé cuantas cosas más.
+
+A media tarde, antes de que cayera el sol, he decidido, rompiendo un poco el espíritu huelguista, salir a lo que llamamos en mi ciudad «dar la vuelta a la manzana». Vivo en un barrio en el que hay tan poca vida que una huelga no puede notarse. Pero no he podido evitar cruzarme con gente y, de repente, me he dado cuenta que no veía sino cejas, algo en lo que rara vez reparo: la gente tiene sin excepción unas líneas peludas encima de los ojos que no entiendo para que sirven. Creo que para nada, pero su variedad es tal que me he quedado asombrado. Y mientras me recogía he pensado que es justamente lo que no sirve para nada lo que puede ser usado para expresar diferentes estados de ánimo. Las he elevado y sigo con ellas a la altura casi de la frente asustado de mi falta de comprensión. No recuerdo cómo las tiene Rubinstein, aunque creo recordar las de [Frida Kahlo](http://es.wikipedia.org/wiki/Frida_Kahlo) y sin duda recuerdo las durante años cuidadas para que parecieran puntiagudas de [Lola Flores](http://www.youtube.com/watch?v=Lto14yDe5XA) y las de [Arístegui](http://juan.urrutiaelejalde.org/las-cejas-de-gustavo-aristegui/) a las que ya me referí un día. Ya veremos cómo me levanto mañana, es decir ya hoy.

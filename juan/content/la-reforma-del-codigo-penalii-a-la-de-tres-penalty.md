@@ -1,0 +1,19 @@
+---
+Title: La reforma del Código Penal(II), A la de tres penalty
+Date: 27/02/2003
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+La prolongación de una calle de lo que entonces era todavía el extrarradio, estrechó significativamente el campo de fútbol de mi colegio, un terrenito de grava que, además, siempre había estado escorado hacia el norte.
+
+Entre la angostura y la inclinación no era raro que los pases largos que los extremos veloces efectuábamos con gran belleza plástica a imitación del juego inglés de nuestro equipo local acabaran en esa prolongación de la Alameda de Urquijo. _¡A la de tres penalty!_, esa era la regla convencional que penalizaba la falta de cuidado en el toque de balón. Si un equipo lanzaba el balón a la calle tres veces era penalizado con la falta máxima, quizá para castigarle por el obligado recorte del tiempo libre entre clases dedicado al fútbol. Nunca supe quién inventó la regla o si ésta existía también antes del estrechamiento de la cancha o en tiempos en los que presuntamente no sufría inclinación alguna. Sólo sé que estaba allí cuando entré en el colegio y que seguía allí cuando lo dejé nueve años más tarde. Durante ese tiempo nadie la puso en duda, nadie propuso cambiar el tres por el dos o por el cuatro cuando los balones cambiaron de material, nadie parecía tenerlo en cuenta cuando se trataba de alejar el peligro de la puerta propia ni creo que nadie evitara el bello escorzo de un pase con estilo por miedo a la aplicación de la convención vigente. Se trataba en efecto de una verdadera convención que todo el mundo acata precisamente porque todo el mundo la acata.
+
+Recordé esta experiencia deportiva juvenil cuando Bush anunció mediante otra analogía deportiva (_Three strikes and you are out_) algo similar, y más exigente, que lo que ahora nos propone el gobierno con la modificación del joven código penal vigente.
+
+_A la de cuatro (faltas) delito_ es una expresión compacta de la modificación que promete convertir las vibrantes (y quizá peligrosas) calles españolas en tranquilos bulevares suizos. Lo importante de un código, creo yo desde mi ignorancia penal, es que lo que nace con voluntad de desincentivar un cierto acto punible acabe convirtiéndose en una convención que se acata casi inconscientemente. Como la convención que regía mis recreos colegiales dedicados al fútbol. Pero, a diferencia de esa convención en la que yo viví, lo que ahora se persigue es la creación de una nueva a partir de una situación inicial en la que cuatro _tirones_ no hacen un hurto, lo mismo que cuatro pecados veniales no constituían un pecado mortal. Lo que los economistas saben es que en una tesitura así no hay garantías a priori de que la convención nazca o de que no nazca otra no prevista. Por ejemplo, que se utilice el _tironero_ más allá de lo óptimo (para el ratero y para nosotros) para garantizarse un invierno calentito en la celda. En mi colegio nadie lanzaba el balón extramuros para procurarse un respiro en un deporte obligado que quizá odiara; pero éramos unos infelices niños de posguerra sin sofisticación estratégica alguna y hoy hasta los rateros practican el oportunismo.
+
+No quisiera terminar con este aviso simple sobre la necesidad de vigilar los incentivos. Los economistas se preocupan también de otras cosas, entre ellas la justicia y la igualdad de oportunidades. Y aquí mi memoria infantil me sirve también. _A la de tres penalty_ surgió posiblemente, dada la estrechez del campo de juego, por el desnivel del terreno. ¿De qué desnivel del campo de juego surgiría _a la de cuatro delito_?. ¿No habría que preguntarse por las posibilidades de nivelación de ese campo de juego (_level the playfield_) antes de intentar crear una buena y nueva convención relativa a la convivencia entre personas?

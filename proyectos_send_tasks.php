@@ -159,11 +159,29 @@ $todayText = enlil_format_date_es(date('Y-m-d'), $monthsEs);
 $lines = [];
 $mentionedTasks = [];
 $lines[] = 'Hoy ' . enlil_escape_html($todayText) . ' en el proyecto <u><b>' . enlil_escape_html($project['name']) . '</b></u>:';
+$overdueLines = [];
 
 foreach ($project['objectives'] as $objective) {
     $tasks = $objective['tasks'] ?? [];
     if (!$tasks) {
         continue;
+    }
+    foreach ($tasks as $task) {
+        if (($task['status'] ?? '') === 'done') {
+            continue;
+        }
+        $due = $task['due_date'] ?? '';
+        if ($due === '') {
+            continue;
+        }
+        $dueTs = strtotime($due);
+        if ($dueTs !== false && $dueTs < $todayTs) {
+            $responsibles = $task['responsible_ids'] ?? [];
+            $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
+            $taskName = enlil_escape_html($task['name'] ?? '');
+            $taskDue = enlil_escape_html(enlil_format_date_es($due, $monthsEs));
+            $overdueLines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' (venció el ' . $taskDue . ').';
+        }
     }
     $pending = [];
     foreach ($tasks as $task) {
@@ -247,6 +265,14 @@ foreach ($project['objectives'] as $objective) {
             $mentionedTasks[$objectiveId][$task['id']] = $task;
         }
     }
+}
+
+$lines[] = '';
+$lines[] = '<b><span style="color:#ea2f28;">Tareas retrasadas</span></b>';
+if ($overdueLines) {
+    $lines = array_merge($lines, $overdueLines);
+} else {
+    $lines[] = 'Sin tareas retrasadas.';
 }
 
 $lines[] = '';

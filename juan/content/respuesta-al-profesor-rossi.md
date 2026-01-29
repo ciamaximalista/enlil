@@ -1,0 +1,38 @@
+---
+Title: Respuesta al Profesor Rossi
+Date: 05/05/2012
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+![Juan José Rossi](images/juan-jose-rossi.jpg)El largo comentario que el profesor Rossi dedica a mi post sobre el miedo que me produce el autoritarismo en materia cultural (y en toda otra actividad debo añadir) y sobre el [escalofrío](http://juan.urrutiaelejalde.org/escalofrio/) consiguiente cuando caigo en la cuenta que ese autoritarismo no es sino parte de un dispositivo de poder, merece una respuesta contundente y clarificadora sin caer en la verbosidad e independiente de los comentarios que ese post ha merecido.
+
+Parece obligado agradecer (hipócritamente) sus cortesías y sus confidencias. Las primeras son parte convencional de la cultura que incluso llega, como es el caso, a agradecer lo escrito como ocasión de pensar sobre estos asuntos y expresar el total rechazo de lo escrito por el autor del post original. Las dos confidencias que comparte con dicho autor, yo, no son sino maneras de sostener una narcisista biografía que querría hacernos ver que no solo es él, el profesor Rossi, un antropólogo de campo sino alguien cosmopolita que siente como nadie las injusticias de un mundo en el que los poderosos son los mismos que los expoliadores de hace siglos. Ni por unos ni por otras, ni por los agradecimientos ni por las confidencias, se siente obligada mi verdadera y genuina cortesía pues no trata el profesor Rossi de llegar a un entendimiento mutuo a través de una conversación fraternal.
+
+Resulta especialmente poco creíble su agradecimiento a mi reflexión por hacerle pensar en asuntos serios en base a ciertas ideas que me atribuye erróneamente y convierte en muñecos de paja que inmediatamente procede a denunciar. Me atribuye una noción de cultura que es justamente la contraria a la que defiendo en mi post. Lejos de sentirme cerca de la añoranza de una vida bucólica propia de una élite que en realidad está hablando de objetos culturales y no de cultura como tal, me encuentro cerca de esa noción de cultura que consistiría en ese vivir y dejar vivir que asocio a la fraternidad, una actitud que permite dejarse convencer. O sea que el comentario parte de un malentendido difícil de aceptar como inocente. Que mis ejemplos se refirieran a productos culturales europeos no prejuzga distinción alguna entre culturas sino que más bien se refiere justamente a la idea de cultura desde ese punto de vista (despreciado por Mario Vargas Llosa en su última publicación) y que correspondería a la noción antropológica de dicho fenómeno humano. Confunde pues el profesor Rossi lo que él llama mi epistemología. Mi intención simple era solamente continuar mi denuncia de un mundo sin heurística para ajustar cuentas con amigos que, como tales, nos dejamos convencer unos a otros.
+
+Por este malentendido inicial no trataré ahora de aclarar nada sino de denunciar justamente lo que tiene que decir en la línea que él pretende seguir pues él sí que parece sentirse un juez autoritario de muchos desaguisados, tanto colonialistas como capitalistas, responsables, según él, tanto de la desaparición de verdaderas culturas, como de la posible desaparición final de la especie humana.
+
+1. Tanto el colonialismo como el capitalismo serían los responsables de asesinar algunas culturas. Para empezar nos avisa de que desde hace 500 años Europa vive a costa de los demás de manera que acabó con la autosuficiencia de pueblos culturalmente ricos por mor de su colección de pautas sociales. No seré yo el que vaya a defender la gran colonización de Latinoamérica ni las pequeñas colonizaciones internas a la zona. Pero sí citaré a un profesor mío, mi director de tesis, que decía: «_ya se sabe que la colonia explota a la metrópoli_». Y hay ejemplos bien estudiados de ello.
+
+3. La continua acusación a Europa resulta extraña y poco rigurosa pues Europa nunca ha existido hasta ahora y no es la única inventora del individualismo ni éste es definitorio del capitalismo que exige solo propiedad respetada y mercado y ninguna de esas cosas está en contra de la cultura en cualquier sentido y mucho menos en el que yo propongo que solo exige fraternidad a la hora de colaborar a generar las prácticas, costumbres y valores propios de la comunidad.
+
+5. Es imposible no reaccionar contra algunos falsos lugares comunes repartidos aquí y allí en el comentario a mi post.
+    - Tengo la sensación que algunos gobernantes latinoamericanos o/y las correspondientes clases dominantes continúan con ardor la labor destructiva de los «conquistadores».
+    - Pienso que de mi post, bien leído, se deduce justamente que el patrimonio cultural o los objetos culturales no agotan la cultura ni siquiera son definitorios de ella. Por lo tanto tomar a pueblos indígenas como un objeto cultural no solo es algo ajeno a mí, sino más bien es algo cercano a algunas formas de defensa de esos pueblos cuyo destino es todo suyo.
+    - Los ejemplos usados en mi escalofrío lo son por ser lugares comunes para los interlocutores a los que iba dirigido mi post y no representan ni por asomo la añoranza decadente de ninguna élite.
+    - La falta de relato sobre el que indirectamente yo trataba de elaborar sobre todo en el primer artículo sobre cultura («_[Un mundo sin heurística](http://juan.urrutiaelejalde.org/un-mundo-sin-heuristica/)_») no es responsabilidad europea, sino que es resultado de la globalización y nos concierne a todos.
+    - Pintar, tal como hace el profesor Rossi, la posible destrucción del planeta como una decadente película de Visconti en la que la gente se muere de hambre mientras que los ricos disfrutan en la podrida Europa de buenos conciertos y delicados manjares, me parece cuanto menos exagerada, por no llamarla efectista y poco rigurosa.
+
+Pero, mire usted por donde, hay un párrafo que me gusta aunque nada tiene que ver con su línea argumental o quizá precisamente por eso. Dice así:
+
+> Desde hace tiempo los europeos empezaron a añorar todo eso (que no es «cultura» sino «algunas manifestaciones culturales» en «algún» lugar del planeta) por varias razones, no sólo porque ahora están en crisis (en especial la «católica» España) sino porque la globalización imparable del planeta (precisamente por la creación de la tecnología comunicacional del mismo hombre), aunque muy lentamente, hace reflexionar a la humanidad sobre su deseo de libertad, arraigo a su tierra y autosuficiencia en todos los órdenes
+
+Bien dicho, aunque no se trata, como ya he escrito, de un fenómeno europeo, ni especialmente español, sino más bien de un problema cabalmente global.
+
+Voy terminando. Sospecho malévolamente que el paralelismo que el profesor Rossi establece entre la destrucción del planeta y la falta de respeto por el indigenismo es una petición de principio que, a mi juicio, no es sino una inesperada expansión del espíritu propia de alguien que vive apasionadamente el problema indígena aunque desde un país en el que los pueblos indígenas han desaparecido aniquilados no sé por quien ni cuando.
+
+Y ahora sí termino. Y lo hago con dos comentarios marginales. Por un lado esta conversación no puede depender de los libros que uno u otro hayamos podido escribir por lo que la propaganda de los suyos es completamente innecesaria. Por otro lado hay algo en el largo comentario del Profesor Rossi que sí agradezco. Me refiero a que aunque solo aprenda de mí «por la negativa» reconoce que Juan, es decir yo, «_no pretende engañarnos ni tiene mala intención como otros que sí la tienen_». Me regocijo pensando en la inmensa suerte que, por lo visto tengo, de estar rodeado de gente que no pretende engañar.

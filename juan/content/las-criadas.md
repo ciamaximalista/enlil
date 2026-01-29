@@ -1,0 +1,19 @@
+---
+Title: Las criadas
+Date: 05/06/2012
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+![](images/Las-criadas-La-zona.png "Las criadas")El sábado nos lanzamos a intentar entrar en la última de las funciones de [Las Criadas en el Festival de Otoño en Primavera en Madrid](http://cultura.elpais.com/cultura/2012/05/24/portada/1337859976_498577.html). Sabíamos que no había entradas, que todas estaban vendidas, pero parte de la gracia de este impulso repentino era precisamente jugar el juego del poder y lograr entrar de una u otra forma. La sala Cuarta Pared me encanta quizá por su situación en una parte de Madrid por la que he pasado durante años, porque la he visitado otras veces y sobre todo porque está en la calle Ercilla. Una vez más me encantó reconocer como amiga a la gente que llena esta clase de teatros, muchos de ellos de la profesión o tratando de entrar en ella. Había una lista de espera perfectamente ordenada y nadie parecía dispuesto a renunciar al capricho de entrar entre esas cuatro paredes. Tuvimos suerte y nos dieron las dos últimas entradas así que estábamos más que predispuestos para pasar un terrible buen rato contemplando una narrativa dramatizada en torno al poder, muy adecuado para la reflexión sobre el nuevo relato que necesitamos si no queremos morir de aburrimiento, mala conciencia y melancolía.
+
+En mi mente, destrozada por el uso desordenado que hago de ella, está primero Hegel con su dialéctica del amo y el esclavo y luego un cajón de contenido variopinto en el que destacan, junto a esta pieza de Genet, [The Servant de Losey](http://en.wikipedia.org/wiki/The_Servant_(1963_film)), una película que me impactó y [La Ceremonia de Chabrol](http://es.wikipedia.org/wiki/La_ceremonia) que también me impactó aunque de una manera menos dolorosa y más regocijada.
+
+Pues bien, a pesar de tan buenos precedentes, la función no me gustó. Si indago en esa sensación igual aprendo algo sobre el relato, cuando funciona y cuando no. Si hay un tema que no puede dejar de interesar es justamente el del poder y más concretamente el de la lucha de clases como una plataforma sobre la que se juega el juego del poder (y la crisis tiene mucho que ver con esto) pero actualizar a Genet para que nos diga algo de la crisis y además en Madrid me parece de fiesta de fin de curso de colegio. No es fácil olvidarse de eso pero, aun haciendo el esfuerzo, hay otros detalles que hacen de esta versión del relato algo fallido. Poner como personaje de la señora un tipo pequeñito, gordito y feo es despistante pues es como si ya se tomara partido de antemano cuando de lo que se trata es justamente de que no sabemos qué queremos ser. Y representar a dos hermanas con acentos distintos y enredadas en avances lésbicos es una frivolidad que, por cierto, no creo recordar esté en el texto original. Ya sabemos que esto no importa y que ya no sabemos quién es el autor de nada, pero aun así se trata de una licencia arbitraria y despistante.
+
+En un sentido tres personajes es un número demasiado pequeño como para evocar a la lucha de clases y demasiado grande como para concentrarnos en la posible inversión de la relación de poder entre un amo y un criado. ¿Qué puede pues añadir Genet a los precedentes citados? Pues en mi opinión lo que añade es la relación entre las criadas, entre las dos hermanas, la joven y la menos joven, permitiendo que se vea sobre la escena la ambigüedad del deseo de matar o adorar a la señora, la trampa que atrapa a los desposeídos, es decir a todos pero en distinto grado.
+
+Pienso que el asesinato entre dominados es una forma alegórica de matar al amo. No basta con acabar dominándole, es necesario matarlo, pero la locura del dominado puede volverse contra él mismo. La problemática se parece más a la de la inmolación o, finalmente, al acto gratuito, el máximo exponente del poder, el único acto liberador.

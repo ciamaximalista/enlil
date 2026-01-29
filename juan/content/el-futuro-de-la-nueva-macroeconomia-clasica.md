@@ -1,0 +1,23 @@
+---
+Title: El futuro de la Nueva Macroeconomía Clásica
+Date: 18/06/2010
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+Asistí a [este seminario](http://www.solofici.org/index.php?option=com_content&view=article&id=195:seminario-uned-m-fernandez-grela-&catid=36:convocatorias&Itemid=60) en el que Manuel Fernández Gela, de la Universidad de Santiago de Compostela, nos habló de su trabajo sobre La Nueva Macroeconomía Clásica (NMC) como ejemplo de instrumentalismo semántico. Contraponía esa NMC al keynesianisno poniéndo énfasis en la hipótesis de las expectativas racionales (HER) y que comenzaría en 1972 con el maravillosos artículo de [Lucas](http://es.wikipedia.org/wiki/Robert_Lucas) en el JET (Journal of Economic Theory) en el que, la citada hipótesis es suficiente para microfundamentar que una economía determinada puede generar datos que recubren una [curva de Phillips](http://es.wikipedia.org/wiki/Curva_de_Phillips) de pendiente negativa y que, sin embargo, se revela un espejismo como palanca de la política macroeconómica.
+
+A partir de ese momento la revolución se pone en marcha y se va construyendo la NMC que continúa como paradigma prevalente e incluso admitido, con toques de realismo, por los post keynesianos, entrocando con los modelos estocásticos, dinámicos y computables de [Sargent](http://en.wikipedia.org/wiki/Thomas_J._Sargent), [Prescott](http://es.wikipedia.org/wiki/Edward_C._Prescott) y otros. Estos son los modelos que parecen tambalearse a la luz de su incapacidad de predecir la crisis que comienza en el verano del 2007.
+
+El trabajo de Fernández Gela trata de, además de narrar la formación del nuevo paradigama en un ejercicio de historia del pensamiento eeconómico, suministrar hipótesis tanto sociológicas como políticas o puramante profesionales o ideológicas que pudieran explicar la emergencia del nuevo paradigama con la vista puesta, aunque no explícitamente, en el futuro del mismo. Es un magnífco ejercicio especialmente cuando trata de rastrear posibles influencias laterales que no desvelaré y que todavía necesitan de mayor evidencia. Lo que me importa aquí es dar mi versión del porqué de la posible derrota de esta paradigma que ya tiene casi 40 años.
+
+La derrota es relativa pues la parsimonia exige que no se arrumbe antes de que hay una alternativa que cumpla una caracterísrica importante, a saber que unifique el campo como hace la NMC. Sin embargo, las raices ideológicas, profesionales y sociológicas de sa NMC están tocadas. Lo raro es que la parsimonia y la profesionalidad hayan sido tan efectivas en preservar una crítica obvia.
+
+En efecto, la HER nos dice que, como un error sistemático en la formación de expectaivas es inaceptable, debemos modelar éstas como si fueran consistentes con lo que el modelo (en el que se incluyen) concluye. Es decir que el modelo genera lo que la gente cree. Pero si esto es así es evidente que cualquier situación resultante del modelo es posible. Si ocurre lo que la gente cree es que todo puede pasar. Más técnicamente, la multiplicidad de equilibrios es inevitatable. Y esto, aunque no queramos subrayarlo, debilita cualquier virtud explicativa que el modelo pudiera tener. Para no hablar de virtudes predictivas. La forma artesanal de no mirar hacia ese lado del desarrollo teórico es la calibración de los modelos para que manipulando los parámetros sus resultados acaben recubriendo los datos recogidos. Pero esto no garantiza que lo que los modelos dicen tenga la más mínima relevancia expliacativa o que podamos elegir razonablemente ningún modelo en particular más acá de la estadística inferencial. Preguntarse por la etiqueta filosófica que pueda acojer a este proceder está muy bien y puede resultar en un _paper_ bien interesante, pero no faciliata mucho decidirse por lo que la profesión debiera hacer.
+
+Para terminar, en mi opinión ésta profesión de nuestros amores debería, además de seguir haciendo lo que hace en innumerables campos aislados de esta problemática y que van generando muchísimos resultados interesante, es introducirse de hoz y coz en el mundo de la complejidad y de los llamados [Agent Based Models](http://en.wikipedia.org/wiki/Agent-based_model), con mayor o menor racionalidad, es decir modelos basados en agentes heterogéneos con toques de ideas [de behavioral economics](http://en.wikipedia.org/wiki/Behavioral_economics) y permanecer en silencio durante una buena temporada de penitencia.
+
+Pero ¿quién asesorará entonces al soberano? Pues, como hasta ahora, aquellos que sabiendo leer la literatura que se produce de manera crítica se decantarían por la prudencia exigida por los condicionamientos políticos y éticos.

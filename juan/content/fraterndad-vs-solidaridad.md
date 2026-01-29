@@ -1,0 +1,17 @@
+---
+Title: A propósito de Cataluña, Fraternidad vs Solidaridad
+Date: 25/11/2012
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+[![estelades](images/estelades.jpg "estelades")](http://juan.urrutiaelejalde.org/files/2012/11/estelades.jpg)A propósito de las elecciones de hoy en Cataluña quiero hacer esta distinción que quizá facilita las siguientes fases del contencioso entre esa nación y el Estado español: solidaridad y fraternidad. Hace muchos años, en el 2000, publiqué un artículo en la [Revista Telos](http://dialnet.unirioja.es/servlet/revista?codigo=2311) en el que esta distinción se perfilaba con precisión junto a muchas otras que me parecieron entonces y me parecen ahora relevantes para muchos aspectos de la convivencia.
+
+La solidaridad entre Cataluña y cualquier otra Comunidad Autónoma es la solidaridad entre los residentes de la primera y los de la segunda y esta se da cuando los catalanes dedican parte de sus ingresos a mejorar el nivel de vida de los de esa otra comunidad, por ejemplo Extremadura. Esto se hace de muchas maneras , pero la oficial consiste en que a través del sistema fiscal la relación entre ingresos y gastos fiscales es menor en Cataluña que lo que sería si esta soldaridad no estuviera mediada por el Estado Central aunque las reglas son tales que no se admite que la ordenación de la renta per cápita neta entre cualquier par de Comunidades se vea alterada por esta solidaridad. Aun con esta última cautela, cuya ausencia sería sumamente desincentivadora para los catalanes, cabe que los «paganos» se sientan en un momento dado «expoliados». Como se observará la solidaridad exige un sacrificio en términos de recursos.
+
+Nada de esto es el caso en la tercera pata del trilema de la Revolución Francesa: la fraternidad. Se tiende, sin embargo, a equipararla con la solidaridad. Pero esta equiparación debe ser eliminada si queremos enterarnos de algo en relación al secesionismo de Cataluña o de quien sea. No es el momento de hacer distinciones a través del uso de la técnica de los juegos repetidos utilizada en el artículo citado, pero basta con decir que esta fraternidad es como el vivero de [memes](http://es.wikipedia.org/wiki/Meme) en el que el contacto entre unos y otros, libre y desprejuiciado, acaba generando pautas de conducta que todos practicamos porque es lo mejor que podemos hacer dado que los demás las siguen. Algo parecido a la [_teleia philia_ (o amistad perfecta) de Aristóteles en la _Etica a Nicómaco_](http://en.wikipedia.org/wiki/Philia). Mientras un conjunto de individuos llegan a adquirir los mismos memes que otro conjunto los habitantes de uno y otro no tienen ningún problema en convivir e incluso el dotarse de instituciones comunes. Y tampoco tiene que haber ninguno cuando en ese vivero de memes acaban generándose memes distintos para dos subconjuntos de individuos distintos, a no ser, claro está, que uno u otro de estos subconjuntos pudiera llegar a alcanzar memes específicos de acuerdo con los cuales todos los miembros de un subconjunto están mejor que antes cuando jugaban con todos los miembros del conjunto entero.
+
+Eso es, el cuándo. Cuando se prefiere «jugar» solos se ha roto la fraternidad. Esto es lo que yo creo que ha pasado en Cataluña. Ya no estamos todos en el mismo vivero y cabe la nostalgia, pero no se trata de nada grave y de hecho cabe verlo como un proceso experimentador de acuerdo con el cual unos y otros aprenderemos nuevos memes que adopataremos o no dependiendo de las circunstancias.

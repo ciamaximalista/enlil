@@ -1,0 +1,21 @@
+---
+Title: UNA ORGULLOSA GUERRERA SOLITARIA
+Date: 18/12/2010
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+Habría fruncido el ceño sin abandonar la sonrisa y habría desgranado pausadamente las razones por las cuales ni era vanidosa, a pesar de que estaba orgullosa de algunos de sus logros, ni era solitaria, pues disfrutaba de la compañía de los muchos amigos y amigas que atesoraba, ni peleaba mas allá de lo que su sentido de la verdad le exigía. Como siempre hubiera tenido razón y, sin embargo, la profunda huella que ha dejado entre amigos, profesores, colegas y alumnos no es del todo independiente de su particular manera, sin duda heredera de su castellanía vieja familiar, de compartir éxitos, de emprender aventuras o de pelear por lo que era su firme y razonada creencia. Y en una especie de lección a modo de testamento se ha marchado sola, a los 52 años, sin concesiones, sin querer dar pena, rodeada sólo de sus padres, hermana y sobrinos y sin dejar que viéramos por última vez su rostro lleno de la luz y de la belleza de la inteligencia. O quizá, quien sabe, por no vernos llorar.
+
+Los tres compartimos años en la Universidad Carlos III. Licenciada en Ciencias Económicas por la Universidad del País Vasco llegó a la Carlos III no sólo con entusiasmo juvenil, sino, también, con un bagaje nada trivial. Admitida en varias universidades punteras de los EE.UU., eligió Princeton y fue la primera mujer española que obtuvo un doctorado, en 1985, por esa prestigiosa universidad. De allí volvió con una mochila llena de ideas sobre microeconometría y el cuidadoso uso de los datos, que la convirtieron en una especialista en Economía de la Educación, un área de estudio que de una u otra forma ha cultivado toda su vida. Se dejó arrastrar en 1990 por uno de nosotros desde Bilbao para colaborar a poner en pie una universidad nueva que respondiera a los valores en los que ella creía, disfrutó de lo que Madrid ofrecía intelectual y artísticamente y trabajó muy duro para iniciar y mantener durante años un máster en economía de la Educación, muchos años antes de que los másteres se generalizaran, que abría las puertas a una profesionalidad a la que hoy todo el mundo apela, pero que en aquel comienzo de los años 90 casi nadie apreciaba. Se desvivió por sus estudiantes y era emocionante observarla subrepticiamente derrochar energía en beneficio de aquellos alumnos y alumnas a horas intempestivas.
+
+Entre 1994 y 1996 fue asesora del Secretario de Estado de Universidades e Investigación y desde 2000 a 2004 fue Vicerrectora de Alumnos y de Convergencia Europea en el equipo de gobierno de Gregorio Peces-Barba. Su trabajo abrió el camino que ha facilitado la rápida adaptación de la Universidad Carlos III de Madrid al espacio europeo de educación superior con el actual equipo de gobierno. Su compromiso con la Universidad pública y con la calidad de la enseñanza ha dirigido una parte importante de su vida. En 2004 es nombrada Ministra de Educación cargo que ocupó hasta 2006. Sus intereses intelectuales desbordaban su ambición académica, de forma que no creemos exagerar si afirmamos que nadie ha llegado al Ministerio con menor experiencia política y mayor mochila de ideas, no necesariamente el mejor equipamiento para una posición como la que alcanzó. No se envaneció y tampoco lloró en público cuando fue cesada de manera un tanto abrupta a los pocos días de sacar adelante la vigente Ley de Educación. También tenía reservas para sacarle jugo a la vida.
+
+Y la mezcla de la Embajada permanente de España ante la Unesco, el ambiente de París lleno de incitaciones intelectuales y artísticas y la cercanía relativa al tema de la educación, creemos que le proporcionaron los mejores años de su vida. Años abiertos a sus amigos de todas partes, años repletos de entusiasmo por lo que hacía pero, como siempre, vividos con el recato de una luchadora aparentemente distanciada y sin embargo tan cerca de sus amigos, de su familia y de sus adorados sobrinos, su única debilidad conocida y que la hace todavía más inolvidable.
+
+DANIEL PEÑA Rector de la Universidad Carlos III de Madrid
+
+JUAN URRUTIA Ex-Presidente del Consejo Social de la Universidad Carlos III de Madrid

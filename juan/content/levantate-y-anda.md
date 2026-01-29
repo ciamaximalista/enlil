@@ -1,0 +1,15 @@
+---
+Title: ¡Levantate y anda!
+Date: 06/05/2012
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+[![](images/Walking-Alone.png)](http://juan.urrutiaelejalde.org/files/2012/05/Walking-Alone.png)Si quisiera cambiar el nombre de mi blog lo rotularía _¡Levántate y anda!_ Como una fórmula mágica para levantarse todas las mañanas y echar a andar pero no de cualquier manera sino hacia la construcción de ese relato que tenemos que llevar acabo entre todos. Se trata de una consigna muy adecuada contra la melancolía que nos aqueja a los exiliados y huérfanos. No ataca esa debilidad del ánimo a los solamente huérfanos ni a los solamente exiliados ni, por supuesto, a los que no son ni una cosa ni otra. Los empresarios y los políticos no son ni una cosa ni la otra. Estas dos clases de personas no pueden ser considerados exiliados pues están enraizados por una u otra razón en su país o patria. Y tampoco huérfanos pues su empresa o su partido son como su familia, una comunidad en miniatura en la que se puede descansar. El científico o el intelectual tienen la suerte de ser solo exiliados. Lo son porque para ser lo que son necesitan evitar toda cotidianidad que la patria les proporcionaría, pero no son huérfanos pues se sienten parte integrante de una larga estirpe. Y el sabio ¿sería ambas cosas? Este personaje que trasciende toda ciencia o todo arte, es desde luego un exiliado pues en ningún lugar encuentra su patria estable y parecería que también es un poco huérfano. Pero ¡ojo! que también hay una toda una estirpe histórica de sabios.
+
+¿Dónde estaría pues el exiliado **y** huérfano? No tengo más que mirar a ese amigo ya ido que nunca fue fiel a nada, anduvo de aquí para allá tratando siempre de entender algo de algo, pero siempre le faltó la confianza en sí mismo necesaria como para seguir un camino propio. O le faltó interés. O le sobraron prisas. Siempre fue intempestivo pues siempre creyó estar más allá. Pero nunca llegó. Como todo sabio este amigo se asombraba y abría la boca incapaz de articular palabra ante las maravillas de lo extraño del exilio y como todo huérfano se entusiasmaba con ello y trataba de construir una comunidad de iguales que pudiera conformar su patria. Pero carecía del apoyo de su estirpe y fracasaba en sus intentos redentores deslizándose inexorablemente a la melancolía.
+
+Por esta caracterización de esta última figura ese blog rotulado _¡Levántate Y anda!_ deberá tener un subtítulo como este: «_Blog para huérfanos **y** exilados_». Este es el blog que quiero hacer para apoyar a aquellos que, como yo mismo, nos reconocemos en la conjunción (**y**) y tenemos tendencia la melancolía agudizada por la edad. Hoy me vendría muy bien pues al ver el [facsímil del descubrimiento arqueológico del que tanto he hablado esta última temporada](http://juan.urrutiaelejalde.org/trabajos/facsimil.pdf) me doy cuenta que mi estirpe ha sido truncada y que mi patria está por construir mediante el desarrollo de las ideas de hace cuarenta años. O sea que, animoso a pesar de todo y como siempre, me digo a mí mismo: _¡levántate y anda!_.

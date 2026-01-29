@@ -1,0 +1,30 @@
+---
+Title: Javier despeñado
+Date: 14/09/2015
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 47021
+coverImage: la-galea.jpg
+---
+
+Y la separación, y eventualmente el odio, se fueron alimentando de pequeños acontecimientos que les separaba cada año un poco más. Las lecturas generales, distintas de las académicas, se fueron haciendo cada día más diversas. Ramón se inclinaba cada día más y más hacia la ficción española en la que creía ver algunas figuras un tanto ya señeras unas como prometedoras otras que devoraba con deleita como quien trata de enterarse de las cualidades del competidor para emularle con ventaja. A Javier por su parte todo lo patrio le horrorizaba y solo leía en inglés y, a partir de un cierto momento, solo divulgación científica relativa a la aparición del hombre sobre la tierra aunque nunca sobre el comienzo del universo y la emergencia de un planeta no muy alejado del sol.
+
+Por otro lado la parte académica de los conocimientos de uno y otro fue divergiendo pues mientras Ramón permanecía fiel a la manera puramente teórica y se desinteresaba de los emergentes intentos de convertir la economía en una verdadera ciencia en el sentido de acercarla cada vez más a la manera de hacer experimental.
+
+Estas divergencias en las lecturas hizo cada día menos rica la conversación fuera de la universidad y en las horas disponibles del propio horario docente. Ya no acudían a los mismos seminarios y la edad les impulsó a no comer en la Universidad sino cuidarse en casa, en la de cada uno, claro.
+
+Ni siquiera en los actos solemnes de cada curso coincidían últimamente. Javier dejó de acudir pretextando exceso de trabajo mientras que Ramón seguía acudiendo pues, muy a su pesar, seguía pensando que este mundo académico y especialmente la Universidad debía de ser como una hermandad con al menos un par de genes común, el gusto por la labor bien hecha y la admiración por el club de la inteligencia de la que sería bueno sentirse miembro.
+
+Pero hasta esto se fue esfumando de la mente de Ramón y devino en un brote de odio hacia Javier a quien acusaba en su mente de ser el responsable de la impostura que adoptaba él, Ramón, en la Universidad. Pero su gusto por una hermandad prestigiosa y que justificaba tu falta de sintonía con el mundo de los negocios, le obligó a una especie de doble vida que, a partir de un cierto momento, se fue transformando en una pantomima en la que fingía que nunca estaba de acuerdo en nada con Javier aunque de una forma tal que todo el mundo pensaba que sus discrepancias entre uno y otro eran impostadas. Esto y el éxito de esta impostura llegó a irritarle hasta tal punto que se jubiló un año antes de lo que estuviera obligado a hacerlo y se organizó en su casa de Euskadi para seguir aprendiendo euskera mientras acumulaba la literatura del camino o del caminar o del pasear, una rama muy selecta de la literatura desde Nietzsche a [Thoreau](https://es.wikipedia.org/wiki/Henry_David_Thoreau) pasando por [Walser](https://es.wikipedia.org/wiki/Robert_Walser) o [Rimbaud](https://es.wikipedia.org/wiki/Arthur_Rimbaud), un elogio siempre inteligente de la importancia de lo inútil (que es lo que el pobre Ramón creía estar haciendo en los últimos años) y una forma bien real de hacer funcionar las células cerebrales que se necesitan para una creatividad con la que en cualquier caso no hubiera sabido qué hacer.
+
+Pero esto ocurrió después de la muerte de Javier dos años antes. Durante una buena temporada durante la cual sus vidas se cruzaron a penas a Ramón le pareció que que esa separación era sana y que su cerebro recobraba agilidad, pero poco a poco comenzó a echar de menos las disputas falsas que encubrían discrepancias bien reales al tiempo que esa distancia le hacía ver cómo de reales y profundas eran precisamente esas discrepancias. Y en esta fase de una vida impostada se encontraban cuando, aprovechando un congreso al que los dos acudían más bien para hacer un simple acto de presencia entre los pocos de su edad que seguían científicamente vivos, quedaron para ir a visitar la nueva casa de Ramón al borde del mar. Aunque un poco renqueantes se decidieron a tomarse un buen rato de desatención a la ciencia y a hacer ese paseo al borde del acantilado desde el molino hasta la playa salvaje.
+
+Dejaron el automóvil, el de Ramón, justo al borde de ese acantilado a una cierta distancia del fuerte que fue faro, justo en el lugar en el que todos los enamorados habían juntados sus manos u otras partes del físico al anochecer lo que llevó a Ramón a recuerdos nostálgicos que pudo utilizar para mantener viva la conversación como si se tratara de dos buenos amigos. En el camino de vuelta se fumaron un porro, ese gesto que fue a menudo signo de hermandad, y para cuando llegaron a la altura del aparcamiento del amor, Ramón pretendió que no estaba para conducir de forma que Javier se prestó irresponsablemente a tomar el volante siempre que su recobrado hermano Ramón le diera las instrucciones precisas para desaparcar, girar y tomar de nuevo la carretera.
+
+Todo se precipitó. Ramón quitó el freno de mano y arrancó el coche dejándolo en punto muerto. Javier se hizo cargo y, con el pretexto de darle instrucciones, Ramón salió del vehículo y lo empujó con todas sus fuerzas hacia delante. Bastaron un par de segundos para que Javier se despeñara. A partir de ese momento ya no fue necesario fingir hermandad y exponer discrepancias de un modo tal que a pesar de ser serias y profundas que parecieran solo retóricas.
+
+Ya había casi conseguido olvidar la muerte casi poética de Javier, cuando Ramón recibió la oferta de sustituirle en la Academia de XXXX y su paz casi recuperada se partió en dos. Esa podría ser la ocasión para ganarse su propio perdón ensalzando los méritos de su amigo como el único colega que entendía y apreciaba las salidas de tono de Javier para luego aceptar ocupar su puesto. O quizá había llegado la hora de utilizar al pobre Javier y despeñarle otra vez para a través suyo insultar a los académicos ridículos.
+
+No era nada trivial lo que estaba en juego.

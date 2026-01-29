@@ -1,0 +1,32 @@
+---
+Title: II ¿Por qué o cómo?
+Date: 02/06/2012
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Category: 
+  - hacia-un-nuevo-relato
+Description: 
+Img: 33372
+coverImage: Delaroche_Cromwell_Before_the_Coffin_of_Charles_I_1849.jpg
+---
+
+El minipost de DdeU me hace pensar, claro está, en la última parte de [mi último post](http://juan.urrutiaelejalde.org/la-resaca-del-dia-despues/) en la que pretendía entender una especie de manifiesto que merece, sin duda, mucho comentario crítico. Por otro lado el martes pasado asistí a una conferencia de divulgación sobre el origen de la vida seguida de un animado diálogo con el conferenciante y entre los asistentes. Verán como ambas cosas están relacionadas.
+
+Como es natural entre aficionados a las materias científicas el diálogo con el conferenciante pronto llegó a preguntarse por [LUCA](http://es.wikipedia.org/wiki/%C3%9Altimo_antepasado_com%C3%BAn_universal) y por el «verdadero» origen de la vida, una pregunta que incide en el «porqué» de ésta y no tanto en el "cómo" de ese fenómeno tan improbable. El diálogo se acabó con la afirmación de los científicos de que la ciencia no está para «porqués» sino para «cómos» evitando así problemas de teología muy propios de los que no están familiarizados con los límites de la ciencia y no se dan cuenta de qué nada se lograría si no fuera por esos límites autoimpuestos.
+
+Sin embargo en la relajada conversación social posterior uno de los asistentes me planteó una pregunta cuyo calado solo se entiende bien una vez aceptada la distinción mencionada. Me pidió que le diera mi opinión sobre el «porqué» de la crisis y no sobre el cómo, pues éste era más o menos conocido. Medité brevemente mi contestación y musité: «_si fuera un científico te diría que la crisis ocurre simplemente porque la economía tiene ciclos intrínsecos_». Esta primera parte de la contestación sería equivalente a decir que el universo nace por la explosión de una pequeña y superdensa bolita de materia en el llamado _big bang_. Como solo soy un pobre economista me atreví a añadir una temblorosa segunda parte a mi respuesta: «te diría que el porqué de los ciclos radica en la precariedad de las instituciones». Y con una disculpa cortés y un gesto torero me alejé de un interlocutor que no se contentaba con respuestas de mero experto.
+
+Pero me quedé pensando y sigo dándole vueltas a esa respuesta que quizá no es tan tonta como parece y quizá sirva para iniciar un nuevo relato. No porque las instituciones no se hayan estudiado y su importancia destacada, sino más bien porque sin darme cuenta, había usado la palabra «precariedad». Ya hablé de esto en Isegoría/1998, pp. 89-114. y su revisión me inspira la continuación de este post.
+
+Nuestro viejo relato en cualquier campo está basado en la estabilidad de las instituciones, en la confianza que esa estabilidad genera y en la posibilidad consiguiente de apoyarnos en ellas para lo que sea. Acudimos al juez para que solucione nuestras querellas, un notario da fe de nuestra propiedad, de la libre voluntad en la firma de los contratos e incluso de que uno es uno y no otro. Acatamos las leyes emanadas de nuestro parlamento o de nuestras costumbres nos gusten o no nos gusten, respetamos los decretos de un gobierno que limita nuestra libertad, nos escandalizamos si un juez hace «trampa», exigimos que el Banco central no se venda a intereses diferentes a los que tiene que respetar y tratar de imponer, fruncimos el cejo ante una apresurada unificación de agencias reguladoras presuntamente independientes, etc. En resumen que vivimos en un mundo organizado por un entramado de instituciones que, de hecho, conforman la heurística que permite tomar decisiones sin necesidad de haber solucionado previamente todos los problemas lógicos que siempre traen aparejados.
+
+Y ¿por qué habrían de ser precarias si nos son tan útiles y hasta necesarias? Pues porque hay un agente entre nosotros que justamente no está obligado a cumplir sus compromisos, pero cuya presencia hace posible la irrevocabilidad de los compromisos que adquirimos los demás agentes entre nosotros. Ese agente tan especial es el Poder también llamado en los últimos siglos, y entre «nosotros», Estado. Un Gobierno es un ente delegado del poder y el Estado puede librarse de él como Napolitano se libró hace unos meses de Berlusconi. Pero entonces nada es seguro fuera del Estado y toda institución es precaria. ¿Q.E.D.?
+
+Pues no, todavía no hay nada demostrado. Es posible que haya convenciones sociales que podríamos llamar instituciones y que se sostienen a sí mismas porque cada sujeto en un cierto entorno las quiere seguir porque piensa que todos y cada uno de los demás sujetos también las quieren seguir. Pero estas convenciones pueden no sostenerse si algunos sujetos se rebelan contra ellas o el entorno en el que reinaban es invadido por otros sujetos que no comparten la convención reinante en ese territorio. Como esta posibilidad está siempre ahí es muy difícil conservar la vigencia de una institución en la ausencia de un Estado que la mantenga con su fuerza.
+
+No es difícil entender que en estas condiciones el tiempo económico está repleto de cambios institucionales que desestabilizan el quehacer productivo diario y que, en consecuencia están en el origen de las fluctuaciones en la generación de riqueza. Mi contestación educada me parece que además era correcta.
+
+En consecuencia **nuestro nuevo relato debe necesariamente preocuparse no ya tanto del porqué sino del cómo del nacimiento y muerte de las instituciones**. Y en ese análisis nos toparemos necesariamente con los intentos de instrumentalizar el Gobierno y finalmente el Estado a fin de poder sostener aquellas instituciones que nos favorecen aunque lo hagan a costa de los demás. Los ganadores se harán con suficientes rentas como para pagar a los generadores de ideas legitimadores de esas rentas. ¿Son esas rentas las que perseguían los autores del manifiesto? No me lo puedo creer, pero ahí está el texto para que juzgue cada uno.
+
+El nuevo relato que perseguimos no se puede parar en la constatación de la importancia de las instituciones sino que tiene que ir más allá incluso en el campo de la investigación. Es urgente entender por qué prácticamente se ha abandonado el estudio de los juegos cooperativos y la investigación se ha concentrado en el examen de los juegos no cooperativos o de estrategia. Pero esto será objeto de análisis en un capítulo posterior.

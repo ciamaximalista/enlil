@@ -1,0 +1,20 @@
+---
+Title: Dudas sobre el discurso
+Date: 12/01/2015
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 45178
+coverImage: academia.jpg
+---
+
+[![academia](images/academia.jpg)](http://juan.urrutiaelejalde.org/files/2015/01/academia.jpg)A la vuelta de Paris ya no hay distracciones y comienza a internarse en un camino cuyo fin le es desconocido: escribir un discurso en unos 28 días. Pero un discurso muy especial pues sus dos amigos le dicen que , además, de las cortesías de rigor, debe glosar su obra haciendo referencia a la del académico que ha de sustituir. Lo conoce lo suficiente como para que esa obligación no le resultara muy pesada si no fuera por la inanidad de esa su llamada «obra», casi tan poco fértil como la suya propia, se dice entre sonriente y crispado. Es cierto que este discurso le aliviará de la obligación de presentar sus respetos a todos y cada uno de los miembros de número de la Academia XXXX; pero no sabe si escribirlo o no hacerlo, lo que equivaldría a renunciar al honor que ello significa.
+
+Si va a aceptar esa obligación sabe que ha de escribir un discurso en el que de esplendor a esa obra suya que, si bien no es de gran calidad, sí que es abundante especialmente en una época de su vida en la que todo parecía fácil y todo estaba permitido, desde la intromisión en áreas en las que uno no tenía ninguna autoridad, hasta el uso torticero de esos congresos en los que, además de presentar descaradamente esas ideas, uno podía dar rienda suelta a la libido reprimida durante el trabajo intenso dedicado a escribir algo que llamara la atención. Pero luego está el discurso que él soñaría con escribir, uno en el que expusiera en toda su intensidad el odio a la profesión, la suya propia, que ha acumulado desde hace años por la deriva de ésta en una dirección opuesta a la que él quiso siempre seguir. Pero este es un discurso que no admitiría educación o mesura. Sería más bien como un ladrido de perro rabioso. Y, además tendría que preguntarse por las razones que justificaban, y que siguen haciéndolo, ese deseo malsano de seguir una senda poco transitada.
+
+En su despacho guarda él varios discursos de ingreso en diversas Academias, incluyendo esta XXXX, que le han sido obsequiados por los nuevos miembros, más o manos amigos suyos, y debería examinarlos a fin de hacerse una idea de las dimensiones adecuadas. Esta cuestión es importante porque es posible que tenga tiempo de escribir dos discursos: uno convencional pero que le permitiera sentir el renacimiento en estadio delicado de la vida en el que cree encontrase o bien otro que fuera escandaloso y le ganara el aprecio de los puros y una cierta notoriedad. Claro que este segundo no podría leerlo pues su padrino tendría en su poder el otro y no sabría que contestar. Sería un escándalo , pero este golpe encima de la mesa no deja de atraerle pues sería equivalente a clamar que ellos, vestidos con sus chaqués reglamentarios, no tienen autoridad para juzgarle.
+
+Pero esta duda no es sino la espina dorsal de su vida, desde el colegio hasta hoy mismo. Su propia figura revela esta ambivalencia, una figura encorvada de neardenthal, bajito y cabezón que expresa con claridad esa idea que nunca se ha atrevido a concebir, pero que ahora puede expresar con claridad con claridad: «gracias queridos por ser mis amigos, pero os desprecio por ser tan poco finos en vuestra percepción». Recuerda París y piensa que no sabe si es un Sarkozy con ganas de volver al poder para tratar con los mandarines del mundo o si bien es un Polanski que desea fervientemente dejarse de memeces y decir muy alto que si no me reaceptáis es porque sois unos memos y si vais a seguir siéndolo dejadme en paz. No os pido una segunda oportunidad porque os desprecio.
+
+Decide, y no sabe muy bien porqué, comenzar por el segundo. Seguramente porque es más fácil de escribir. En su subconsciente le hace cosquillas la posibilidad de que todas estas divagaciones no sean sino una disculpa para acabar escribiendo el otro pues siempre podría avisar a sus amigos de que no acepta el presunto honor.

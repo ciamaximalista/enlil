@@ -1,0 +1,39 @@
+---
+Title: ¿Dónde están los liberales?
+Date: 27/10/2004
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+Si interpreto bien el artículo del economista liberal Pedro Schwartz (PS) en La Vanguardia del 6 de octubre (_El futuro del PP_), el principal partido de la oposición encara hoy una alternativa estratégica para optar a volver a gobernar. Podría, por un lado, seguir el camino que parece señalar Gallardón y disputar a los socialistas el centro del espectro político acudiendo allí donde parecen estar los votos. Pero también podría, por otro lado, asumir gran parte de la herencia de Aznar y tratar de convencer a la sociedad de que sea ella la que gravite hacia el conservadurismo en donde le estaría esperando Rajoy, como nuevo presidente del partido, y el propio PS. Parece en efecto, que éste último se decanta por esta segunda modalidad estratégica aunque detecta en ella notables errores a corregir como serían, según él, la política de comunicación, dispersa e inútil, errores de apreciación como los que llevaron a integrarse en la alianza que invadió Irak e incluso errores de fondo como el caso de la cicatería en los traspasos de competencias a Cataluña y el País Vasco.
+
+No es mi intención discutir los méritos de la decisión sugerida por PS. Lo que quiero es elucubrar sobre las razones que PS aduce para convencer al lector de que el otro gran partido nacional es poco de fiar. Según él el gobierno socialista actual:
+
+1. Muestra una preocupante propensión a la experimentación y el aventurerismo que necesitaría el contrapeso del PP heredero de Aznar
+
+3. Puede caer en la tentación de aceptar el principio de autodeterminación- contra el que no habría sabido defenderse intelectualmente el gobierno anterior
+
+5. Presenta un perfil sesentayochista que parece no reconocer la lógica de la escasez y, más en concreto
+
+7. No muestra la suficiente decencia financiera a pesar de los esfuerzos de Solbes
+
+Cabría, naturalmente, que PS tenga razón y que el votante esté convencido de la nociva influencia de aquellos aventureros que cifraban lo razonable en pedir lo imposible, que jaleaban las indecencias financieras necesarias para encontrar la arena de la playa debajo de los adoquines o que, como anticolonialistas, creían en la autodeterminación. Todo esto cabe; pero es chocante que quien nos previene de estos posibles peligros sea una figura notoriamente liberal que, durante años, ha tenido el coraje de ilustrarnos, con su escritura y su práctica, en las virtudes del liberalismo y que, todavía hace muy poco tiempo, glosaba elogiosamente en la última página de _Expansión_, un artículo que [Sen](http://en.wikipedia.org/wiki/Amartya_Sen) dedicó en el _Financial Times_ del 21 de septiembre a conmemorar [el 60 aniversario de _The Road to Serfdom_](http://www.elcato.org/publicaciones/articulos/art-2004-03-09.html) de [Hayek](http://en.wikipedia.org/wiki/Friedrich_Hayek).
+
+Lo chocante es que las cuatro razones aducidas por PS para convencernos de que nos decantemos, miembros del partido o no, hacia donde se encuentra hoy la herencia de Aznar, contradicen, creo yo, el espíritu del maestro Hayek. Aunque estoy seguro que PS ha leído a este premio Nobel con mucho más detenimiento y aprovechamiento que yo, voy a tratar de argüir que los defectos que atribuye al gobierno actual no serían tales para un Hayek que habitara entre nosotros.
+
+El horror al espíritu de los sesenta que algunos hijos del 68 parecen sentir últimamente es algo extraño. No deja de ser un alivio que el recuerdo de aquella época en la que muchos hicimos un poco el ridículo, se vaya desvaneciendo. Pero no por haber soñado un día con el reino de la abundancia, profetizado por el hoy estigmatizado [Marcuse](http://es.wikipedia.org/wiki/Herbert_Marcuse), deberíamos regocijarnos en la lúgubre miseria de la escasez. A mí me encantaría que la desmesura fuera posible y no acabo de resignarme a que no lo sea, especialmente estos últimos años en los que parece alcanzable.
+
+En efecto, la globalización, la importancia creciente del valor añadido asociado a los bienes digitales (reproducibles a coste cero) y las famosas TIC, permiten dar rienda suelta a fuerzas creativas muy a menudo aprisionadas por esa connivencia entre clases dominantes, empresarios enriquecidos y el Estado que conforma el detestable "capitalismo de amigotes". Sin embargo muchos "jóvenes" de mi edad, parecen disfrutar con el acatamiento de la escasez y se sienten deprimidos cuando, al fin, parece llegada la oportunidad de cantar la eclosión de la creatividad del mercado que Hayek vislumbró tan lúcidamente.
+
+Creo no confundirme si digo que Hayek no se achantaría ante la acusación de aventurerismo y que, muy al contrario, apoyaría la experimentación como única forma de canalizar la creatividad del mercado propia de la concepción austriaca. Esta tradición no repudia el fracaso; sino que lo considera como un jalón normal en el camino del éxito, y reconoce que _no hay riqueza sin experimentación, en parte porque la riqueza se genera experimentando y, en parte, porque la experimentación libre es ya riqueza para un economista no consecuencialista_ (como serían Hayek y el mismo Sen a pesar de las diferencias que PS detecta en su glosa citada) que aprecia tanto la asignación como el mecanismo para alcanzarla.
+
+Y me puedo imaginar la cara de asombro de nuestro Hayek ante el uso de la noción de _decencia_ como argumento en contra de una cierta experimentación financiera en las cuentas públicas como la que PS atribuye al gobierno del PSOE menos a Solbes. _Decencia_, como _sentido común_, son dos dispositivos argumentales sólo comprensibles para quien está ya convencido de lo que esos dos vocablos quieren ayudar a convencerle. Hayek dice literalmente en _The Road to Serfdom_ que _el sentido común puede ser una guía tramposa_ y, si tomamos a la decencia como una pauta conductual propia de una sociedad civilizada, podemos aportar otra cita del mismo origen: _nada ha hecho más daño a la causa liberal que la insistencia granítica de algunos liberales en ciertas pautas conductuales_ ("_rules of thumb_") _sobre todo el principio del laissez faire._
+
+Debería terminar diciendo algo sobre la autodeterminación, concepto éste que puede acabar apareciendo en el renovado Estatut de Cataluña y que va a poner en juego el futuro del PP... pero me encuentro perdido. PS dice textualmente que el gobierno de Aznar _no supo criticar convincentemente la doctrina de la autodeterminación, que no es sino una manifestación de la democracia liberal recientemente criticada por [Fareed Zakaría](http://www.fareedzakaria.com/home/Home.html) en su reciente libro [El Futuro de la libertad](http://www.fareedzakaria.com/home/Author.html)_. No entiendo bien la cita aunque parece querer decir que PS favorecería un retoque a la democracia liberal para desvirtuar la doctrina de la autodeterminación. Pero un vistazo rápido al libro de Fareed Zakaria no me ha ayudado nada a entender por donde iría ese retoque ya que la p.32, única página en que se menciona, sólo se refiere al concepto romano de la misma.
+
+Nada de lo dicho debe entenderse como una crítica a la posición política de PS: allá él. Lo que yo he querido es poner en evidencia es la orfandad en la que nos deja a los que, por una u otra razón, hemos tardado tiempo en asimilar sus enseñanzas liberales. Seguro que lo que ocurre , según él, es que no acabamos de asimilarlas. Una vez más igual tiene razón, pero mientras seguimos preparando el examen para que nos conceda el marchamo de liberales, no nos queda más consuelo que recordar viejos tiempos en los que Joan Baez cantaba en un inglés libre como todo en ella _¿where have all the flowers gone?_.
+
+¿Dónde están nuestros liberales?. Espero que como las flores de Joan Baez no se hayan ido para siempre, que no estén "_gone forever_".

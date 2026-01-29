@@ -1,0 +1,22 @@
+---
+Title: El Equus de hoy
+Date: 28/02/2016
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 47868
+coverImage: equus-1.jpg
+---
+
+[![equus](images/equus-1.jpg)](http://juan.urrutiaelejalde.org/files/2016/02/equus-1.jpg) No aparecen en cualquier guía de la semana de Madrid y, sin embargo, las mejores producciones de teatro que he tenido ocasión de disfrutar en los últimos tiempos han tenido lugar en algunas de esas salas a menudo ignoradas. Concretamente [Arte y Desmayo](http://madridesteatro.com/arte-y-desmayo-madridesteatro/) me ha dado no pocas alegrías y me ha devuelto la fe en el teatro como género merecedor de aprecio y de dedicación. Hace pocos días acudí a esta sala de Carabanchel a ver y escuchar la reposición después de muchos años de [Equus, obra de Peter Shaffer](https://es.wikipedia.org/wiki/Equus_%28obra%29) que había desaparecido de mi memoria y que ahora vuelve a esta sala aparentemente marginal en un momento inmportante para mí.
+
+No voy a extenderme en elogios sobre las virtudes de la puesta en escena y la habilidad de los actores y actrices. No es esa hoy mi intención en esta tarde de domingo. Lo que desearía es ser capaz de comunicar es que me abrieron los ojos hacia la necesidad de reconocer el deseo de galopar de cualquira de nosotros más allá de la exigencia de normalidad que parece que se nos exige en cualquier ámbito.
+
+Y cuando yo hablo de galopar no me estoy refiriendo al rasgo de caracter del jóven personaje central que padece una especie de desviación sexual hacia el género equino que le lleva, empujado por sus padres ante un psicoanalista que se ve a sí mismo, con cierta tristeza, como alguien encargado por la sociedad a llevar por el camino de la normalidad a aquellas personas que se desvían por senderos desconocidos.Me estoy refiriendo más bien a ese deseo ireprimible de libertad y de autenticidad que, con [palabras de Alberti, expresaba Paco Ibañez en aquellos tiempos de emoción política: «a galopar, a galopar hasta enterrarlos en el mar...»](https://www.youtube.com/watch?v=8Ga2iCDtEvQ&ebc=ANyPxKp4J8KaPyydCxD-gDMllhsT0u1bpLu-QCEqW4X0Nep0htQwyZGr6Eh5Bp0KhY8j11PC09fzRNnVx6duf9EvXddPVQ37SQ).
+
+Desde luego no puedo obviar la crítica al psicoanálisis allá por el comienzo de los años 70 coincidiendo con otro tipo de terapias menos freudianas, más relacionadas con lo zen y más acordes con las formas americanas del deseo de libertad que explotó en el 68 y acudió para expresarse a la terapia de la Gestalt de Fritz Pearls y vivía en lugares como [el Instituto Esalen de Big Sur](https://es.wikipedia.org/wiki/Instituto_Esalen). Pero no es por estos caminos tan queridos para mí por donde me lleva hoy mi deseo de expresarme. Este deseo me conduce justamente por el terreno que el espectador puede leer en la presentación de la obra:
+
+> Todo lo que «Equus» tiene que contarnos ha multiplicado sus significados en todo este tiempo. Ahora hemos perdido un poco en libertad individual, qué es lo que nos permitimos hacer, hasta qué punto somos libres para decidir, cómo es esto de ser políticamente correctos, qué debe ser un código de conducta... Todo ello nos pone a un nivel en el que nos vemos obligados a buscar constantemente la línea roja infranqueable.... Nos encontramos pues en un mundo en el que no se prohibe nada, pero en el que reina la «autocensura». De ahí que con este montaje busquen una pregunta con la que los espectadores se vayan a sus casa: **¿Es lo normal lo que nos interesa?**
+
+Y es justamente a esta pregunta a la que me gustaría dar mi respuesta en este post con un a rotunda negativa. No, no es la normalidad lo que nos interesa. Lo que hace años que trato de entender es la [calidad de punto de silla de todo lo interesante](http://juan.urrutiaelejalde.org/todo-lo-interesante-es-un-punto-de-silla?doing_wp_cron=1456686166.0083160400390625000000) y también desde luego el equilibrio entre la brutalidad individual y la normalidad social. Es hora de reflexionar en serio sobre las tendencias brutales del nazi o del stalinista que anidan en todos nosotros y sobre la forma de frenarlas inteligentemente más allá de su condena constante o de la referencia acrítica sobre el populismo como el ogro que nos desvía de la única senda por donde puede ir la civilización. Es ya hora de redefinir la normalidad en el mundo de la política y de evitar la condena de cualquiera que no comulgue de lleno con los lugares comunes.

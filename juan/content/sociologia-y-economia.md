@@ -1,0 +1,45 @@
+---
+Title: Sociología y Economía
+Date: 06/02/2007
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+_Publicado en [Expansión](http://www.expansion.com), martes 6 de febrero de 2007_
+
+En el artículo de hace un mes ("[_Maynard o Milton, Milton o Maynard_](http://juan.urrutiaelejalde.org/maynard-o-milton-milton-o-maynard/)") trataba de entender las similitudes y diferencias entre Friedman y Keynes. En cierto modo lo que hoy voy a tratar de decir es continuación de lo que allí dije y, debo advertirlo, es bastante aburrido ya que es un comentario de economista para economistas relacionado con lo que decía hace un par de semanas [Martin Wolf en el F.T.](http://www.ft.com/comment/columnists/martin-wolf) bajo un título revelador: _Evolution can provide a missing link to the modern economy_.
+
+Una de las cosas que espero quedaran claras hace un mes es que ambos gigantes eran economistas en el sentido _humeano_ porque trataban de explicar ciertas regularidades u observaciones empíricas generales a diferencia de aquellos otros economistas de la segunda mitad del siglo pasado (y que llamaríamos por contraposición _kantianos_) que, de forma muy brillante, trataron de construir un verdadero _modelo estándar_ del funcionamiento general de un sistema económico abstracto y que se basaba en la idea de equilibrio y en la racionalidad instrumental de los agentes económicos.
+
+El trabajo de estos últimos economistas teóricos dejó una impronta indeleble y hoy no hay manera de ser keynesiano en el sentido antiguo de usar reglas de comportamiento ad-hoc basadas en la introspección del investigador, o de renunciar a la idea de que el equilibrio se da en todo momento. Así nace la _Nueva Macroeconomía Clásica_ que representa para los economistas lo que su _modelo estándar_ para los físicos que intentan explicar el desarrollo del universo a partir del Big-Bang.
+
+Así las cosas los macroeconomistas no tienen más remedio que tratar de continuar con sus objetivos investigadores desde ese punto de partida y tratar de introducir elementos enriquecedores. Los esfuerzos que se realizan en este sentido van en la dirección de modificar la modelización de los agentes racionales apelando a la sicología o incluso a la neurología con resultados prometedores en el primer caso y simplemente exploratorios en el segundo. Sin embargo desde hace tiempo [Akerlof](http://www.nobelprize.org/nobel_prizes/economics/laureates/2001/akerlof-autobio.html) y coautores, especialmente [Rachel Kranton](http://econ.duke.edu/people/kranton), están tratando de introducir regularidades sociológicas en la modelización de las decisiones individuales con la sana intención de derivar comportamientos agregados observados y difíciles de explicar de otra manera.
+
+Este intento, que ya tiene una cierta tradición, ha sido cuidadosamente explicado por George Akerlof (premio Nobel del año 2003) en su Presidential Adress a la American Economis Association en los clásicos encuentros anuales que se celebran a primeros de año. Este autor comienza por exponer unos resultados de los que no puede olvidarse la macroeconomía. El les llama las cinco proposiciones de neutralidad y son las siguientes:
+
+1. De acuerdo con la teoría del consumo que asociamos, entre otros, a Friedman el consumo corriente es independiente del ingreso corriente de un agente dada su riqueza. Es decir la renta corriente es neutral respecto al consumo corriente.
+
+3. La inversión en nuevo equipo es independiente de la forma de financiarla, sea con deuda o con capital. La inversión es pues, según Modigliani y Miller, independiente de la forma de financiarla.
+
+5. De acuerdo con la teoría de la tasa natural de desempleo, ésta es independiente de la inflación de forma que , como dijeron Phelps y Friedman, a largo plazo la tasa de desempleo es independiente de la política monetaria que sería neutral frente al empleo aunque puede generar una inflación acelerada.
+
+7. Casi como una consecuencia de la anterior neutralidad topamos con la imposibilidad de estabilizar el empleo a través de política monetaria si las expectativas son racionales. De acuerdo con la llamada Crítica de Lucas, la política monetaria sería pues neutral a largo plazo.
+
+9. Según la teoría de la equivalencia ricardiana, revitalizada por Barro, el comportamiento de un agente racional en cuanto al consumo es independiente de los impuestos y de los déficits presupuestarios de forma que podemos decir que la política fiscal es neutral en cuanto al consumo.
+
+Ante estos teoremas nos encontramos incómodos porque, a pesar de su corrección formal, sabemos que de hecho la gente cambia su comportamiento de consumo no solo con el ingreso corriente, sino también con la política fiscal; poseemos evidencia de que la forma de financiación de la inversión influye en el monto de ésta y somos conscientes de que los gobiernos y los bancos centrales actúan para tratar de influir en el empleo mediante políticas fiscales y monetarias que en pura teoría parecerían inútiles. La realidad contradice los teoremas que enmarcan nuestro _modelo estándar_.
+
+La estrategia de Akerlof consiste en e introducir en el modelo estándar unas reglas de comportamiento (normas) que provienen de la sociología, pero que recuerdan mucho a las reglas ad-hoc que usaba Keynes como alguien que tiene prisa en obtener resultados prácticos más allá de la conformidad con un modelo unificador. En el trabajo al que me estoy refiriendo explica los resultados sociológicos a introducir en cada uno de los cinco casos de neutralidad expuestos y nos ilustra en qué sentido y cómo pueden hacer que el _modelo estándar_ así modificado puede acomodar las observaciones empíricas que chocan con los teoremas que incorporan esos resultados de neutralidad. Baste aquí con un par de ejemplos.
+
+Pensemos en primer lugar en la equivalencia ricardiana. Si un padre recibe un inesperado pago extra en su pensión no modificará su consumo pues sabe que su hijo, a quien piensa dejar su patrimonio en herencia, tendrá que pagar nuevos impuestos para hacer frente a la deuda contraída por el sector público al haber incrementado la pensión del padre quizá por razones electoralistas que pretenden alegrar la actividad económica. Sin embargo sabemos que dejar una herencia a los hijos produce felicidad y así lo muestran muchos estudios sociológicos. Pues bien, de acuerdo con el principio de la utilidad marginal decreciente, solo se aumentará la masa testamentaria en parte del incremento inesperado en la pensión, procediendo a consumir ahora algo de ese ingreso inesperado.
+
+Pensemos en segundo lugar la tasa natural de desempleo y en la imposibilidad de modificarla a través de la política monetaria. Este resultado se debe a que suponemos que el trabajador, como cualquier ser racional, solo reacciona a cambios en las variables reales (en el poder de compra de los salario) y no a los meros cambios nominales. Sin embargo esto no es del todo cierto en la realidad. Hay un elemento de _dignidad_ en el trabajador que le lleva a rechazar recortes salariales nominales aunque se diera el caso de que su poder de compra no hubiera variado. Esta peculiaridad está bien documentada y una vez tenida en cuenta explica que se pueda disminuir el desempleo mediante una política monetaria que genere una inflación inesperada.
+
+Estos dos ejemplos nos permiten añadir algunos comentarios sobre la estrategia macroeconómica propuesta por Akerlof. Como ya no es aceptable la introducción sin más de estas peculiaridades sociológicas, pues rompería el dogma metodológico incorporado en el _modelo estándar_, es necesario endogeneizarlas. Pensemos en la forma de endogeneizarlas.
+
+Como se trata de normas la manera más razonable sería verlas como el equilibrio evolucionariamente estable de un juego evolutivo. Resistir cualquier modificación a la baja de salario nominal puede ser un comportamiento evolucionariamente estable y transmitir una herencia positiva a la prole puede ser una forma de garantizar la pervivencia de los genes. A esto es a lo que se refería Martin Wolf en el artículo citado como una forma de enlazar el modelo estándar con la nueva forma de hacer economía.
+
+Pero hay que hacer notar que esta forma de hacer las cosas rompe ese modelo estándar. La racionalidad que se predica de los agentes en los juegos evolutivos no es ilimitada y la noción de equilibrio empleada solo tiene en común con la estándar su naturaleza de punto fijo en sentido matemático. No se puede endogeneizar los resultados sociológicos que nos son útiles y mantener el modelo estándar. Quien sea un economista como Keynes o Friedman debe saber que tendrá que dejar de pertenecer a una profesión socialmente establecida sobre estándares bien definidos. Para más inri resulta que los resultados económicos basados en normas sociológicas bien establecidas que pueden explicarse como juegos evolutivos, son resultados que varían según la comunidad de la que estamos hablando. Heterodoxia y encima relativismo.

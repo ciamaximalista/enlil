@@ -1,0 +1,19 @@
+---
+Title: Cambiando de tema,Fake
+Date: 20/01/2010
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+Los [comentarios a un post invitado](http://juan.urrutiaelejalde.org/post-invitado-sobre-pi) han sido tan ricos que he sentido celos y por eso quiero cambiar de tema aunque con la cortesía de un buen anfitrión. No tengo más remdio, por lo tanto y a pesar de mis celos, que tirar de un hilo suelto de la conversación en la esperanza de que sea un hilo especial y fértil y dejando siempre abierta la posibilidad de que si, los invitados quieren, puedan volver al tejido principal. Marcelo decía en un comentario del que anunciaba continuidad que:
+
+> En otro frente, en el terreno artístico, el rey del cuestionamiento de la PI es, sin duda, Marcelo Duchamp con sus “boite en valise” y sus “ready mades”. Eran el epítome de la obra de arte en la era de la reproductibilidad de WB. Pues bien, el propio MD choca con el echo de que el “aura” en el sentido de WB pasa de la obra física al concepto de la obra. Pero no desaparece, como lo demuestra la asignación que se sigue haciendo de tales obras al propio artista, a pesar de que no han sobrevivido muchos de sus originales, por lo que lo que se ven en museos sean “reproducciones”. En dichos casos, ¿es necesaria la proteccion de la PI?; imagino que no, que al lograr crear el monopolio privado sobre el aspecto conceptual de la obra, su valor excede al que se podría generar con el monopolio público. Y sin embargo, Elmir D\`Ory no logró apropiarse de las rentas privadas de otros creadores, aunque en un ejercicio de reflexividad postmoderno sí que acabó por generar un monopolio privado con su propia marca, justamente como reputado falsificador. Curiosamente, D\`Ory sólo pudo generar rentas privadas con su nombre porque existe el concepto de falsificación penada. De no existir, no hubiese podido llegar a la fama, hubiese sido un copista más. (to be followed.
+
+Los ejemplos se multiplican fácilmente. Cada uno tendrá los suyos propios, aquellos que reflejan para ese cada uno siempre tan elusivo, la sutileza de la creatividad original. Yo, por mi parte, después de reconocer a MD y a Elmyr D´Ory como ejemplares válidos de dos formas diferentes y ejemplares de dotar a la copia de "aura", y recordando las tantas veces subrayada diferencia entre la grabación en vinilo o en CD, de forma que es el "error" (¿el ruido de la vida?) el que parece tener valor, llevo a vuestro recuerdo, desde luego, la [gran obra de Orson Wells, Fake, alrededor de D´Ory](http://www.miradas.net/0204/estudios/2002/08_owelles/fraude.html) y también la mezcla de los dj´s.
+
+Se puede volver sobre estos ejemplos de f_ake_ y a sus sutilezas, pero yo ahora, y para hacerme perdonar la posible rudeza de mi cabio de tema, que no de conversación, prefiero recordar otra película menos ambiciosa pero que para mí tiene un "aura" indeleble. Me refiero a [Amanece que no es poco de JL Cuerda](http://www.filmaffinity.com/es/film567541.html) que vi por primera vez en Sevilla entre ejercicios de una oposición de no recuerdo bien y en cuyo tribunal estaba yo. Nunca olvidaré lo terribleblemente ofendido que se mostraba el guardia civil encarnado por el gran Sazatornil frente al escritor argentino que concentrado en lo suyo había acabado reproduciendo a "Fulkner", alguien muy querido en ese pueblo en el que en los huertos crecen bellos jóvenes. No había derechos de propiedad de Faulkner en juego sino un simple derecho moral de una especie de santo local.
+
+¿Y el "aura"? Como en otros muchos casos quizás fuera algo añadido por el espectador. Sí, yo le doté de "aura", pero, tengo que confesar después de muchos años, que lo hice solo indirectamenta, inspirado por los bellos muslos de mi acompañante ocasional, una colega sevillana.

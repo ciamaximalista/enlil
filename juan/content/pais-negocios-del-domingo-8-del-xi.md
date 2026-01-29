@@ -1,0 +1,17 @@
+---
+Title: País Negocios del domingo 8 del XI
+Date: 13/11/2015
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+[![Deaton](images/Deaton.jpg)](http://juan.urrutiaelejalde.org/files/2015/11/Deaton.jpg) [Antón Costas](http://www.ub.edu/graap/costas.htm) trata de utilizar la figura del reciente Nobel, [Angus Deaton](https://es.wikipedia.org/wiki/Angus_Deaton), para recomendar que se acabe la arrogancia intelectual que ha imperado desde al menos hace treinta años entre los economistas, quienes buscaban su impronta en la realidad económica a partir de ideas fascinantes pero no sostenidas por datos como, por ejemplo, la teoría de los mercados eficientes o la noción de expectativas racionales. Ambas construcciones intelectuales sostenían su importancia aparente en la continuidad con la teoría prevalente y en la unificación de las distintas áreas, dos empujones a la arrogancia que propició el liberalismo como ausencia de intervención y frenó los intentos intervencionistas en favor del bien común como una vieja receta sin atisbo alguno de inteligencia.
+
+Costas utiliza esta crítica al neoliberalismo intelectual para reconocer los méritos de Deaton con su énfasis en esos datos que no pueden estar ausentes de un análisis cualquiera con pretensiones de relevancia y especialmente en el caso de este economista escocés que gracias a su énfasis en datos siempre fue escéptico sobre la no intervención liberal. Sin embargo yo me permitiría aquí un aviso a navegantes. El énfasis en los datos puede derivar en los estudios económicos hacia una forma de trabajar consistente en elaborar desde diferentes fuentes una bonita tabla de datos sobre cualquier cosa y someterla luego a un análisis estadístico que arroja conclusiones aparentemente útiles e interesantes. El aviso consiste en que nada explica por qué se elaboran hoy tablas de datos sin una idea teórica previa a no ser la posibilidad de publicación y por lo tanto de promoción.
+
+Por otro lado, de hecho en la siguiente página, Krugman condena lo que denomina el sombrío legado de la austeridad que, basada en no se sabe qué, condenó el gasto público por sus pretendidos o supuestos efectos a largo plazo. Pero el largo plazo está ya aquí y esa creencia sacada de ningún sitio que no fuera la metáfora de la familia, se ha mostrado equivocada pues no hay manera de remontar. El anteponer la lucha contra el déficit público (que generaría esa deuda que nos empobrece) a la lucha contra el paro ha probado nefasta pues se ha generado deuda a través del inevitable déficit público y no se ve por donde se va a crear el empleo suficiente para generar renta que disminuya el paro.
+
+Vemos pues cómo esos modelos macro a los que se refería Costas y que de forma intelectualmente conservadora trataban de mantener la idea de equilibrio en la construcción de un corpus técnico, no debieran seguir reinando. Pero ¿cual es ahora el sustituto de la idea de unificación? Pues [a mi juicio](http://www.elsevier.es/es-revista-cuadernos-economia-329-resumen-despertemos-belleza-90201485) las ideas de desequilibrio macroeconómico que, a diferencia de los modelos de equilibrio general macroeconómico, y [tal como explicaba aquí](http://juan.urrutiaelejalde.org/trabajos/SEMIHETERODOXA_3.pdf), permiten la intervención e introducen ideas tanto sobre el pasillo neoclásico como sobre un menor duración del periodo de ajuste del sistema frente a un shock grande que nos saca del pasillo neoclásico.

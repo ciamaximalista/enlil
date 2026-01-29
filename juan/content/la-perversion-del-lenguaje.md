@@ -1,0 +1,23 @@
+---
+Title: La perversión del lenguaje
+Date: 30/05/2008
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 
+---
+
+La "perversión del lenguaje" es una bonita expresión que últimamente he oí­ ­do repetidamente en boca de Rosa Diez para, con ella, denigrar, por su vaciedad expresiva, a aquellos polí­ticos que ella aspira a arrinconar. Lo ha hecho de tal manera que ha contribuí­ ­do a quemar esta expresión que, en realidad, tiene mucho contenido oculto.
+
+Esta crí­ ­tica no quiere decir que no merezca la pena aplicar a esa expresión el análisis lingí¼í­atico . Todo lo contrario. Por eso me resultó de tanto interés la reseñaa que el ABC publicaba del reciente libro de su colaboradora y columnista Irene Lozano. Recuerdo que hace meses me llamó la atención que ese periódico apostillara una columna de su colabordora con una advertencia de que no compartí­ ­a las opiniones de la autora en aquella columna especí­fica que me temo no recuerdo de que trataba; pero que no estaba en la lí­ ­nea habitual del periódico. Recuerdo también que pensé que me gustaba su argumentación y que tení­ ­a razón. Así­ que me leí­ ­ con atención la reseña/entrevista a la que me he referido.
+
+Señalaba que el mecanismo de vaciar el lenguaje era siempre el mismo aunque hay que distinguir entre palabras saqueadas y palabras pervertidas. Las saqueads son aquellas que la evolución social ha dejado sin referente claro. Pensemos en "las izquierdas" o el "progresismo". Tení­ ­an un sentido definido antes de 1990; pero luego se hacen demasiado polisémicas como para poder utilizarlas sin más explicaciones. Las pervertidas son aquellas otras palabras de las que se abusa hasta el punto de desgastarlas o de hacerlas significar lo que no era su contenido original y acaban sirviendo como coartadas para hacer lo contrario de lo que con ellas se pretende predicar. Pensemos en el abuso de "democracia", "igualdad", "constitución" o, la que subraya la autora, "libertad". En nombre de ella se acaba con ella.
+
+Y en ese punto recordé un artí­ ­culo reciente de Daniel Innerarity en El Paí­ ­s. Trataba Daniel con su eficacia habitual de hacernos ver que los valores, tan abusados por esos plañideros habituales que solo ven horror en cualquier cambio de costumbres, sirven en su continua reivindicación para ocultar las dificultades del ejercicio de no pocos derechos. Lo grandielocuente sirve para ocultar la falta de lo necesario.
+
+Ya habí­a leí­do ABC y El Paí­ ­s y seguí­ ­a esperando a que Iberia cumpliera con el retraso anunciado y varias veces prorrogado. Así­ ­ que caí­ sobre Público y sobre la tira del gran Javier Ortiz que, no lo puedo remediar, me produce siempre una gran satisfacción ya que somos pocos los que, a mucha honra, todaví­ ­a somos de la _cáscara amarga_. Protestaba porque se tildaba de inoportuna o desleal la protesta del Parlamento Vasco contra el ejercicio de la tortura y la desagana con la que se la persigue. La palabra torura no ha sido saqueada en el sentido que utilizaba la Lozano y todos pensamos que tiene un contenido preciso que nos remita a algo repudiable. Y todos también pensamos que el respeto que la tortura atropella mediante la humillación no puede ser un valor/coartada que servirí­a para mejor instrumentar los interrogatorios. Dirí­amos que la tortura existe, es repudiable, se está intentando evitar con mayor o menor entusiasmo y que , por lo tanto, su condena nunca puede ser inoportuna ni su ejercicio puede estar compensado por otras atrocidades de la misma forma que esas atrocidades nunca podrán se compensadas por la totura.
+
+Y como Iberia seguí­a sin responder pasé a examinar el Finantial Times. Me encuentro con el reconocimiento de una Agencia de Rating de que su model matemático para la calificación de instrumentos financieros tení­ ­a un error, por el que se disculpaban, que podí­a haberles llevado a calificar como AAA a instrumentos sintéticos que incluí­an hipotecas basura. Y me pregunté si esto de la calificación del riesgo o el mismo riesgo no serí­an palabros saqueados o quizá solo pervertidos. En muchos casos no sabemos de lo que hablamos cuando pronunciamos la palabra "riesgo" y por lo que parece tempoco lo saben los supuestos expertos.
+
+Y esta última reflexión, sobre la que deberí­a volver con más profundidad, me devolvió a la práctica de Rosa Dí­ez y a la Alicia de Lewis. Ya sabemos que lo importante es quién manda aquí­ ­. Y quizá debiéramos ir reflexionando sobre las maneras en que se impone una agenda y un lenguaje como vehí­culo para imponer el poder. En los últimos años estamos acostumbrados a ello, incluyendo la diatriba de la diputada por UDyP.

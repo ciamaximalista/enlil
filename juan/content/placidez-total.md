@@ -1,0 +1,22 @@
+---
+Title: Placidez total
+Date: 14/09/2016
+Template: post
+Author: Juan Urrutia
+Profile: http://juan.urrutiaelejalde.org
+Description: 
+Img: 48656
+coverImage: clinica.jpg
+---
+
+[![clinica](images/clinica.jpg)](http://juan.urrutiaelejalde.org/files/2016/09/clinica.jpg) Una de las señales que me hacen sentirme no tan jóven es que poco a poco me siento cada vez más distante de mis propios amigos, incluso cuando nos reunimos muchos o bastantes a comer y beber en sitios casi venerados en el pasado reciente. Creo que esa distancia nada tiene que ver con algún tipo de distanciamento afectivo. Más bien todo lo contrario pues es esa amistad y el respeto que exige la que no me permite tener la cabeza vacía.
+
+Ayer me fui acercando a esta conclusión, en cualquier caso solo tentativa, cuando, entre que llegué demasiado pronto y que la oftalmóloga me hizo esperar bastante, estuve prácticamente una hora sentado tieso con la mochila sobre las rodillas en la sala de espera correspondiente, sala de espera que parece ser el centro mismo del hospital ya que ahí confluyen muchos caminos hacia distintos departamentos, la gente novata se para a leer los carteles y los dos ascensores abren y cierran sus puertas constantemente. Creo que nunca había vivido una hora de placidez continua como la de ayer.
+
+Y me gustaría autoanalizarme un poco en busca del secreto de esa mi placidez sobrevenida. Nada tiene que ver, desde luego, con mi estancia hospitalaria con ocasión de la operación a corazón abierto de hace ya unos años. Me sentí muy bien tratado y pude hasta disfrutar de la lectura, pero no pude imaginar todo un mundo desde una habitación de la que no podía salir y en la que solo entraba mi mujer y mis hijos. Ahora se me viene a la cabeza la estancia ilegal pero consentida de Don Benjumea en aquella serie televisiva, [secuela del éxito de Ocho Apellidos Vascos y que se denominó Allí Abajo](http://www.antena3.com/series/alli-abajo/). Mi extraña serenidad no tiene nada que ver con el aprovechamiento ramplón de una clínica y de sus servicios comprados de estrangis por parte de un señorito andaluz que no necesita trabajar pues vive de las rentas.
+
+Lo que me serenó de una manera especial fue un conjunto de percepciones en las que nunca había reparado de manera simultánea. Que reconozca un olor que me trae recuerdos de momentos de curación no es nada extraño. Todos me imagino; pero desde luego yo, reconozco inmediatamente los olores, ya sean de mi casa, de la oficina, de una Iglesia determinada o de un aula entre otros muchos. Pero ayer ese olor a sala de espera de hospital me resultó extremadamente reconfortante no tanto por tratarse de una fragancia inusitada sino por ser exactamente el mismo que todas las últimas veces.
+
+Lo mismo podría decir del ruido o del aspecto de los pacientes y de las relaciones entre ellos o de los trabajadores del hospital. El ruido era suave y denso, como música clásica de un trozo de ópera de relleno: agradable pero no imprescindible. En cuanto a los pacientes me temo que casi todos eran de mi edad aunque los había más viejos y más jóvenes, incluso madres jovencísimas con bebé en su cochecito. Pero esta no era la pareja más frecuente. En general se trataba de parejas de mi edad en donde ella hace años que ha dejado que le luzcan las canas y se le amplíe la cintura y él ya no camina recto y a menudo se apoya en un bastón. No hablaban mucho entre ellos, pero en su mera postura se notaba que formaban una unidad indestructible e incluso tierna. Y en cuanto a la comunidad médico-enfermera-celadora no puedo dejar de decir que me parecieron la paz en sí. No había órdenes sino sugerencias ni nadie se quejaba sino que explicaba si podía o no podía hacer esto o aquello.
+
+Como el departamento es grande hay mucho trasiego de pacientes y el paisaje que conforman está entre siempre nuevo y siempre distinto, como las olas en la orilla del mar un día de calma en el que se puede observar sin interrupción los más pequeños detalles, ninguno relevante para nada. Pero relevantes o no, lo maravilloso es que la relevancia no está en juego. Lo único que me importaba es que nunca acabara esa placidez que me embargaba. Así debe de ser la observación de las estrellas desde una instalación adecuada. La probabilidad de observar algo desconocido presumo que es muy pequeña y esa firme creencia te vacía la cabeza mientras se te amplía la sonrisa. La mente está abierta a cualquier cosa y sabes que tus cercanos no te dejarán sufrir mucho.

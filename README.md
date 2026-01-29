@@ -1,4 +1,4 @@
-# ![Enlil](enlil.png)
+# ![Enlil](enlil-banner.png)
 
 # Enlil
 Sistema de organización de proyectos (PHP + XML + JS) con administración única.
