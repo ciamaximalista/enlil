@@ -26,6 +26,7 @@ function enlil_page_header(string $title): void {
                 <a href="/dashboard.php">Panel</a>
                 <a href="/equipos_personas.php">Equipos y personas</a>
                 <a href="/proyectos_list.php">Proyectos</a>
+                <a href="/calendarios_list.php">Calendarios</a>
                 <a href="/logout.php">Cerrar sesión</a>
             </nav>
         </header>

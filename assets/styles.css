@@ -504,6 +504,234 @@ legend {
     font-size: 14px;
 }
 
+.objective-card,
+.task-card {
+    border: 1px solid rgba(27, 142, 237, 0.18);
+    border-radius: 16px;
+    padding: 16px;
+    background: #ebf8ff;
+    margin-bottom: 16px;
+}
+
+.objective-header,
+.task-header,
+.tasks-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.tasks-block {
+    margin-top: 16px;
+}
+
+.tasks-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.tasks-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    align-items: start;
+}
+
+.tasks-column {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+}
+
+.column-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.task-card {
+    background: #ffffff;
+    border-color: rgba(234, 47, 40, 0.18);
+}
+
+.task-people .label {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.multi {
+    min-height: 90px;
+}
+
+.graph {
+    position: relative;
+    padding: 24px 8px 8px;
+    overflow: visible;
+}
+
+.graph-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.graph-column {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+    flex: 1 1 320px;
+    min-width: 260px;
+}
+
+.graph-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.graph-node {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(27, 142, 237, 0.2);
+    box-shadow: 0 12px 24px rgba(15, 71, 122, 0.08);
+}
+
+.graph-node-title {
+    font-weight: 700;
+    color: #1b8eed;
+}
+
+.graph-node-meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+.graph-node-tasks {
+    margin-top: 10px;
+    display: grid;
+    gap: 6px;
+}
+
+.task-pill {
+    background: rgba(234, 47, 40, 0.08);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.task-pill.done {
+    background: rgba(27, 142, 237, 0.14);
+}
+
+.link {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link:hover {
+    color: #1b8eed;
+}
+
+.calendar-card {
+    background: #ffffff;
+    border: 1px solid #e3e8ef;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.calendar-grid {
+    display: grid;
+    gap: 0;
+    border: 1px solid #e3e8ef;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.calendar-row {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0;
+}
+
+.calendar-head div {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #5f6368;
+    text-align: center;
+    padding: 8px 0;
+    background: #f7f9fc;
+    border-bottom: 1px solid #e3e8ef;
+}
+
+.calendar-cell {
+    background: #ffffff;
+    padding: 8px 8px 10px;
+    min-height: 110px;
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    border-right: 1px solid #e3e8ef;
+    border-bottom: 1px solid #e3e8ef;
+}
+
+.calendar-cell.muted-cell {
+    background: #fafbfc;
+    color: #9aa0a6;
+}
+
+.calendar-date {
+    font-weight: 600;
+    color: #3c4043;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
+
+.calendar-task {
+    font-size: 12px;
+    line-height: 1.35;
+    background: #e8f0fe;
+    border-left: 3px solid #1b8eed;
+    color: #1f3b57;
+    padding: 4px 6px;
+    border-radius: 6px;
+}
+
+.calendar-task .accent {
+    color: #1b8eed;
+    font-weight: 600;
+}
+
+.calendar-grid.week {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.calendar-grid.week .calendar-cell {
+    min-height: 180px;
+}
+
 @keyframes rise {
     from {
         opacity: 0;

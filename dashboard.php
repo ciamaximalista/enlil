@@ -137,6 +137,10 @@ enlil_page_header('Panel');
                 <h2>Proyectos</h2>
                 <p>Crea y revisa los proyectos existentes.</p>
             </a>
+            <a class="menu-card" href="/calendarios_list.php">
+                <h2>Calendarios</h2>
+                <p>Consulta tareas por proyecto o por persona.</p>
+            </a>
         </div>
     </main>
 <?php enlil_page_footer(); ?>

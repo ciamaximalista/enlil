@@ -5,6 +5,8 @@ require_once __DIR__ . '/includes/people.php';
 require_once __DIR__ . '/includes/checklists.php';
 require_once __DIR__ . '/includes/business_connections.php';
 require_once __DIR__ . '/includes/customers.php';
+require_once __DIR__ . '/includes/checklist_map.php';
+require_once __DIR__ . '/includes/projects.php';
 
 function enlil_checklist_extract_ids($items): array {
     $ids = [];
@@ -150,6 +152,28 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
         'not_done_ids' => $notDoneIds ? implode(',', $notDoneIds) : '',
     ];
     enlil_checklist_add($event);
+
+    $map = enlil_checklist_map_get((string)$chatId, $msgId);
+    if ($map && !empty($map['task_ids'])) {
+        foreach ($doneIds as $doneId) {
+            $doneId = (int)$doneId;
+            if ($doneId === 0) {
+                continue;
+            }
+            if (!in_array($doneId, $map['task_ids'], true)) {
+                continue;
+            }
+            enlil_projects_mark_task_done((int)$map['project_id'], (int)$map['objective_id'], $doneId, date('c'));
+        }
+    } else {
+        foreach ($doneIds as $doneId) {
+            $doneId = (int)$doneId;
+            if ($doneId === 0) {
+                continue;
+            }
+            enlil_projects_mark_task_done(0, 0, $doneId, date('c'));
+        }
+    }
     http_response_code(200);
     echo 'OK';
     exit;
