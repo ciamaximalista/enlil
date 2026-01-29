@@ -1,4 +1,0 @@
----
-Title: Búsqueda
-Template: search
----
