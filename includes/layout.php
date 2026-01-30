@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/config.php';
 
-function enlil_page_header(string $title): void {
+function enlil_page_header(string $title, bool $showNav = true): void {
     $config = require __DIR__ . '/config.php';
     $logoPath = __DIR__ . '/../enlil.png';
     $logoUrl = file_exists($logoPath) ? '/assets/enlil.png' : '';
@@ -24,6 +24,7 @@ function enlil_page_header(string $title): void {
                 <?php endif; ?>
                 <strong><?php echo htmlspecialchars($config['app_name']); ?></strong>
             </div>
+            <?php if ($showNav): ?>
             <nav class="main-nav">
                 <a href="/dashboard.php">Panel</a>
                 <a href="/equipos_personas.php">Equipos y personas</a>
@@ -31,6 +32,7 @@ function enlil_page_header(string $title): void {
                 <a href="/calendarios_list.php">Calendarios</a>
                 <a href="/logout.php">Cerrar sesión</a>
             </nav>
+            <?php endif; ?>
         </header>
     <?php
 }
