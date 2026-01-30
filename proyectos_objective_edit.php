@@ -4,6 +4,7 @@ require_once __DIR__ . '/includes/layout.php';
 require_once __DIR__ . '/includes/projects.php';
 require_once __DIR__ . '/includes/teams.php';
 require_once __DIR__ . '/includes/people.php';
+require_once __DIR__ . '/includes/avatars.php';
 
 enlil_require_login();
 
@@ -18,8 +19,10 @@ if (!$project) {
 
 $teams = enlil_teams_all();
 $people = enlil_people_all();
-$projectPeople = array_values(array_filter($people, function ($person) use ($project) {
-    return !empty(array_intersect($project['team_ids'], $person['team_ids']));
+$projectTeamIds = array_values(array_filter(array_map('intval', $project['team_ids'] ?? [])));
+$projectPeople = array_values(array_filter($people, function ($person) use ($projectTeamIds) {
+    $personTeamIds = array_values(array_filter(array_map('intval', $person['team_ids'] ?? [])));
+    return !empty(array_intersect($projectTeamIds, $personTeamIds));
 }));
 $selectedTeams = $project['team_ids'];
 
@@ -309,7 +312,10 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                 <div class="task-card" data-tid="<?php echo $taskId; ?>">
                                 <div class="task-header">
                                     <strong>Tarea #<?php echo $taskId; ?></strong>
-                                    <button type="button" class="btn small danger js-remove-task">Eliminar</button>
+                                    <div class="task-actions">
+                                        <button class="btn small" type="submit">Guardar</button>
+                                        <button type="button" class="btn small danger js-remove-task">Eliminar</button>
+                                    </div>
                                 </div>
                                 <label>Nombre
                                     <input type="text" name="tasks[<?php echo $taskId; ?>][name]" value="<?php echo htmlspecialchars($task['name']); ?>" required>
@@ -339,9 +345,27 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                     <div class="checkbox-grid">
                                         <?php foreach ($projectPeople as $person): ?>
                                             <?php $checked = in_array((int)$person['id'], $task['responsible_ids'], true); ?>
-                                            <label class="checkbox">
-                                                <input type="checkbox" name="tasks[<?php echo $taskId; ?>][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $checked ? 'checked' : ''; ?>>
+                                            <?php
+                                            $username = trim((string)($person['telegram_user'] ?? ''));
+                                            $initial = $person['name'] !== '' ? (function_exists('mb_substr') ? mb_substr($person['name'], 0, 1) : substr($person['name'], 0, 1)) : '?';
+                                            $avatarLocal = '';
+                                            if (!empty($person['telegram_user_id'])) {
+                                                $path = __DIR__ . '/data/avatars/' . $person['telegram_user_id'] . '.jpg';
+                                                if (file_exists($path)) {
+                                                    $avatarLocal = enlil_avatar_url($person['telegram_user_id']);
+                                                }
+                                            }
+                                            $avatarUrl = $avatarLocal !== '' ? $avatarLocal : ($username !== '' ? 'https://t.me/i/userpic/320/' . rawurlencode(ltrim($username, '@')) . '.jpg' : '');
+                                            ?>
+                                            <label class="checkbox checkbox-person">
+                                                <span class="avatar-wrap small">
+                                                    <span class="avatar small placeholder"><?php echo htmlspecialchars($initial); ?></span>
+                                                    <?php if ($avatarUrl): ?>
+                                                        <img class="avatar small avatar-img" src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="" onload="this.classList.add('loaded');" onerror="this.remove();">
+                                                    <?php endif; ?>
+                                                </span>
                                                 <span><?php echo htmlspecialchars($person['name']); ?></span>
+                                                <input type="checkbox" name="tasks[<?php echo $taskId; ?>][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $checked ? 'checked' : ''; ?>>
                                             </label>
                                         <?php endforeach; ?>
                                     </div>
@@ -356,7 +380,10 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                             <div class="task-card" data-tid="<?php echo $taskId; ?>">
                                 <div class="task-header">
                                     <strong>Tarea #<?php echo $taskId; ?></strong>
-                                    <button type="button" class="btn small danger js-remove-task">Eliminar</button>
+                                    <div class="task-actions">
+                                        <button class="btn small" type="submit">Guardar</button>
+                                        <button type="button" class="btn small danger js-remove-task">Eliminar</button>
+                                    </div>
                                 </div>
                                 <label>Nombre
                                     <input type="text" name="tasks[<?php echo $taskId; ?>][name]" value="<?php echo htmlspecialchars($task['name']); ?>" required>
@@ -386,9 +413,27 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                     <div class="checkbox-grid">
                                         <?php foreach ($projectPeople as $person): ?>
                                             <?php $checked = in_array((int)$person['id'], $task['responsible_ids'], true); ?>
-                                            <label class="checkbox">
-                                                <input type="checkbox" name="tasks[<?php echo $taskId; ?>][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $checked ? 'checked' : ''; ?>>
+                                            <?php
+                                            $username = trim((string)($person['telegram_user'] ?? ''));
+                                            $initial = $person['name'] !== '' ? (function_exists('mb_substr') ? mb_substr($person['name'], 0, 1) : substr($person['name'], 0, 1)) : '?';
+                                            $avatarLocal = '';
+                                            if (!empty($person['telegram_user_id'])) {
+                                                $path = __DIR__ . '/data/avatars/' . $person['telegram_user_id'] . '.jpg';
+                                                if (file_exists($path)) {
+                                                    $avatarLocal = enlil_avatar_url($person['telegram_user_id']);
+                                                }
+                                            }
+                                            $avatarUrl = $avatarLocal !== '' ? $avatarLocal : ($username !== '' ? 'https://t.me/i/userpic/320/' . rawurlencode(ltrim($username, '@')) . '.jpg' : '');
+                                            ?>
+                                            <label class="checkbox checkbox-person">
+                                                <span class="avatar-wrap small">
+                                                    <span class="avatar small placeholder"><?php echo htmlspecialchars($initial); ?></span>
+                                                    <?php if ($avatarUrl): ?>
+                                                        <img class="avatar small avatar-img" src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="" onload="this.classList.add('loaded');" onerror="this.remove();">
+                                                    <?php endif; ?>
+                                                </span>
                                                 <span><?php echo htmlspecialchars($person['name']); ?></span>
+                                                <input type="checkbox" name="tasks[<?php echo $taskId; ?>][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $checked ? 'checked' : ''; ?>>
                                             </label>
                                         <?php endforeach; ?>
                                     </div>
@@ -450,7 +495,10 @@ function createTaskCard() {
     wrapper.innerHTML = `
         <div class="task-header">
             <strong>Tarea nueva</strong>
-            <button type="button" class="btn small danger js-remove-task">Eliminar</button>
+            <div class="task-actions">
+                <button class="btn small" type="submit">Guardar</button>
+                <button type="button" class="btn small danger js-remove-task">Eliminar</button>
+            </div>
         </div>
         <label>Nombre
             <input type="text" name="tasks[${tid}][name]" required>
@@ -471,9 +519,27 @@ function createTaskCard() {
             <span class="label">Responsables</span>
             <div class="checkbox-grid">
                 <?php foreach ($projectPeople as $person): ?>
-                    <label class="checkbox">
-                        <input type="checkbox" name="tasks[${tid}][responsible_ids][]" value="<?php echo (int)$person['id']; ?>">
+                    <?php
+                    $username = trim((string)($person['telegram_user'] ?? ''));
+                    $initial = $person['name'] !== '' ? (function_exists('mb_substr') ? mb_substr($person['name'], 0, 1) : substr($person['name'], 0, 1)) : '?';
+                    $avatarLocal = '';
+                    if (!empty($person['telegram_user_id'])) {
+                        $path = __DIR__ . '/data/avatars/' . $person['telegram_user_id'] . '.jpg';
+                        if (file_exists($path)) {
+                            $avatarLocal = enlil_avatar_url($person['telegram_user_id']);
+                        }
+                    }
+                    $avatarUrl = $avatarLocal !== '' ? $avatarLocal : ($username !== '' ? 'https://t.me/i/userpic/320/' . rawurlencode(ltrim($username, '@')) . '.jpg' : '');
+                    ?>
+                    <label class="checkbox checkbox-person">
+                        <span class="avatar-wrap small">
+                            <span class="avatar small placeholder"><?php echo htmlspecialchars($initial); ?></span>
+                            <?php if ($avatarUrl): ?>
+                                <img class="avatar small avatar-img" src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="" onload="this.classList.add('loaded');" onerror="this.remove();">
+                            <?php endif; ?>
+                        </span>
                         <span><?php echo htmlspecialchars($person['name']); ?></span>
+                        <input type="checkbox" name="tasks[${tid}][responsible_ids][]" value="<?php echo (int)$person['id']; ?>">
                     </label>
                 <?php endforeach; ?>
             </div>

@@ -10,6 +10,9 @@ require_once __DIR__ . '/includes/customers.php';
 
 enlil_require_login();
 $people = enlil_people_all();
+usort($people, function ($a, $b) {
+    return strcasecmp($a['name'] ?? '', $b['name'] ?? '');
+});
 $teams = enlil_teams_all();
 $teamsById = [];
 foreach ($teams as $team) {
@@ -38,7 +41,8 @@ foreach ($duplicateIds as $uid => $names) {
 }
 foreach ($people as $p) {
     $uid = (string)($p['telegram_user_id'] ?? '');
-    $businessStatus[$p['id']] = $uid !== '' && enlil_customer_get($uid) ? true : false;
+    $business = $uid !== '' ? enlil_business_get($uid) : null;
+    $businessStatus[$p['id']] = $business && $business['connection_id'] !== '' ? true : false;
 }
 enlil_start_session();
 $flashSuccess = $_SESSION['flash_success'] ?? '';
@@ -139,7 +143,10 @@ enlil_page_header('Personas');
                             <th>Usuario Telegram</th>
                             <th>ID</th>
                             <th>Equipos</th>
-                            <th>Mensaje de prueba</th>
+                            <th>Refrescar</th>
+                            <th>Estado</th>
+                            <th>Tipo</th>
+                            <th>Tareas de hoy</th>
                             <th>Editar</th>
                             <th>Borrar</th>
                         </tr>
@@ -192,6 +199,31 @@ enlil_page_header('Personas');
                                     ?>
                                 </td>
                                 <td>
+                                    <form method="post" action="/customer_refresh.php" class="inline-form">
+                                        <input type="hidden" name="person_id" value="<?php echo (int)$person['id']; ?>">
+                                        <button class="btn small" type="submit">Refrescar</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <?php $isConnected = !empty($businessStatus[$person['id']]); ?>
+                                    <?php if ($isConnected): ?>
+                                        <span class="badge success">Conectado</span>
+                                    <?php else: ?>
+                                        <span class="badge">Desconectado</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    $uid = (string)($person['telegram_user_id'] ?? '');
+                                    $isSelf = $businessOwnerId !== '' && $uid !== '' && $uid === $businessOwnerId;
+                                    ?>
+                                    <?php if ($isSelf): ?>
+                                        <span class="badge">Self</span>
+                                    <?php else: ?>
+                                        <span class="badge success">Cliente</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
                                     <form class="inline-form" method="post" action="/personas_send_test.php">
                                         <input type="hidden" name="person_id" value="<?php echo (int)$person['id']; ?>">
                                         <button class="btn small" type="submit">Enviar</button>
@@ -212,73 +244,6 @@ enlil_page_header('Personas');
                 </table>
             </div>
         <?php endif; ?>
-
-        <div class="section-card">
-            <h2>Clientes (chat privado)</h2>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Avatar</th>
-                            <th>Nombre</th>
-                            <th>Estado</th>
-                            <th>Tipo</th>
-                            <th>Refrescar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($people as $person): ?>
-                            <?php
-                            $uid = (string)($person['telegram_user_id'] ?? '');
-                            $isConnected = !empty($businessStatus[$person['id']]);
-                            $isSelf = $businessOwnerId !== '' && $uid !== '' && $uid === $businessOwnerId;
-                            $username = ltrim($person['telegram_user'], '@');
-                            $avatarLocal = '';
-                            if (!empty($person['telegram_user_id'])) {
-                                $path = __DIR__ . '/data/avatars/' . $person['telegram_user_id'] . '.jpg';
-                                if (file_exists($path)) {
-                                    $avatarLocal = enlil_avatar_url($person['telegram_user_id']);
-                                }
-                            }
-                            $avatarUrl = $avatarLocal !== '' ? $avatarLocal : ($username !== '' ? 'https://t.me/i/userpic/320/' . rawurlencode($username) . '.jpg' : '');
-                            $initial = function_exists('mb_substr') ? mb_substr($person['name'], 0, 1) : substr($person['name'], 0, 1);
-                            ?>
-                            <tr>
-                                <td>
-                                    <span class="avatar-wrap small">
-                                        <span class="avatar small placeholder"><?php echo htmlspecialchars($initial); ?></span>
-                                        <?php if ($avatarUrl): ?>
-                                            <img class="avatar small avatar-img" src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="" onload="this.classList.add('loaded');" onerror="this.remove();">
-                                        <?php endif; ?>
-                                    </span>
-                                </td>
-                                <td><?php echo htmlspecialchars($person['name']); ?></td>
-                                <td>
-                                    <?php if ($isConnected): ?>
-                                        <span class="badge success">Conectado</span>
-                                    <?php else: ?>
-                                        <span class="badge">Desconectado</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <?php if ($isSelf): ?>
-                                        <span class="badge">Self</span>
-                                    <?php else: ?>
-                                        <span class="badge success">Cliente</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <form method="post" action="/customer_refresh.php" class="inline-form">
-                                        <input type="hidden" name="person_id" value="<?php echo (int)$person['id']; ?>">
-                                        <button class="btn small" type="submit">Refrescar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </main>
 <?php enlil_page_footer(); ?>
 <script>

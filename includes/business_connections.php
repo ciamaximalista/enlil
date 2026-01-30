@@ -82,3 +82,28 @@ function enlil_business_get(string $telegramUserId): ?array {
 
     return null;
 }
+
+function enlil_business_get_by_chat_id(string $chatId): ?array {
+    $path = enlil_business_xml_path();
+    if (!file_exists($path)) {
+        return null;
+    }
+
+    $xml = @simplexml_load_file($path);
+    if (!$xml) {
+        return null;
+    }
+
+    foreach ($xml->connection as $conn) {
+        if ((string)$conn->user_chat_id === $chatId) {
+            return [
+                'telegram_user_id' => (string)$conn->telegram_user_id,
+                'connection_id' => (string)$conn->connection_id,
+                'user_chat_id' => (string)$conn->user_chat_id,
+                'updated_at' => (string)$conn->updated_at,
+            ];
+        }
+    }
+
+    return null;
+}

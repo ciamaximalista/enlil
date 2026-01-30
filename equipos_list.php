@@ -4,11 +4,13 @@ require_once __DIR__ . '/includes/layout.php';
 require_once __DIR__ . '/includes/teams.php';
 require_once __DIR__ . '/includes/people.php';
 require_once __DIR__ . '/includes/avatars.php';
+require_once __DIR__ . '/includes/projects.php';
 
 enlil_require_login();
 enlil_start_session();
 $teams = enlil_teams_all();
 $people = enlil_people_all();
+$projects = enlil_projects_all();
 $peopleByTeam = [];
 foreach ($people as $person) {
     foreach ($person['team_ids'] as $teamId) {
@@ -16,6 +18,16 @@ foreach ($people as $person) {
             $peopleByTeam[$teamId] = [];
         }
         $peopleByTeam[$teamId][] = $person;
+    }
+}
+
+$projectsCountByTeam = [];
+foreach ($projects as $project) {
+    foreach ($project['team_ids'] as $teamId) {
+        if (!isset($projectsCountByTeam[$teamId])) {
+            $projectsCountByTeam[$teamId] = 0;
+        }
+        $projectsCountByTeam[$teamId]++;
     }
 }
 
@@ -56,6 +68,7 @@ enlil_page_header('Equipos');
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Proyectos</th>
                             <th>Personas</th>
                             <th>Mensaje de prueba</th>
                             <th>Editar</th>
@@ -65,6 +78,9 @@ enlil_page_header('Equipos');
                         <?php foreach ($teams as $team): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($team['name']); ?></td>
+                                <td>
+                                    <?php echo (int)($projectsCountByTeam[$team['id']] ?? 0); ?>
+                                </td>
                                 <td>
                                     <div class="avatar-group">
                                         <?php

@@ -5,6 +5,7 @@ require_once __DIR__ . '/includes/people.php';
 require_once __DIR__ . '/includes/telegram.php';
 require_once __DIR__ . '/includes/bot.php';
 require_once __DIR__ . '/includes/customers.php';
+require_once __DIR__ . '/includes/business_connections.php';
 require_once __DIR__ . '/includes/checklist_map.php';
 
 function enlil_format_date_es(string $date, array $monthsEs): string {
@@ -133,6 +134,53 @@ foreach ($people as $person) {
     ];
 }
 
+function enlil_objective_order(array $objectives): array {
+    $byId = [];
+    $deps = [];
+    foreach ($objectives as $obj) {
+        $id = (int)($obj['id'] ?? 0);
+        if (!$id) {
+            continue;
+        }
+        $byId[$id] = $obj;
+        $deps[$id] = array_values(array_filter(array_map('intval', $obj['depends_on'] ?? [])));
+    }
+    $memo = [];
+    $visiting = [];
+    $levelOf = function (int $id) use (&$levelOf, &$deps, &$memo, &$visiting): int {
+        if (isset($memo[$id])) {
+            return $memo[$id];
+        }
+        if (isset($visiting[$id])) {
+            return 0;
+        }
+        $visiting[$id] = true;
+        $level = 0;
+        foreach ($deps[$id] ?? [] as $depId) {
+            $level = max($level, $levelOf((int)$depId) + 1);
+        }
+        unset($visiting[$id]);
+        $memo[$id] = $level;
+        return $level;
+    };
+    $items = [];
+    foreach ($byId as $id => $obj) {
+        $items[] = [
+            'level' => $levelOf($id),
+            'objective' => $obj,
+        ];
+    }
+    usort($items, function ($a, $b) {
+        if ($a['level'] === $b['level']) {
+            return ($a['objective']['id'] ?? 0) <=> ($b['objective']['id'] ?? 0);
+        }
+        return $a['level'] <=> $b['level'];
+    });
+    return array_map(function ($item) {
+        return $item['objective'];
+    }, $items);
+}
+
 $todayTs = strtotime(date('Y-m-d'));
 $limitTs = strtotime('+15 days', $todayTs);
 $todayText = enlil_format_date_es(date('Y-m-d'), $monthsEs);
@@ -148,7 +196,8 @@ foreach ($projects as $project) {
     $lines[] = 'Hoy ' . enlil_escape_html($todayText) . ' en el proyecto <u><b>' . enlil_escape_html($projectFull['name']) . '</b></u>:';
     $overdueLines = [];
 
-    foreach ($projectFull['objectives'] as $objective) {
+    $orderedObjectives = enlil_objective_order($projectFull['objectives'] ?? []);
+    foreach ($orderedObjectives as $objective) {
         $tasks = $objective['tasks'] ?? [];
         if (!$tasks) {
             continue;
@@ -205,6 +254,7 @@ foreach ($projects as $project) {
             }
         }
 
+        $hasChainLines = false;
         foreach ($chainRoots as $rootTask) {
             $responsibles = $rootTask['responsible_ids'] ?? [];
             $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
@@ -229,17 +279,21 @@ foreach ($projects as $project) {
                 }
                 $depNamesText = $depNames ? implode(', ', $depNames) : 'Alguien';
                 $lines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' antes del ' . $taskDue . ' para que antes del ' . $depDue . ', ' . $depNamesText . ' pueda ' . enlil_escape_html($dependentTask['name'] ?? '') . '.';
+                $hasChainLines = true;
                 $mentionedTasks[$objectiveId][$rootTask['id']] = $rootTask;
                 $mentionedTasks[$objectiveId][$dependentTask['id']] = $dependentTask;
             } else {
                 $lines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' antes del ' . $taskDue . '.';
+                $hasChainLines = true;
                 $mentionedTasks[$objectiveId][$rootTask['id']] = $rootTask;
             }
         }
 
         $independent = $groups['independent'];
         if ($independent) {
-            $lines[] = 'Además:';
+            if ($hasChainLines) {
+                $lines[] = 'Además:';
+            }
             foreach ($independent as $task) {
                 $responsibles = $task['responsible_ids'] ?? [];
                 $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
@@ -251,12 +305,10 @@ foreach ($projects as $project) {
         }
     }
 
-    $lines[] = '';
-    $lines[] = '<b><span style="color:#ea2f28;">Tareas retrasadas</span></b>';
     if ($overdueLines) {
+        $lines[] = '';
+        $lines[] = '<b>Tareas retrasadas</b>';
         $lines = array_merge($lines, $overdueLines);
-    } else {
-        $lines[] = 'Sin tareas retrasadas.';
     }
 
     $lines[] = '';
@@ -284,8 +336,12 @@ foreach ($projects as $project) {
         enlil_telegram_post_json($token, 'sendMessage', $payload);
     }
 
-    $businessConnectionId = trim((string)enlil_bot_business_connection_id());
-    if ($businessConnectionId !== '') {
+    {
+        $botBusinessId = trim((string)enlil_bot_business_connection_id());
+        $botOwnerId = trim((string)enlil_bot_business_owner_user_id());
+        if ($botBusinessId === '') {
+            continue;
+        }
         $tasksByUser = [];
         foreach ($mentionedTasks as $objectiveId => $tasks) {
             foreach ($tasks as $task) {
@@ -306,16 +362,20 @@ foreach ($projects as $project) {
             if (!$info || $info['telegram_user_id'] === '') {
                 continue;
             }
+            if ($botOwnerId !== '' && $info['telegram_user_id'] !== '' && $info['telegram_user_id'] === $botOwnerId) {
+                continue;
+            }
             $customer = enlil_customer_get($info['telegram_user_id']);
-            if (!$customer || $customer['chat_id'] === '') {
+            $chatId = $customer['chat_id'] ?? '';
+            if ($chatId === '') {
                 continue;
             }
             foreach ($objectivesTasks as $objectiveId => $tasks) {
                 $objectiveName = '';
-                foreach ($projectFull['objectives'] as $obj) {
-                    if ((int)$obj['id'] === (int)$objectiveId) {
-                        $objectiveName = $obj['name'];
-                        break;
+            foreach ($orderedObjectives as $obj) {
+                if ((int)$obj['id'] === (int)$objectiveId) {
+                    $objectiveName = $obj['name'];
+                    break;
                     }
                 }
                 $checkTasks = [];
@@ -337,8 +397,8 @@ foreach ($projects as $project) {
                     continue;
                 }
                 $payload = [
-                    'business_connection_id' => $businessConnectionId,
-                    'chat_id' => $customer['chat_id'],
+                    'business_connection_id' => $botBusinessId,
+                    'chat_id' => $chatId,
                     'checklist' => [
                         'title' => $objectiveName,
                         'others_can_mark_tasks_as_done' => true,
@@ -357,7 +417,7 @@ foreach ($projects as $project) {
                         $taskIds = array_map(function ($t) {
                             return (int)$t['id'];
                         }, $checkTasks);
-                        enlil_checklist_map_add((string)$customer['chat_id'], $messageId, (int)$projectFull['id'], (int)$objectiveId, $taskIds);
+                        enlil_checklist_map_add((string)$chatId, $messageId, (int)$projectFull['id'], (int)$objectiveId, $taskIds);
                     }
                 }
             }

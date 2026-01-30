@@ -171,6 +171,52 @@ function enlil_projects_add(string $name, string $description, array $teamIds): 
     chmod($path, 0660);
 }
 
+function enlil_projects_delete(int $id): bool {
+    $path = enlil_projects_xml_path();
+    if (!file_exists($path)) {
+        return false;
+    }
+
+    $xml = @simplexml_load_file($path);
+    if (!$xml) {
+        throw new RuntimeException('No se pudo leer el XML de proyectos.');
+    }
+
+    $index = 0;
+    $deleted = false;
+    foreach ($xml->project as $project) {
+        if ((int)$project['id'] === $id) {
+            unset($xml->project[$index]);
+            $deleted = true;
+            break;
+        }
+        $index++;
+    }
+
+    if (!$deleted) {
+        return false;
+    }
+
+    $tempPath = $path . '.tmp';
+    $fp = fopen($tempPath, 'wb');
+    if (!$fp) {
+        throw new RuntimeException('No se pudo crear el XML temporal de proyectos.');
+    }
+    if (!flock($fp, LOCK_EX)) {
+        fclose($fp);
+        throw new RuntimeException('No se pudo bloquear el XML temporal de proyectos.');
+    }
+
+    fwrite($fp, $xml->asXML());
+    fflush($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+
+    rename($tempPath, $path);
+    chmod($path, 0660);
+    return true;
+}
+
 function enlil_projects_update(int $projectId, string $name, string $description, array $teamIds, array $objectives): void {
     $path = enlil_projects_xml_path();
     if (!file_exists($path)) {

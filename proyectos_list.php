@@ -21,6 +21,9 @@ $monthsEs = [
     12 => 'diciembre',
 ];
 $projects = enlil_projects_all();
+usort($projects, function ($a, $b) {
+    return strcasecmp($a['name'] ?? '', $b['name'] ?? '');
+});
 $teams = enlil_teams_all();
 $teamsById = [];
 foreach ($teams as $team) {
@@ -34,7 +37,7 @@ enlil_page_header('Proyectos');
 ?>
     <main class="container">
         <div class="page-header">
-            <h1>Proyectos</h1>
+            <h1>Proyectos (<?php echo count($projects); ?> en marcha)</h1>
             <a class="btn" href="/proyectos_create.php">Crear proyecto</a>
         </div>
 
@@ -63,6 +66,8 @@ enlil_page_header('Proyectos');
                             <th>Equipos</th>
                             <th>Creado</th>
                             <th>Tareas</th>
+                            <th>Editar</th>
+                            <th>Borrar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +75,13 @@ enlil_page_header('Proyectos');
                             <tr>
                                 <td><a class="link" href="/proyectos_view.php?id=<?php echo (int)$project['id']; ?>"><?php echo htmlspecialchars($project['name']); ?></a></td>
                                 <td><?php echo htmlspecialchars($project['description']); ?></td>
-                                <td>—</td>
+                                <td>
+                                    <?php
+                                    $projectFull = enlil_projects_get((int)$project['id']);
+                                    $countObjectives = $projectFull ? count($projectFull['objectives']) : 0;
+                                    echo (int)$countObjectives;
+                                    ?>
+                                </td>
                                 <td>
                                     <?php
                                     $names = [];
@@ -107,6 +118,15 @@ enlil_page_header('Proyectos');
                                         <button class="btn small" type="submit">Enviar</button>
                                     </form>
                                 </td>
+                                <td>
+                                    <a class="btn small secondary" href="/proyectos_edit.php?id=<?php echo (int)$project['id']; ?>">Editar</a>
+                                </td>
+                                <td>
+                                    <form class="inline-form" method="post" action="/proyectos_delete.php" data-confirm="¿Seguro que quieres borrar este proyecto?">
+                                        <input type="hidden" name="project_id" value="<?php echo (int)$project['id']; ?>">
+                                        <button class="btn small danger" type="submit">Borrar</button>
+                                    </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -115,3 +135,13 @@ enlil_page_header('Proyectos');
         <?php endif; ?>
     </main>
 <?php enlil_page_footer(); ?>
+<script>
+document.querySelectorAll('[data-confirm]').forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+        var msg = form.getAttribute('data-confirm') || '¿Confirmas esta acción?';
+        if (!confirm(msg)) {
+            event.preventDefault();
+        }
+    });
+});
+</script>

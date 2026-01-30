@@ -172,6 +172,11 @@ function enlil_bot_business_connection_id(): string {
     return (string)$info['business_connection_id'];
 }
 
+function enlil_bot_business_owner_user_id(): string {
+    $info = enlil_bot_get();
+    return (string)($info['business_owner_user_id'] ?? '');
+}
+
 function enlil_bot_avatar_url(): string {
     $info = enlil_bot_get();
     if ($info['avatar_file'] === '') {

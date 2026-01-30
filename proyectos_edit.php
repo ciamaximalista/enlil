@@ -4,6 +4,7 @@ require_once __DIR__ . '/includes/layout.php';
 require_once __DIR__ . '/includes/projects.php';
 require_once __DIR__ . '/includes/teams.php';
 require_once __DIR__ . '/includes/people.php';
+require_once __DIR__ . '/includes/avatars.php';
 
 enlil_require_login();
 
@@ -23,6 +24,34 @@ $peopleTeamMap = [];
 foreach ($people as $person) {
     $peopleTeamMap[$person['id']] = $person['team_ids'];
 }
+$peopleDisplay = [];
+foreach ($people as $person) {
+    $username = trim((string)($person['telegram_user'] ?? ''));
+    $initial = $person['name'] !== '' ? (function_exists('mb_substr') ? mb_substr($person['name'], 0, 1) : substr($person['name'], 0, 1)) : '?';
+    $avatarLocal = '';
+    if (!empty($person['telegram_user_id'])) {
+        $path = __DIR__ . '/data/avatars/' . $person['telegram_user_id'] . '.jpg';
+        if (file_exists($path)) {
+            $avatarLocal = enlil_avatar_url($person['telegram_user_id']);
+        }
+    }
+    $avatarUrl = $avatarLocal !== '' ? $avatarLocal : ($username !== '' ? 'https://t.me/i/userpic/320/' . rawurlencode(ltrim($username, '@')) . '.jpg' : '');
+    $peopleDisplay[] = [
+        'id' => (int)$person['id'],
+        'name' => $person['name'],
+        'team_ids' => array_values(array_filter(array_map('intval', $person['team_ids'] ?? []))),
+        'avatar_url' => $avatarUrl,
+        'initial' => $initial,
+    ];
+}
+$selectedTeams = $project['team_ids'] ?? [];
+$selectedTeams = array_values(array_filter(array_map('intval', $selectedTeams)));
+$peopleDisplayInProject = array_values(array_filter($peopleDisplay, function ($person) use ($selectedTeams) {
+    if (!$selectedTeams) {
+        return false;
+    }
+    return !empty(array_intersect($selectedTeams, $person['team_ids']));
+}));
 
 function enlil_task_groups(array $tasks): array {
     $byId = [];
@@ -378,16 +407,21 @@ enlil_page_header('Editar proyecto');
                                             <div class="task-people">
                                                 <span class="label">Responsables</span>
                                                 <div class="checkbox-grid">
-                                                    <?php foreach ($people as $person): ?>
+                                                    <?php foreach ($peopleDisplayInProject as $person): ?>
                                                         <?php
                                                         $checked = in_array((int)$person['id'], $task['responsible_ids'], true);
-                                                        $teamIds = $peopleTeamMap[$person['id']] ?? [];
-                                                        $teamIdsStr = implode(',', $teamIds);
-                                                        $inProject = $selectedTeams && array_intersect($selectedTeams, $teamIds);
+                                                        $teamIdsStr = implode(',', $person['team_ids']);
+                                                        $inProject = true;
                                                         ?>
-                                                        <label class="checkbox" data-team-ids="<?php echo htmlspecialchars($teamIdsStr); ?>" <?php echo $inProject ? '' : 'hidden'; ?>>
-                                                            <input type="checkbox" name="objectives[<?php echo $objId; ?>][tasks][<?php echo $taskId; ?>][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $checked ? 'checked' : ''; ?> <?php echo $inProject ? '' : 'disabled'; ?>>
+                                                        <label class="checkbox checkbox-person" data-team-ids="<?php echo htmlspecialchars($teamIdsStr); ?>">
+                                                            <span class="avatar-wrap small">
+                                                                <span class="avatar small placeholder"><?php echo htmlspecialchars($person['initial']); ?></span>
+                                                                <?php if ($person['avatar_url']): ?>
+                                                                    <img class="avatar small avatar-img" src="<?php echo htmlspecialchars($person['avatar_url']); ?>" alt="" onload="this.classList.add('loaded');" onerror="this.remove();">
+                                                                <?php endif; ?>
+                                                            </span>
                                                             <span><?php echo htmlspecialchars($person['name']); ?></span>
+                                                            <input type="checkbox" name="objectives[<?php echo $objId; ?>][tasks][<?php echo $taskId; ?>][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $checked ? 'checked' : ''; ?>>
                                                         </label>
                                                     <?php endforeach; ?>
                                                 </div>
@@ -431,16 +465,21 @@ enlil_page_header('Editar proyecto');
                                             <div class="task-people">
                                                 <span class="label">Responsables</span>
                                                 <div class="checkbox-grid">
-                                                    <?php foreach ($people as $person): ?>
+                                                    <?php foreach ($peopleDisplayInProject as $person): ?>
                                                         <?php
                                                         $checked = in_array((int)$person['id'], $task['responsible_ids'], true);
-                                                        $teamIds = $peopleTeamMap[$person['id']] ?? [];
-                                                        $teamIdsStr = implode(',', $teamIds);
-                                                        $inProject = $selectedTeams && array_intersect($selectedTeams, $teamIds);
+                                                        $teamIdsStr = implode(',', $person['team_ids']);
+                                                        $inProject = true;
                                                         ?>
-                                                        <label class="checkbox" data-team-ids="<?php echo htmlspecialchars($teamIdsStr); ?>" <?php echo $inProject ? '' : 'hidden'; ?>>
-                                                            <input type="checkbox" name="objectives[<?php echo $objId; ?>][tasks][<?php echo $taskId; ?>][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $checked ? 'checked' : ''; ?> <?php echo $inProject ? '' : 'disabled'; ?>>
+                                                        <label class="checkbox checkbox-person" data-team-ids="<?php echo htmlspecialchars($teamIdsStr); ?>">
+                                                            <span class="avatar-wrap small">
+                                                                <span class="avatar small placeholder"><?php echo htmlspecialchars($person['initial']); ?></span>
+                                                                <?php if ($person['avatar_url']): ?>
+                                                                    <img class="avatar small avatar-img" src="<?php echo htmlspecialchars($person['avatar_url']); ?>" alt="" onload="this.classList.add('loaded');" onerror="this.remove();">
+                                                                <?php endif; ?>
+                                                            </span>
                                                             <span><?php echo htmlspecialchars($person['name']); ?></span>
+                                                            <input type="checkbox" name="objectives[<?php echo $objId; ?>][tasks][<?php echo $taskId; ?>][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $checked ? 'checked' : ''; ?>>
                                                         </label>
                                                     <?php endforeach; ?>
                                                 </div>
@@ -591,15 +630,20 @@ function createTaskCard(oid) {
         <div class="task-people">
             <span class="label">Responsables</span>
             <div class="checkbox-grid">
-                <?php foreach ($people as $person): ?>
+                <?php foreach ($peopleDisplayInProject as $person): ?>
                     <?php
-                    $teamIds = $peopleTeamMap[$person['id']] ?? [];
-                    $teamIdsStr = implode(',', $teamIds);
-                    $inProject = $selectedTeams && array_intersect($selectedTeams, $teamIds);
+                    $teamIdsStr = implode(',', $person['team_ids']);
+                    $inProject = true;
                     ?>
-                    <label class="checkbox" data-team-ids="<?php echo htmlspecialchars($teamIdsStr); ?>" <?php echo $inProject ? '' : 'hidden'; ?>>
-                        <input type="checkbox" name="objectives[${oid}][tasks][${tid}][responsible_ids][]" value="<?php echo (int)$person['id']; ?>" <?php echo $inProject ? '' : 'disabled'; ?>>
+                    <label class="checkbox checkbox-person" data-team-ids="<?php echo htmlspecialchars($teamIdsStr); ?>">
+                        <span class="avatar-wrap small">
+                            <span class="avatar small placeholder"><?php echo htmlspecialchars($person['initial']); ?></span>
+                            <?php if ($person['avatar_url']): ?>
+                                <img class="avatar small avatar-img" src="<?php echo htmlspecialchars($person['avatar_url']); ?>" alt="" onload="this.classList.add('loaded');" onerror="this.remove();">
+                            <?php endif; ?>
+                        </span>
                         <span><?php echo htmlspecialchars($person['name']); ?></span>
+                        <input type="checkbox" name="objectives[${oid}][tasks][${tid}][responsible_ids][]" value="<?php echo (int)$person['id']; ?>">
                     </label>
                 <?php endforeach; ?>
             </div>
@@ -659,28 +703,7 @@ objectivesList.addEventListener('input', (e) => {
     }
 });
 
-function updateResponsibleVisibility() {
-    const selected = Array.from(document.querySelectorAll('input[name="team_ids[]"]:checked')).map(input => input.value);
-    document.querySelectorAll('.task-people .checkbox').forEach(label => {
-        const ids = (label.dataset.teamIds || '').split(',').filter(Boolean);
-        const show = selected.length > 0 && ids.some(id => selected.includes(id));
-        const input = label.querySelector('input[type="checkbox"]');
-        label.hidden = !show;
-        if (input) {
-            input.disabled = !show;
-            if (!show) {
-                input.checked = false;
-            }
-        }
-    });
-}
-
-document.querySelectorAll('input[name="team_ids[]"]').forEach(input => {
-    input.addEventListener('change', updateResponsibleVisibility);
-});
-
 // initial refresh to ensure selects are populated if empty
 refreshObjectiveDepends();
 objectivesList.querySelectorAll('.objective-card').forEach(card => refreshTaskDepends(card));
-updateResponsibleVisibility();
 </script>
