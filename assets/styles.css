@@ -852,4 +852,8 @@ legend {
         flex-wrap: wrap;
         gap: 12px;
     }
+
+    .calendar-list-grid {
+        grid-template-columns: 1fr;
+    }
 }
