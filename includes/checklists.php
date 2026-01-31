@@ -32,6 +32,7 @@ function enlil_checklist_add(array $event): void {
     $node->addChild('message_id', (string)($event['message_id'] ?? ''));
     $node->addChild('done_ids', (string)($event['done_ids'] ?? ''));
     $node->addChild('not_done_ids', (string)($event['not_done_ids'] ?? ''));
+    $node->addChild('done_state_ids', (string)($event['done_state_ids'] ?? ''));
 
     $tempPath = $path . '.tmp';
     $fp = fopen($tempPath, 'wb');
@@ -75,9 +76,38 @@ function enlil_checklist_recent(int $limit = 10): array {
             'message_id' => (string)$event->message_id,
             'done_ids' => (string)$event->done_ids,
             'not_done_ids' => (string)$event->not_done_ids,
+            'done_state_ids' => (string)($event->done_state_ids ?? ''),
         ];
     }
 
     $events = array_reverse($events);
     return array_slice($events, 0, $limit);
+}
+
+function enlil_checklist_last_done_state(string $chatId, string $messageId): array {
+    $path = enlil_checklist_xml_path();
+    if (!file_exists($path)) {
+        return [];
+    }
+    $xml = @simplexml_load_file($path);
+    if (!$xml) {
+        return [];
+    }
+    $last = '';
+    foreach ($xml->event as $event) {
+        if ((string)$event->chat_id === $chatId && (string)$event->message_id === $messageId) {
+            $last = (string)($event->done_state_ids ?? '');
+        }
+    }
+    if ($last === '') {
+        return [];
+    }
+    $parts = array_filter(array_map('trim', explode(',', $last)));
+    $ids = [];
+    foreach ($parts as $part) {
+        if (ctype_digit($part)) {
+            $ids[] = (int)$part;
+        }
+    }
+    return $ids;
 }

@@ -5,6 +5,8 @@ require_once __DIR__ . '/includes/people.php';
 require_once __DIR__ . '/includes/teams.php';
 require_once __DIR__ . '/includes/avatars.php';
 require_once __DIR__ . '/includes/checklists.php';
+require_once __DIR__ . '/includes/checklist_map.php';
+require_once __DIR__ . '/includes/projects.php';
 require_once __DIR__ . '/includes/business_connections.php';
 require_once __DIR__ . '/includes/customers.php';
 
@@ -50,6 +52,57 @@ $flashError = $_SESSION['flash_error'] ?? '';
 unset($_SESSION['flash_success'], $_SESSION['flash_error']);
 
 enlil_page_header('Personas');
+
+function enlil_find_task_name_by_id(int $projectId, int $objectiveId, int $taskId): string {
+    if ($taskId <= 0) {
+        return '';
+    }
+    $projects = [];
+    if ($projectId > 0) {
+        $proj = enlil_projects_get($projectId);
+        if ($proj) {
+            $projects[] = $proj;
+        }
+    } else {
+        $projects = enlil_projects_all();
+        $projects = array_filter(array_map(function ($p) {
+            return enlil_projects_get((int)$p['id']);
+        }, $projects));
+    }
+    foreach ($projects as $proj) {
+        foreach ($proj['objectives'] ?? [] as $objective) {
+            if ($objectiveId > 0 && (int)$objective['id'] !== $objectiveId) {
+                continue;
+            }
+            foreach ($objective['tasks'] ?? [] as $task) {
+                if ((int)$task['id'] === $taskId) {
+                    return (string)($task['name'] ?? '');
+                }
+            }
+        }
+    }
+    return '';
+}
+
+function enlil_format_datetime_es(string $iso): string {
+    if ($iso === '') {
+        return '';
+    }
+    try {
+        $dt = new DateTime($iso);
+    } catch (Exception $e) {
+        return $iso;
+    }
+    $months = [
+        1 => 'enero', 2 => 'febrero', 3 => 'marzo', 4 => 'abril', 5 => 'mayo', 6 => 'junio',
+        7 => 'julio', 8 => 'agosto', 9 => 'septiembre', 10 => 'octubre', 11 => 'noviembre', 12 => 'diciembre',
+    ];
+    $day = (int)$dt->format('j');
+    $monthNum = (int)$dt->format('n');
+    $monthName = $months[$monthNum] ?? $dt->format('m');
+    $time = $dt->format('H:i');
+    return 'el ' . $day . ' de ' . $monthName . ' a las ' . $time . ' horas';
+}
 ?>
     <main class="container">
                 <div class="page-header">
@@ -87,22 +140,41 @@ enlil_page_header('Personas');
                             }
                         }
                         $doneIds = $event['done_ids'] !== '' ? explode(',', $event['done_ids']) : [];
+                        $notDoneIds = $event['not_done_ids'] !== '' ? explode(',', $event['not_done_ids']) : [];
+                        $map = null;
+                        if (!empty($event['chat_id']) && !empty($event['message_id'])) {
+                            $map = enlil_checklist_map_get((string)$event['chat_id'], (string)$event['message_id']);
+                        }
+                        $mapProjectId = $map ? (int)$map['project_id'] : 0;
+                        $mapObjectiveId = $map ? (int)$map['objective_id'] : 0;
                         $doneNames = [];
                         foreach ($doneIds as $id) {
-                            $id = trim($id);
-                            if ($id === '1') {
-                                $doneNames[] = 'Tarea de prueba 1';
-                            } elseif ($id === '2') {
-                                $doneNames[] = 'Tarea de Prueba 2';
+                            $id = (int)trim($id);
+                            if ($id <= 0) {
+                                continue;
                             }
+                            $name = enlil_find_task_name_by_id($mapProjectId, $mapObjectiveId, $id);
+                            $doneNames[] = $name !== '' ? $name : ('Tarea #' . $id);
                         }
                         $done = $doneNames ? implode(', ', $doneNames) : '—';
-                        $teamName = $event['team_id'] !== '' && isset($teamsById[(int)$event['team_id']]) ? $teamsById[(int)$event['team_id']]['name'] : 'chat privado';
+                        $notDoneNames = [];
+                        foreach ($notDoneIds as $id) {
+                            $id = (int)trim($id);
+                            if ($id <= 0) {
+                                continue;
+                            }
+                            $name = enlil_find_task_name_by_id($mapProjectId, $mapObjectiveId, $id);
+                            $notDoneNames[] = $name !== '' ? $name : ('Tarea #' . $id);
+                        }
+                        $notDone = $notDoneNames ? implode(', ', $notDoneNames) : '—';
+                        $actionText = $doneNames ? 'marcó como realizado' : ($notDoneNames ? 'marcó como pendiente' : 'actualizó');
+                        $taskText = $doneNames ? $done : ($notDoneNames ? $notDone : '—');
+                        $whenText = enlil_format_datetime_es((string)$event['created_at']);
                         ?>
                         <li>
                             <strong><?php echo htmlspecialchars($personName !== '' ? $personName : '@' . $event['telegram_user']); ?></strong>
-                            marcó como realizado <?php echo htmlspecialchars($done); ?> en <em><?php echo htmlspecialchars($teamName); ?></em>
-                            <span class="mono"><?php echo htmlspecialchars($event['created_at']); ?></span>
+                            <?php echo htmlspecialchars($actionText); ?> <?php echo htmlspecialchars($taskText); ?>
+                            <span class="mono"><?php echo htmlspecialchars($whenText !== '' ? $whenText : $event['created_at']); ?></span>
                         </li>
                     <?php endforeach; ?>
                 </ul>

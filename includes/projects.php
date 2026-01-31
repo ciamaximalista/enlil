@@ -376,3 +376,41 @@ function enlil_projects_mark_task_done(int $projectId, int $objectiveId, int $ta
     chmod($path, 0660);
     return true;
 }
+
+function enlil_projects_mark_task_pending(int $projectId, int $objectiveId, int $taskId): bool {
+    $path = enlil_projects_xml_path();
+    if (!file_exists($path)) {
+        return false;
+    }
+    $xml = simplexml_load_file($path);
+    if (!$xml) {
+        return false;
+    }
+    foreach ($xml->project as $project) {
+        if ($projectId !== 0 && (int)$project['id'] !== $projectId) {
+            continue;
+        }
+        if (!isset($project->objectives)) {
+            continue;
+        }
+        foreach ($project->objectives->objective as $objective) {
+            if ($objectiveId !== 0 && (int)$objective['id'] !== $objectiveId) {
+                continue;
+            }
+            if (!isset($objective->tasks)) {
+                continue;
+            }
+            foreach ($objective->tasks->task as $task) {
+                if ((int)$task['id'] !== $taskId) {
+                    continue;
+                }
+                $task->status = 'pending';
+                if (isset($task->completed_at)) {
+                    $task->completed_at = '';
+                }
+                return enlil_projects_save_xml($xml);
+            }
+        }
+    }
+    return false;
+}
