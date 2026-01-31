@@ -7,10 +7,21 @@ Sistema de organización de proyectos (PHP + XML + JS) con administración únic
 - Registro y login de un único usuario administrador.
 - Equipos y personas con integración Telegram (grupos, bot, checklists).
 - Proyectos con objetivos y tareas (dependencias, responsables, estado).
-- Vista de proyecto con organigrama de objetivos y dependencias.
+- Objetivos y tareas con organización por líneas de dependencias (matriz visual).
+- Vista de proyecto con organigrama de objetivos y tareas por niveles.
+- Edición de objetivos en vistas individuales con tareas y responsables.
 - Calendarios por proyecto y por persona (vista semanal/mensual).
-- Envío de mensajes y checklists con tareas pendientes (horizonte 15 días).
+- Comparador de calendarios entre personas seleccionadas.
+- Envío de mensajes a grupos con tareas pendientes (horizonte 15 días).
+- Envío de checklists individuales por objetivo a responsables.
+- Seguimiento de tareas completadas desde Telegram (se marca en XML).
 - Automatización diaria de envíos a las 07:00.
+- Sección de “Tareas retrasadas” cuando corresponde.
+- Vistas públicas con token temporal (10 min) para bot:
+  - Mapas de objetivos.
+  - Calendario personal.
+  - Calendario de proyectos vinculados.
+- Bot con menú de comandos en chat privado (/start, /menu, /help).
 
 ## Requisitos
 - PHP 8+ (sin base de datos: se usa XML).
@@ -30,6 +41,7 @@ Sistema de organización de proyectos (PHP + XML + JS) con administración únic
 - Añade el bot como administrador en los grupos de cada equipo.
 - Activa el webhook desde el Panel (“Activar webhook”).
 - Para checklists de Telegram Business: conecta el bot en Telegram Business y asegúrate de que los usuarios inicien chat privado con el bot.
+- Cada persona debe habilitar la conexión Business con el bot para recibir checklists.
 
 ## Cron diario (07:00)
 El envío diario se ejecuta con:
@@ -47,6 +59,7 @@ Ejemplo de crontab:
 - `data/` XML y logs (no se versiona).
 - `proyectos_send_daily.php` envío diario automatizado.
 - `telegram_webhook.php` recepción de eventos (checklists, business, etc).
+- `public_*.php` vistas públicas con token temporal para bot.
 
 ## Licencia
 Licencia Pública de la Unión Europea **EUPL v1.2** (equivalente a una GPL3).  
