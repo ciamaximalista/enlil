@@ -216,7 +216,7 @@ if ($token === '') {
 
         if (!$tasksByObjective) {
             $failed++;
-            $failDetails[] = 'No hay tareas pendientes para este usuario en los próximos 15 días.';
+            $failDetails[] = 'No hay tareas pendientes para este usuario.';
         } else {
             $userErrorAdded = false;
             foreach ($tasksByObjective as $objectiveId => $tasks) {

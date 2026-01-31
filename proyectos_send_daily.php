@@ -181,8 +181,8 @@ function enlil_objective_order(array $objectives): array {
     }, $items);
 }
 
-$todayTs = strtotime(date('Y-m-d'));
-$limitTs = strtotime('+15 days', $todayTs);
+    $todayTs = strtotime(date('Y-m-d'));
+    $limitTs = strtotime('+15 days', $todayTs);
 $todayText = enlil_format_date_es(date('Y-m-d'), $monthsEs);
 
 foreach ($projects as $project) {
@@ -195,6 +195,7 @@ foreach ($projects as $project) {
     $mentionedTasks = [];
     $lines[] = 'Hoy ' . enlil_escape_html($todayText) . ' en el proyecto <u><b>' . enlil_escape_html($projectFull['name']) . '</b></u>:';
     $overdueLines = [];
+    $hasGroupContent = false;
 
     $orderedObjectives = enlil_objective_order($projectFull['objectives'] ?? []);
     foreach ($orderedObjectives as $objective) {
@@ -240,6 +241,7 @@ foreach ($projects as $project) {
 
         $lines[] = '';
         $lines[] = '<b>' . enlil_escape_html($objective['name']) . '</b>:';
+        $hasGroupContent = true;
         $objectiveId = (int)$objective['id'];
 
         $groups = enlil_task_groups($pending);
@@ -309,10 +311,15 @@ foreach ($projects as $project) {
         $lines[] = '';
         $lines[] = '<b>Tareas retrasadas</b>';
         $lines = array_merge($lines, $overdueLines);
+        $hasGroupContent = true;
     }
 
     $lines[] = '';
     $lines[] = '¡Buen trabajo y tened cuidado ahí fuera!';
+
+    if (!$hasGroupContent) {
+        continue;
+    }
 
     $message = implode("\n", $lines);
 

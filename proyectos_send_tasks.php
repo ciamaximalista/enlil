@@ -208,6 +208,7 @@ $lines = [];
 $mentionedTasks = [];
 $lines[] = 'Hoy ' . enlil_escape_html($todayText) . ' en el proyecto <u><b>' . enlil_escape_html($project['name']) . '</b></u>:';
 $overdueLines = [];
+$hasGroupContent = false;
 
 $orderedObjectives = enlil_objective_order($project['objectives'] ?? []);
 foreach ($orderedObjectives as $objective) {
@@ -253,6 +254,7 @@ foreach ($orderedObjectives as $objective) {
 
     $lines[] = '';
     $lines[] = '<b>' . enlil_escape_html($objective['name']) . '</b>:';
+    $hasGroupContent = true;
     $objectiveId = (int)$objective['id'];
 
     $groups = enlil_task_groups($pending);
@@ -325,12 +327,19 @@ if ($overdueLines) {
     $lines[] = '';
     $lines[] = '<b>Tareas retrasadas</b>';
     $lines = array_merge($lines, $overdueLines);
+    $hasGroupContent = true;
 }
 
 $lines[] = '';
 $lines[] = '¡Buen trabajo y tened cuidado ahí fuera!';
 
 $message = implode("\n", $lines);
+
+if (!$hasGroupContent) {
+    $_SESSION['flash_error'] = 'No hay tareas pendientes ni retrasadas en este proyecto.';
+    header('Location: /proyectos_list.php');
+    exit;
+}
 
 $targets = [];
 foreach ($project['team_ids'] as $teamId) {
