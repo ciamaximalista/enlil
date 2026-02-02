@@ -212,8 +212,12 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
             }
         }
     }
+    $eventCreatedAt = date('c');
+    if (isset($checkMessage['date']) && is_numeric($checkMessage['date'])) {
+        $eventCreatedAt = date('c', (int)$checkMessage['date']);
+    }
     $event = [
-        'created_at' => date('c'),
+        'created_at' => $eventCreatedAt,
         'person_id' => $personId,
         'telegram_user' => $tgUsername,
         'telegram_user_id' => $tgUserId,
@@ -224,45 +228,103 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
         'not_done_ids' => $notDoneIds ? implode(',', $notDoneIds) : '',
         'done_state_ids' => $doneStateIds ? implode(',', $doneStateIds) : '',
     ];
-    enlil_checklist_add($event);
 
     $map = enlil_checklist_map_get((string)$chatId, $msgId);
-    if ($map && !empty($map['task_ids'])) {
-        foreach ($doneIds as $doneId) {
-            $doneId = (int)$doneId;
-            if ($doneId === 0) {
-                continue;
-            }
-            if (!in_array($doneId, $map['task_ids'], true)) {
-                continue;
-            }
-            enlil_projects_mark_task_done((int)$map['project_id'], (int)$map['objective_id'], $doneId, date('c'));
+    $mapMissing = !($map && !empty($map['task_ids']));
+
+    $decodedUsed = false;
+    foreach ($doneIds as $doneId) {
+        $doneId = (int)$doneId;
+        if ($doneId === 0) {
+            continue;
         }
-        foreach ($notDoneIds as $notDoneId) {
-            $notDoneId = (int)$notDoneId;
-            if ($notDoneId === 0) {
-                continue;
+        [$decodedProjectId, $decodedTaskId] = enlil_checklist_decode_task_id($doneId);
+        if ($decodedProjectId > 0 && $decodedTaskId > 0) {
+            $decodedUsed = true;
+            $updated = enlil_projects_mark_task_by_id_in_project($decodedProjectId, $decodedTaskId, 'done', date('c'));
+            if ($updated === 0) {
+                enlil_projects_mark_task_by_id_for_person($decodedTaskId, (int)$personId, 'done', date('c'));
             }
-            if (!in_array($notDoneId, $map['task_ids'], true)) {
-                continue;
+        }
+    }
+    foreach ($notDoneIds as $notDoneId) {
+        $notDoneId = (int)$notDoneId;
+        if ($notDoneId === 0) {
+            continue;
+        }
+        [$decodedProjectId, $decodedTaskId] = enlil_checklist_decode_task_id($notDoneId);
+        if ($decodedProjectId > 0 && $decodedTaskId > 0) {
+            $decodedUsed = true;
+            $updated = enlil_projects_mark_task_by_id_in_project($decodedProjectId, $decodedTaskId, 'pending', '');
+            if ($updated === 0) {
+                enlil_projects_mark_task_by_id_for_person($decodedTaskId, (int)$personId, 'pending', '');
             }
-            enlil_projects_mark_task_pending((int)$map['project_id'], (int)$map['objective_id'], $notDoneId);
+        }
+    }
+
+    if (!$decodedUsed) {
+        if ($mapMissing) {
+            $event['map_missing'] = '1';
+            enlil_checklist_add($event);
+            http_response_code(200);
+            echo 'OK';
+            exit;
+        }
+
+        enlil_checklist_add($event);
+
+        if ($map && !empty($map['task_ids'])) {
+            $mapObjectiveId = (int)($map['objective_id'] ?? 0);
+            $taskMeta = isset($map['task_meta']) && is_array($map['task_meta']) ? $map['task_meta'] : [];
+            foreach ($doneIds as $doneId) {
+                $doneId = (int)$doneId;
+                if ($doneId === 0) {
+                    continue;
+                }
+                if (!in_array($doneId, $map['task_ids'], true)) {
+                    continue;
+                }
+                $meta = $taskMeta[$doneId] ?? null;
+                if ($meta && (int)($meta['task_id'] ?? 0) > 0) {
+                    $realTaskId = (int)$meta['task_id'];
+                    $realObjectiveId = (int)($meta['objective_id'] ?? 0);
+                    if ($realObjectiveId > 0) {
+                        enlil_projects_mark_task_done((int)$map['project_id'], $realObjectiveId, $realTaskId, date('c'));
+                    } else {
+                        enlil_projects_mark_task_by_id_in_project((int)$map['project_id'], $realTaskId, 'done', date('c'));
+                    }
+                } elseif ($mapObjectiveId > 0) {
+                    enlil_projects_mark_task_done((int)$map['project_id'], $mapObjectiveId, $doneId, date('c'));
+                } else {
+                    enlil_projects_mark_task_by_id_in_project((int)$map['project_id'], $doneId, 'done', date('c'));
+                }
+            }
+            foreach ($notDoneIds as $notDoneId) {
+                $notDoneId = (int)$notDoneId;
+                if ($notDoneId === 0) {
+                    continue;
+                }
+                if (!in_array($notDoneId, $map['task_ids'], true)) {
+                    continue;
+                }
+                $meta = $taskMeta[$notDoneId] ?? null;
+                if ($meta && (int)($meta['task_id'] ?? 0) > 0) {
+                    $realTaskId = (int)$meta['task_id'];
+                    $realObjectiveId = (int)($meta['objective_id'] ?? 0);
+                    if ($realObjectiveId > 0) {
+                        enlil_projects_mark_task_pending((int)$map['project_id'], $realObjectiveId, $realTaskId);
+                    } else {
+                        enlil_projects_mark_task_by_id_in_project((int)$map['project_id'], $realTaskId, 'pending', '');
+                    }
+                } elseif ($mapObjectiveId > 0) {
+                    enlil_projects_mark_task_pending((int)$map['project_id'], $mapObjectiveId, $notDoneId);
+                } else {
+                    enlil_projects_mark_task_by_id_in_project((int)$map['project_id'], $notDoneId, 'pending', '');
+                }
+            }
         }
     } else {
-        foreach ($doneIds as $doneId) {
-            $doneId = (int)$doneId;
-            if ($doneId === 0) {
-                continue;
-            }
-            enlil_projects_mark_task_done(0, 0, $doneId, date('c'));
-        }
-        foreach ($notDoneIds as $notDoneId) {
-            $notDoneId = (int)$notDoneId;
-            if ($notDoneId === 0) {
-                continue;
-            }
-            enlil_projects_mark_task_pending(0, 0, $notDoneId);
-        }
+        enlil_checklist_add($event);
     }
     http_response_code(200);
     echo 'OK';

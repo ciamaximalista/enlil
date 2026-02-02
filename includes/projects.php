@@ -6,6 +6,29 @@ function enlil_projects_xml_path(): string {
     return $config['projects_xml'];
 }
 
+function enlil_projects_save_xml(SimpleXMLElement $xml): void {
+    $path = enlil_projects_xml_path();
+    $dataDir = dirname($path);
+    if (!is_dir($dataDir)) {
+        mkdir($dataDir, 0770, true);
+    }
+    $tempPath = $path . '.tmp';
+    $fp = fopen($tempPath, 'wb');
+    if (!$fp) {
+        throw new RuntimeException('No se pudo crear el XML temporal de proyectos.');
+    }
+    if (!flock($fp, LOCK_EX)) {
+        fclose($fp);
+        throw new RuntimeException('No se pudo bloquear el XML temporal de proyectos.');
+    }
+    fwrite($fp, $xml->asXML());
+    fflush($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    rename($tempPath, $path);
+    chmod($path, 0660);
+}
+
 function enlil_projects_all(): array {
     $path = enlil_projects_xml_path();
     if (!file_exists($path)) {
@@ -413,4 +436,105 @@ function enlil_projects_mark_task_pending(int $projectId, int $objectiveId, int 
         }
     }
     return false;
+}
+
+function enlil_projects_mark_task_by_id_for_person(int $taskId, int $personId, string $status, string $completedAt = ''): int {
+    if ($taskId <= 0) {
+        return 0;
+    }
+    $path = enlil_projects_xml_path();
+    if (!file_exists($path)) {
+        return 0;
+    }
+    $xml = simplexml_load_file($path);
+    if (!$xml) {
+        return 0;
+    }
+    $updated = 0;
+    foreach ($xml->project as $project) {
+        if (!isset($project->objectives)) {
+            continue;
+        }
+        foreach ($project->objectives->objective as $objective) {
+            if (!isset($objective->tasks)) {
+                continue;
+            }
+            foreach ($objective->tasks->task as $task) {
+                if ((int)$task['id'] !== $taskId) {
+                    continue;
+                }
+                if ($personId > 0) {
+                    $responsibles = [];
+                    if (isset($task->responsibles)) {
+                        foreach ($task->responsibles->person_id as $pid) {
+                            $responsibles[] = (int)$pid;
+                        }
+                    }
+                    if ($responsibles && !in_array($personId, $responsibles, true)) {
+                        continue;
+                    }
+                }
+                $task->status = $status;
+                if ($status === 'done') {
+                    if (!isset($task->completed_at) || (string)$task->completed_at === '') {
+                        $task->addChild('completed_at', $completedAt !== '' ? $completedAt : date('c'));
+                    }
+                } else {
+                    if (isset($task->completed_at)) {
+                        $task->completed_at = '';
+                    }
+                }
+                $updated++;
+            }
+        }
+    }
+    if ($updated > 0) {
+        enlil_projects_save_xml($xml);
+    }
+    return $updated;
+}
+
+function enlil_projects_mark_task_by_id_in_project(int $projectId, int $taskId, string $status, string $completedAt = ''): int {
+    if ($projectId <= 0 || $taskId <= 0) {
+        return 0;
+    }
+    $path = enlil_projects_xml_path();
+    if (!file_exists($path)) {
+        return 0;
+    }
+    $xml = simplexml_load_file($path);
+    if (!$xml) {
+        return 0;
+    }
+    $updated = 0;
+    foreach ($xml->project as $project) {
+        if ((int)$project['id'] !== $projectId) {
+            continue;
+        }
+        foreach ($project->objectives->objective as $objective) {
+            if (!isset($objective->tasks)) {
+                continue;
+            }
+            foreach ($objective->tasks->task as $task) {
+                if ((int)$task['id'] !== $taskId) {
+                    continue;
+                }
+                $task->status = $status;
+                if ($status === 'done') {
+                    if (!isset($task->completed_at) || (string)$task->completed_at === '') {
+                        $task->addChild('completed_at', $completedAt !== '' ? $completedAt : date('c'));
+                    }
+                } else {
+                    if (isset($task->completed_at)) {
+                        $task->completed_at = '';
+                    }
+                }
+                $updated++;
+            }
+        }
+    }
+    if ($updated > 0) {
+        enlil_projects_save_xml($xml);
+    }
+    return $updated;
 }

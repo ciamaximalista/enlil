@@ -6,6 +6,7 @@ require_once __DIR__ . '/includes/teams.php';
 require_once __DIR__ . '/includes/avatars.php';
 require_once __DIR__ . '/includes/checklists.php';
 require_once __DIR__ . '/includes/checklist_map.php';
+require_once __DIR__ . '/includes/telegram.php';
 require_once __DIR__ . '/includes/projects.php';
 require_once __DIR__ . '/includes/business_connections.php';
 require_once __DIR__ . '/includes/customers.php';
@@ -84,12 +85,39 @@ function enlil_find_task_name_by_id(int $projectId, int $objectiveId, int $taskI
     return '';
 }
 
+function enlil_find_task_name_by_id_for_person(int $personId, int $taskId): string {
+    if ($personId <= 0 || $taskId <= 0) {
+        return '';
+    }
+    $projects = enlil_projects_all();
+    foreach ($projects as $proj) {
+        $full = enlil_projects_get((int)$proj['id']);
+        if (!$full) {
+            continue;
+        }
+        foreach ($full['objectives'] ?? [] as $objective) {
+            foreach ($objective['tasks'] ?? [] as $task) {
+                if ((int)$task['id'] !== $taskId) {
+                    continue;
+                }
+                if (!in_array($personId, $task['responsible_ids'] ?? [], true)) {
+                    continue;
+                }
+                return (string)($task['name'] ?? '');
+            }
+        }
+    }
+    return '';
+}
+
 function enlil_format_datetime_es(string $iso): string {
     if ($iso === '') {
         return '';
     }
     try {
         $dt = new DateTime($iso);
+        $tz = new DateTimeZone('Europe/Madrid');
+        $dt->setTimezone($tz);
     } catch (Exception $e) {
         return $iso;
     }
@@ -145,16 +173,37 @@ function enlil_format_datetime_es(string $iso): string {
                         if (!empty($event['chat_id']) && !empty($event['message_id'])) {
                             $map = enlil_checklist_map_get((string)$event['chat_id'], (string)$event['message_id']);
                         }
+                        $mapMissing = ($event['map_missing'] ?? '') === '1';
                         $mapProjectId = $map ? (int)$map['project_id'] : 0;
                         $mapObjectiveId = $map ? (int)$map['objective_id'] : 0;
+                        $mapTaskMeta = $map && isset($map['task_meta']) && is_array($map['task_meta']) ? $map['task_meta'] : [];
+                        $personIdEvent = (int)($event['person_id'] ?? 0);
                         $doneNames = [];
                         foreach ($doneIds as $id) {
                             $id = (int)trim($id);
                             if ($id <= 0) {
                                 continue;
                             }
-                            $name = enlil_find_task_name_by_id($mapProjectId, $mapObjectiveId, $id);
-                            $doneNames[] = $name !== '' ? $name : ('Tarea #' . $id);
+                            [$decodedProjectId, $decodedTaskId] = enlil_checklist_decode_task_id($id);
+                            if ($decodedProjectId > 0 && $decodedTaskId > 0) {
+                                $name = enlil_find_task_name_by_id($decodedProjectId, 0, $decodedTaskId);
+                                $doneNames[] = $name !== '' ? $name : ('Tarea #' . $decodedTaskId);
+                                continue;
+                            }
+                            $meta = !empty($event['chat_id']) ? enlil_checklist_map_find_task_meta((string)$event['chat_id'], $id) : null;
+                            if ($meta && ($meta['name'] ?? '') !== '') {
+                                $doneNames[] = (string)$meta['name'];
+                                continue;
+                            }
+                            $name = $mapTaskMeta[$id]['name'] ?? '';
+                            if ($name === '') {
+                                $name = enlil_find_task_name_by_id($mapProjectId, $mapObjectiveId, $id);
+                            }
+                            if ($name === '') {
+                                $doneNames[] = 'Tarea #' . $id;
+                                continue;
+                            }
+                            $doneNames[] = $name;
                         }
                         $done = $doneNames ? implode(', ', $doneNames) : '—';
                         $notDoneNames = [];
@@ -163,12 +212,34 @@ function enlil_format_datetime_es(string $iso): string {
                             if ($id <= 0) {
                                 continue;
                             }
-                            $name = enlil_find_task_name_by_id($mapProjectId, $mapObjectiveId, $id);
-                            $notDoneNames[] = $name !== '' ? $name : ('Tarea #' . $id);
+                            [$decodedProjectId, $decodedTaskId] = enlil_checklist_decode_task_id($id);
+                            if ($decodedProjectId > 0 && $decodedTaskId > 0) {
+                                $name = enlil_find_task_name_by_id($decodedProjectId, 0, $decodedTaskId);
+                                $notDoneNames[] = $name !== '' ? $name : ('Tarea #' . $decodedTaskId);
+                                continue;
+                            }
+                            $meta = !empty($event['chat_id']) ? enlil_checklist_map_find_task_meta((string)$event['chat_id'], $id) : null;
+                            if ($meta && ($meta['name'] ?? '') !== '') {
+                                $notDoneNames[] = (string)$meta['name'];
+                                continue;
+                            }
+                            $name = $mapTaskMeta[$id]['name'] ?? '';
+                            if ($name === '') {
+                                $name = enlil_find_task_name_by_id($mapProjectId, $mapObjectiveId, $id);
+                            }
+                            if ($name === '') {
+                                $notDoneNames[] = 'Tarea #' . $id;
+                                continue;
+                            }
+                            $notDoneNames[] = $name;
                         }
                         $notDone = $notDoneNames ? implode(', ', $notDoneNames) : '—';
                         $actionText = $doneNames ? 'marcó como realizado' : ($notDoneNames ? 'marcó como pendiente' : 'actualizó');
                         $taskText = $doneNames ? $done : ($notDoneNames ? $notDone : '—');
+                        if ($mapMissing) {
+                            $actionText = 'actualizó una tarea antigua';
+                            $taskText = '—';
+                        }
                         $whenText = enlil_format_datetime_es((string)$event['created_at']);
                         ?>
                         <li>

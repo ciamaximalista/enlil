@@ -116,3 +116,32 @@ function enlil_telegram_post_json(string $token, string $method, array $payload)
         'body' => $body,
     ];
 }
+
+function enlil_telegram_clip_checklist_text(string $text, int $limit = 100): string {
+    if ($limit <= 0) {
+        return '';
+    }
+    if (function_exists('mb_substr')) {
+        return mb_substr($text, 0, $limit);
+    }
+    return substr($text, 0, $limit);
+}
+
+function enlil_checklist_encode_task_id(int $projectId, int $taskId): int {
+    if ($projectId <= 0 || $taskId <= 0) {
+        return 0;
+    }
+    return ($projectId * 100000) + $taskId;
+}
+
+function enlil_checklist_decode_task_id(int $encoded): array {
+    if ($encoded < 100000) {
+        return [0, 0];
+    }
+    $projectId = intdiv($encoded, 100000);
+    $taskId = $encoded % 100000;
+    if ($projectId <= 0 || $taskId <= 0) {
+        return [0, 0];
+    }
+    return [$projectId, $taskId];
+}

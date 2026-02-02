@@ -420,15 +420,24 @@ $userFailures = [];
             $userFailures[] = ($info['telegram_user'] ?? 'Usuario') . ' sin chat privado';
             continue;
         }
+        $existingMessageIds = enlil_checklist_map_list((string)$chatId, (int)$projectId);
+        if ($existingMessageIds) {
+            $deletePayload = [
+                'business_connection_id' => $botBusinessId,
+                'chat_id' => $chatId,
+                'message_ids' => array_values(array_map('intval', $existingMessageIds)),
+            ];
+            enlil_telegram_post_json($token, 'deleteBusinessMessages', $deletePayload);
+            enlil_checklist_map_delete((string)$chatId, $existingMessageIds);
+        }
+        $objectiveNames = [];
+        foreach ($orderedObjectives as $obj) {
+            $objectiveNames[(int)$obj['id']] = $obj['name'];
+        }
+        $checkTasks = [];
+        $taskMeta = [];
         foreach ($objectivesTasks as $objectiveId => $tasks) {
-            $objectiveName = '';
-            foreach ($orderedObjectives as $obj) {
-                if ((int)$obj['id'] === (int)$objectiveId) {
-                    $objectiveName = $obj['name'];
-                    break;
-                }
-            }
-            $checkTasks = [];
+            $objectiveLabel = $objectiveNames[(int)$objectiveId] ?? '';
             foreach ($tasks as $task) {
                 $dueText = '';
                 if (!empty($task['due_date'])) {
@@ -438,47 +447,54 @@ $userFailures = [];
                     }
                 }
                 $suffix = $dueText !== '' ? ' (' . $dueText . ')' : '';
+                $taskText = $task['name'] . $suffix;
+                $checklistId = enlil_checklist_encode_task_id((int)$projectId, (int)($task['id'] ?? 0));
                 $checkTasks[] = [
-                    'id' => (int)$task['id'],
-                    'text' => $task['name'] . $suffix,
+                    'id' => $checklistId,
+                    'text' => enlil_telegram_clip_checklist_text($taskText, 100),
+                ];
+                $taskMeta[$checklistId] = [
+                    'task_id' => (int)($task['id'] ?? 0),
+                    'objective_id' => (int)$objectiveId,
+                    'name' => (string)($task['name'] ?? ''),
                 ];
             }
-            if (!$checkTasks || $objectiveName === '') {
-                continue;
+        }
+        if (!$checkTasks) {
+            continue;
+        }
+        $payload = [
+            'business_connection_id' => $botBusinessId,
+            'chat_id' => $chatId,
+            'checklist' => [
+                'title' => $project['name'],
+                'others_can_mark_tasks_as_done' => true,
+                'others_can_add_tasks' => false,
+                'tasks' => $checkTasks,
+            ],
+        ];
+        $result = enlil_telegram_post_json($token, 'sendChecklist', $payload);
+        if (!$result['ok']) {
+            $code = $result['http_code'] ? 'HTTP ' . $result['http_code'] : 'sin respuesta';
+            $detail = '';
+            if (is_string($result['body']) && $result['body'] !== '') {
+                $data = json_decode($result['body'], true);
+                if (is_array($data) && isset($data['description'])) {
+                    $detail = $data['description'];
+                }
             }
-            $payload = [
-                'business_connection_id' => $botBusinessId,
-                'chat_id' => $chatId,
-                'checklist' => [
-                    'title' => $objectiveName,
-                    'others_can_mark_tasks_as_done' => true,
-                    'others_can_add_tasks' => false,
-                    'tasks' => $checkTasks,
-                ],
-            ];
-            $result = enlil_telegram_post_json($token, 'sendChecklist', $payload);
-            if (!$result['ok']) {
-                $code = $result['http_code'] ? 'HTTP ' . $result['http_code'] : 'sin respuesta';
-                $detail = '';
-                if (is_string($result['body']) && $result['body'] !== '') {
-                    $data = json_decode($result['body'], true);
-                    if (is_array($data) && isset($data['description'])) {
-                        $detail = $data['description'];
-                    }
-                }
-                $userFailures[] = ($info['telegram_user'] ?? 'Usuario') . ' (' . $code . ($detail !== '' ? ': ' . $detail : '') . ')';
-            } else {
-                $data = is_string($result['body']) ? json_decode($result['body'], true) : null;
-                $messageId = '';
-                if (is_array($data) && isset($data['result']['message_id'])) {
-                    $messageId = (string)$data['result']['message_id'];
-                }
-                if ($messageId !== '') {
-                    $taskIds = array_map(function ($t) {
-                        return (int)$t['id'];
-                    }, $checkTasks);
-                    enlil_checklist_map_add((string)$chatId, $messageId, $projectId, (int)$objectiveId, $taskIds);
-                }
+            $userFailures[] = ($info['telegram_user'] ?? 'Usuario') . ' (' . $code . ($detail !== '' ? ': ' . $detail : '') . ')';
+        } else {
+            $data = is_string($result['body']) ? json_decode($result['body'], true) : null;
+            $messageId = '';
+            if (is_array($data) && isset($data['result']['message_id'])) {
+                $messageId = (string)$data['result']['message_id'];
+            }
+            if ($messageId !== '') {
+                $taskIds = array_map(function ($t) {
+                    return (int)$t['id'];
+                }, $checkTasks);
+                enlil_checklist_map_add((string)$chatId, $messageId, $projectId, 0, $taskIds, $taskMeta);
             }
         }
     }

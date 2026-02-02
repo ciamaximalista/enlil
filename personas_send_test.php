@@ -142,9 +142,10 @@ if ($token === '') {
         }
         $todayTs = strtotime(date('Y-m-d'));
         $limitTs = strtotime('+15 days', $todayTs);
-        $tasksByObjective = [];
+        $tasksByProject = [];
         $objectiveNames = [];
         foreach ($projectsFull as $proj) {
+            $projectId = (int)$proj['id'];
             foreach ($proj['objectives'] as $objective) {
                 $tasks = $objective['tasks'] ?? [];
                 if (!$tasks) {
@@ -205,27 +206,48 @@ if ($token === '') {
                         continue;
                     }
                     $objectiveId = (int)$objective['id'];
-                    if (!isset($tasksByObjective[$objectiveId])) {
-                        $tasksByObjective[$objectiveId] = [];
+                    if (!isset($objectiveNames[$objectiveId])) {
                         $objectiveNames[$objectiveId] = $objective['name'];
                     }
-                    $tasksByObjective[$objectiveId][$task['id']] = $task;
+                    if (!isset($tasksByProject[$projectId])) {
+                        $tasksByProject[$projectId] = [
+                            'name' => $proj['name'],
+                            'tasks' => [],
+                        ];
+                    }
+                    $taskWithObjective = $task;
+                    $taskWithObjective['objective_id'] = $objectiveId;
+                    $tasksByProject[$projectId]['tasks'][] = [
+                        'task' => $taskWithObjective,
+                        'objective' => $objectiveNames[$objectiveId] ?? '',
+                    ];
                 }
             }
         }
 
-        if (!$tasksByObjective) {
+        if (!$tasksByProject) {
             $failed++;
             $failDetails[] = 'No hay tareas pendientes para este usuario.';
-        } else {
-            $userErrorAdded = false;
-            foreach ($tasksByObjective as $objectiveId => $tasks) {
-                $objectiveName = $objectiveNames[$objectiveId] ?? '';
-                if ($objectiveName === '') {
-                    continue;
-                }
-                $checkTasks = [];
-                foreach ($tasks as $task) {
+    } else {
+        $userErrorAdded = false;
+        foreach ($tasksByProject as $projectId => $projectData) {
+            $projectName = $projectData['name'] ?? '';
+            $tasks = $projectData['tasks'] ?? [];
+            $existingMessageIds = enlil_checklist_map_list((string)$chatId, (int)$projectId);
+            if ($existingMessageIds) {
+                $deletePayload = [
+                    'business_connection_id' => $botBusinessId,
+                    'chat_id' => $chatId,
+                    'message_ids' => array_values(array_map('intval', $existingMessageIds)),
+                ];
+                enlil_telegram_post_json($token, 'deleteBusinessMessages', $deletePayload);
+                enlil_checklist_map_delete((string)$chatId, $existingMessageIds);
+            }
+            $checkTasks = [];
+            $taskMeta = [];
+            foreach ($tasks as $entry) {
+                $task = $entry['task'];
+                $objectiveLabel = $entry['objective'] ?? '';
                     $dueText = '';
                     if (!empty($task['due_date'])) {
                         $ts = strtotime($task['due_date']);
@@ -234,19 +256,26 @@ if ($token === '') {
                         }
                     }
                     $suffix = $dueText !== '' ? ' (' . $dueText . ')' : '';
+                    $taskText = $task['name'] . $suffix;
+                    $checklistId = enlil_checklist_encode_task_id((int)$projectId, (int)($task['id'] ?? 0));
                     $checkTasks[] = [
-                        'id' => (int)$task['id'],
-                        'text' => $task['name'] . $suffix,
+                        'id' => $checklistId,
+                        'text' => enlil_telegram_clip_checklist_text($taskText, 100),
+                    ];
+                    $taskMeta[$checklistId] = [
+                        'task_id' => (int)($task['id'] ?? 0),
+                        'objective_id' => (int)($task['objective_id'] ?? 0),
+                        'name' => (string)($task['name'] ?? ''),
                     ];
                 }
-                if (!$checkTasks) {
+                if (!$checkTasks || $projectName === '') {
                     continue;
                 }
                 $payload = [
                     'business_connection_id' => $botBusinessId,
                     'chat_id' => $chatId,
                     'checklist' => [
-                        'title' => $objectiveName,
+                        'title' => $projectName,
                         'others_can_mark_tasks_as_done' => true,
                         'others_can_add_tasks' => false,
                         'tasks' => $checkTasks,
@@ -264,7 +293,7 @@ if ($token === '') {
                         $taskIds = array_map(function ($t) {
                             return (int)$t['id'];
                         }, $checkTasks);
-                        enlil_checklist_map_add((string)$chatId, $messageId, 0, (int)$objectiveId, $taskIds);
+                        enlil_checklist_map_add((string)$chatId, $messageId, (int)$projectId, 0, $taskIds, $taskMeta);
                     }
                 } else {
                     $failed++;

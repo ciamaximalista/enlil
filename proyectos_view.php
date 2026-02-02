@@ -3,6 +3,8 @@ require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/layout.php';
 require_once __DIR__ . '/includes/projects.php';
 require_once __DIR__ . '/includes/teams.php';
+require_once __DIR__ . '/includes/people.php';
+require_once __DIR__ . '/includes/avatars.php';
 
 enlil_require_login();
 
@@ -21,6 +23,26 @@ $teams = enlil_teams_all();
 $teamsById = [];
 foreach ($teams as $team) {
     $teamsById[$team['id']] = $team;
+}
+
+$people = enlil_people_all();
+$peopleById = [];
+foreach ($people as $person) {
+    $peopleById[(int)$person['id']] = $person;
+}
+
+function enlil_person_avatar_url(array $person): string {
+    $username = ltrim((string)($person['telegram_user'] ?? ''), '@');
+    if (!empty($person['telegram_user_id'])) {
+        $path = __DIR__ . '/data/avatars/' . $person['telegram_user_id'] . '.jpg';
+        if (file_exists($path)) {
+            return enlil_avatar_url($person['telegram_user_id']);
+        }
+    }
+    if ($username !== '') {
+        return 'https://t.me/i/userpic/320/' . rawurlencode($username) . '.jpg';
+    }
+    return '';
 }
 
 $objectives = $project['objectives'];
@@ -418,51 +440,25 @@ enlil_page_header('Proyecto');
                                             <div class="graph-node-tasks">
                                                 <?php
                                                 $allTasks = $obj['tasks'];
-                                                $tasksById = [];
-                                                foreach ($allTasks as $t) {
-                                                    $tasksById[(int)$t['id']] = $t;
-                                                }
-                                                $pendingTasks = array_values(array_filter($allTasks, function ($task) {
-                                                    return ($task['status'] ?? '') !== 'done';
-                                                }));
-                                                $pendingIds = [];
-                                                foreach ($pendingTasks as $t) {
-                                                    $pendingIds[(int)$t['id']] = true;
-                                                }
-                                                $memo = [];
-                                                foreach ($pendingTasks as &$pt) {
-                                                    $pt['depends_on'] = enlil_pending_depends($pt, $tasksById, $pendingIds, $memo);
-                                                }
-                                                unset($pt);
+                                                $displayTasks = $allTasks;
                                                 ?>
-                                                <?php if (empty($pendingTasks)): ?>
-                                                    <?php if (!empty($obj['tasks'])): ?>
-                                                        <?php
-                                                        $completedAt = enlil_objective_completion_date($obj['tasks']);
-                                                        $completedText = $completedAt !== '' ? enlil_format_date_es_view(substr($completedAt, 0, 10)) : '';
-                                                        ?>
-                                                        <span class="muted">Objetivo alcanzado<?php echo $completedText !== '' ? ' el ' . htmlspecialchars($completedText) : ''; ?></span>
-                                                    <?php else: ?>
-                                                        <span class="muted">Sin tareas</span>
-                                                    <?php endif; ?>
+                                                <?php if (empty($displayTasks)): ?>
+                                                    <span class="muted">Sin tareas</span>
                                                 <?php else: ?>
                                                     <?php
-                                                    $pendingDependsById = [];
-                                                    $memo = [];
-                                                    foreach ($pendingTasks as $pt) {
-                                                        $pendingDependsById[(int)$pt['id']] = enlil_pending_depends($pt, $tasksById, $pendingIds, $memo);
-                                                    }
-                                                    $pendingTasksRemap = [];
-                                                    foreach ($pendingTasks as $pt) {
-                                                        $pt['depends_on'] = $pendingDependsById[(int)$pt['id']] ?? $pt['depends_on'];
-                                                        $pendingTasksRemap[] = $pt;
-                                                    }
-                                                    $taskLevelsData = enlil_task_levels($pendingTasksRemap);
+                                                    $completedAt = enlil_objective_completion_date($displayTasks);
+                                                    $completedText = $completedAt !== '' ? enlil_format_date_es_view(substr($completedAt, 0, 10)) : '';
+                                                    ?>
+                                                    <?php if ($completedAt !== ''): ?>
+                                                        <span class="muted">Objetivo alcanzado<?php echo $completedText !== '' ? ' el ' . htmlspecialchars($completedText) : ''; ?></span>
+                                                    <?php endif; ?>
+                                                    <?php
+                                                    $taskLevelsData = enlil_task_levels($displayTasks);
                                                     $taskLevels = $taskLevelsData['levels'];
                                                     $taskDeps = $taskLevelsData['deps'];
 
                                                     $taskById = [];
-                                                    foreach ($pendingTasksRemap as $t) {
+                                                    foreach ($displayTasks as $t) {
                                                         $taskById[(int)$t['id']] = $t;
                                                     }
 
@@ -553,6 +549,28 @@ enlil_page_header('Proyecto');
                                                                                 <?php echo htmlspecialchars($task['name']); ?>
                                                                                 <?php if (($task['due_date'] ?? '') !== ''): ?>
                                                                                     <span class="task-date"><?php echo htmlspecialchars(enlil_format_day_month_es($task['due_date'])); ?></span>
+                                                                                <?php endif; ?>
+                                                                                <?php if (!empty($task['responsible_ids'])): ?>
+                                                                                    <span class="task-avatars">
+                                                                                        <?php foreach ($task['responsible_ids'] as $rid): ?>
+                                                                                            <?php
+                                                                                            $rid = (int)$rid;
+                                                                                            if (!isset($peopleById[$rid])) {
+                                                                                                continue;
+                                                                                            }
+                                                                                            $person = $peopleById[$rid];
+                                                                                            $avatarUrl = enlil_person_avatar_url($person);
+                                                                                            $title = (string)($person['name'] ?? '');
+                                                                                            ?>
+                                                                                            <?php if ($avatarUrl !== ''): ?>
+                                                                                                <img class="task-avatar" src="<?php echo htmlspecialchars($avatarUrl); ?>" alt="" title="<?php echo htmlspecialchars($title); ?>">
+                                                                                            <?php else: ?>
+                                                                                                <span class="task-avatar placeholder" title="<?php echo htmlspecialchars($title); ?>">
+                                                                                                    <?php echo htmlspecialchars(function_exists('mb_substr') ? mb_substr($title, 0, 1) : substr($title, 0, 1)); ?>
+                                                                                                </span>
+                                                                                            <?php endif; ?>
+                                                                                        <?php endforeach; ?>
+                                                                                    </span>
                                                                                 <?php endif; ?>
                                                                             </div>
                                                                         </div>

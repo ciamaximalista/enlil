@@ -88,6 +88,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tasks = [];
     foreach ($tasksInput as $tid => $tdata) {
         $taskName = trim((string)($tdata['name'] ?? ''));
+        if ($taskName !== '') {
+            if (function_exists('mb_substr')) {
+                $taskName = mb_substr($taskName, 0, 100);
+            } else {
+                $taskName = substr($taskName, 0, 100);
+            }
+        }
         if ($taskName === '') {
             continue;
         }
@@ -318,7 +325,7 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                     </div>
                                 </div>
                                 <label>Nombre
-                                    <input type="text" name="tasks[<?php echo $taskId; ?>][name]" value="<?php echo htmlspecialchars($task['name']); ?>" required>
+                                    <input type="text" name="tasks[<?php echo $taskId; ?>][name]" value="<?php echo htmlspecialchars($task['name']); ?>" maxlength="100" required>
                                 </label>
                                 <label>Fecha límite
                                     <input type="date" name="tasks[<?php echo $taskId; ?>][due_date]" value="<?php echo htmlspecialchars($task['due_date']); ?>">
@@ -386,7 +393,7 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                     </div>
                                 </div>
                                 <label>Nombre
-                                    <input type="text" name="tasks[<?php echo $taskId; ?>][name]" value="<?php echo htmlspecialchars($task['name']); ?>" required>
+                                    <input type="text" name="tasks[<?php echo $taskId; ?>][name]" value="<?php echo htmlspecialchars($task['name']); ?>" maxlength="100" required>
                                 </label>
                                 <label>Fecha límite
                                     <input type="date" name="tasks[<?php echo $taskId; ?>][due_date]" value="<?php echo htmlspecialchars($task['due_date']); ?>">
@@ -501,7 +508,7 @@ function createTaskCard() {
             </div>
         </div>
         <label>Nombre
-            <input type="text" name="tasks[${tid}][name]" required>
+            <input type="text" name="tasks[${tid}][name]" maxlength="100" required>
         </label>
         <label>Fecha límite
             <input type="date" name="tasks[${tid}][due_date]">
