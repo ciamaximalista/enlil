@@ -348,6 +348,10 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
+.center {
+    text-align: center;
+}
+
 .mono {
     font-family: "VT323", "Courier New", monospace;
     font-size: 15px;

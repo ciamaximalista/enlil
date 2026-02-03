@@ -38,7 +38,7 @@ enlil_page_header('Tareas 24h', false);
                         <tr>
                             <th>Objetivo</th>
                             <th>Tarea</th>
-                            <th>Persona</th>
+                            <th class="center">Persona</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,18 +46,15 @@ enlil_page_header('Tareas 24h', false);
                             <tr>
                                 <td><?php echo htmlspecialchars($row['objective']); ?></td>
                                 <td><?php echo htmlspecialchars($row['task']); ?></td>
-                                <td>
-                                    <div class="name-cell">
-                                        <?php if ($row['avatar']): ?>
-                                            <img class="avatar small" src="<?php echo htmlspecialchars($row['avatar']); ?>" alt="">
-                                        <?php else: ?>
-                                            <?php
-                                            $initial = $row['person'] !== '' ? (function_exists('mb_substr') ? mb_substr($row['person'], 0, 1) : substr($row['person'], 0, 1)) : 'P';
-                                            ?>
-                                            <span class="avatar small placeholder"><?php echo htmlspecialchars($initial); ?></span>
-                                        <?php endif; ?>
-                                        <div><?php echo htmlspecialchars($row['person']); ?></div>
-                                    </div>
+                                <td class="center">
+                                    <?php if ($row['avatar']): ?>
+                                        <img class="avatar small" src="<?php echo htmlspecialchars($row['avatar']); ?>" alt="" title="<?php echo htmlspecialchars($row['person']); ?>">
+                                    <?php else: ?>
+                                        <?php
+                                        $initial = $row['person'] !== '' ? (function_exists('mb_substr') ? mb_substr($row['person'], 0, 1) : substr($row['person'], 0, 1)) : 'P';
+                                        ?>
+                                        <span class="avatar small placeholder" title="<?php echo htmlspecialchars($row['person']); ?>"><?php echo htmlspecialchars($initial); ?></span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
