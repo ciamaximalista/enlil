@@ -152,6 +152,9 @@ enlil_page_header('Panel');
             <?php else: ?>
                 <?php foreach ($updates24h as $group): ?>
                     <h3><?php echo htmlspecialchars($group['project']['name'] ?? 'Proyecto'); ?></h3>
+                    <?php if (!empty($group['project']['team_names'])): ?>
+                        <p class="project-meta"><?php echo htmlspecialchars(implode(', ', $group['project']['team_names'])); ?></p>
+                    <?php endif; ?>
                     <div class="table-wrap">
                         <table class="fixed-table">
                             <thead>

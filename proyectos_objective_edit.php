@@ -493,6 +493,8 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                 </label>
                                 <label>Depende de
                                     <select multiple name="tasks[<?php echo $taskId; ?>][depends_on][]" class="multi">
+                                        <?php $hasDeps = !empty($task['depends_on']); ?>
+                                        <option value="" <?php echo $hasDeps ? '' : 'selected'; ?>>Ninguna</option>
                                         <?php foreach ($taskOptions as $opt): ?>
                                             <?php if ((int)$opt['id'] === $taskId) { continue; } ?>
                                             <?php $selected = in_array((int)$opt['id'], $task['depends_on'], true); ?>
@@ -570,6 +572,8 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                 </label>
                                 <label>Depende de
                                     <select multiple name="tasks[<?php echo $taskId; ?>][depends_on][]" class="multi">
+                                        <?php $hasDeps = !empty($task['depends_on']); ?>
+                                        <option value="" <?php echo $hasDeps ? '' : 'selected'; ?>>Ninguna</option>
                                         <?php foreach ($taskOptions as $opt): ?>
                                             <?php if ((int)$opt['id'] === $taskId) { continue; } ?>
                                             <?php $selected = in_array((int)$opt['id'], $task['depends_on'], true); ?>
@@ -645,6 +649,12 @@ function refreshTaskDepends() {
         if (!select) return;
         const selected = Array.from(select.selectedOptions).map(opt => opt.value);
         select.innerHTML = '';
+        const hasRealSelection = selected.some(value => value && value !== '');
+        const noneOption = document.createElement('option');
+        noneOption.value = '';
+        noneOption.textContent = 'Ninguna';
+        noneOption.selected = !hasRealSelection;
+        select.appendChild(noneOption);
         getTaskOptions(tid).forEach(opt => {
             const option = document.createElement('option');
             option.value = opt.id;
@@ -692,7 +702,9 @@ function createTaskCard() {
             </select>
         </label>
         <label>Depende de
-            <select multiple name="tasks[${tid}][depends_on][]" class="multi"></select>
+            <select multiple name="tasks[${tid}][depends_on][]" class="multi">
+                <option value="" selected>Ninguna</option>
+            </select>
         </label>
         <div class="task-people">
             <span class="label">Responsables</span>
@@ -750,6 +762,27 @@ tasksList.addEventListener('click', (e) => {
 tasksList.addEventListener('input', (e) => {
     if (e.target && e.target.name && e.target.name.endsWith('[name]')) {
         refreshTaskDepends();
+    }
+});
+
+tasksList.addEventListener('change', (e) => {
+    if (e.target && e.target.matches('select[name^="tasks"][name$="[depends_on][]"]')) {
+        const select = e.target;
+        const values = Array.from(select.selectedOptions).map(opt => opt.value);
+        const noneSelected = values.includes('');
+        const hasOther = values.some(value => value !== '');
+        if (noneSelected && hasOther) {
+            Array.from(select.options).forEach(opt => {
+                if (opt.value === '') {
+                    opt.selected = false;
+                }
+            });
+        } else if (!hasOther) {
+            const noneOpt = Array.from(select.options).find(opt => opt.value === '');
+            if (noneOpt) {
+                noneOpt.selected = true;
+            }
+        }
     }
 });
 

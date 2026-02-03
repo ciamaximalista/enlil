@@ -5,6 +5,7 @@ require_once __DIR__ . '/projects.php';
 require_once __DIR__ . '/people.php';
 require_once __DIR__ . '/avatars.php';
 require_once __DIR__ . '/telegram.php';
+require_once __DIR__ . '/teams.php';
 
 function enlil_task_updates_avatar_url(array $person, string $telegramUser = ''): string {
     $telegramUserId = (string)($person['telegram_user_id'] ?? '');
@@ -33,7 +34,7 @@ function enlil_task_updates_parse_ids(string $csv): array {
     return $ids;
 }
 
-function enlil_task_updates_last_24h(): array {
+function enlil_task_updates_last_24h(?int $personId = null): array {
     $events = enlil_checklist_events_all();
     if (!$events) {
         return [];
@@ -42,11 +43,22 @@ function enlil_task_updates_last_24h(): array {
     $projectsIndex = [];
     $taskIndex = [];
     $objectiveIndex = [];
+    $teamsById = [];
+    foreach (enlil_teams_all() as $team) {
+        $teamsById[(int)$team['id']] = $team['name'] ?? '';
+    }
     foreach (enlil_projects_all() as $project) {
         $full = enlil_projects_get((int)$project['id']);
         if (!$full) {
             continue;
         }
+        $teamNames = [];
+        foreach (($full['team_ids'] ?? []) as $teamId) {
+            if (!empty($teamsById[$teamId])) {
+                $teamNames[] = $teamsById[$teamId];
+            }
+        }
+        $full['team_names'] = $teamNames;
         $projectsIndex[(int)$project['id']] = $full;
         foreach ($full['objectives'] as $objective) {
             $objectiveId = (int)$objective['id'];
@@ -70,6 +82,28 @@ function enlil_task_updates_last_24h(): array {
         $tgId = (string)($person['telegram_user_id'] ?? '');
         if ($tgId !== '') {
             $peopleByTelegramId[$tgId] = $person;
+        }
+    }
+
+    $allowedProjectIds = null;
+    if ($personId !== null) {
+        $person = $peopleById[$personId] ?? null;
+        if (!$person) {
+            return [];
+        }
+        $teamIds = array_values(array_filter(array_map('intval', $person['team_ids'] ?? [])));
+        if (!$teamIds) {
+            return [];
+        }
+        $allowedProjectIds = [];
+        foreach ($projectsIndex as $pid => $project) {
+            $projectTeamIds = array_values(array_filter(array_map('intval', $project['team_ids'] ?? [])));
+            if ($projectTeamIds && array_intersect($projectTeamIds, $teamIds)) {
+                $allowedProjectIds[] = (int)$pid;
+            }
+        }
+        if (!$allowedProjectIds) {
+            return [];
         }
     }
 
@@ -107,6 +141,9 @@ function enlil_task_updates_last_24h(): array {
             }
 
             if ($projectId <= 0 || $taskId <= 0) {
+                continue;
+            }
+            if (is_array($allowedProjectIds) && !in_array($projectId, $allowedProjectIds, true)) {
                 continue;
             }
             if (!isset($taskIndex[$projectId][$taskId])) {

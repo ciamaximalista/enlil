@@ -309,6 +309,12 @@ nav a {
     font-weight: 600;
 }
 
+.project-meta {
+    color: #b3c2cc;
+    font-size: 11px;
+    margin: -10px 0 10px;
+}
+
 .table-wrap {
     background: var(--card);
     border: 1px solid var(--border);

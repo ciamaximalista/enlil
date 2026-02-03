@@ -22,7 +22,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
 header('Expires: 0');
 
-$updates24h = enlil_task_updates_last_24h();
+$updates24h = enlil_task_updates_last_24h((int)($entry['person_id'] ?? 0));
 enlil_page_header('Tareas 24h', false);
 ?>
 <main class="container">
@@ -32,6 +32,9 @@ enlil_page_header('Tareas 24h', false);
     <?php else: ?>
         <?php foreach ($updates24h as $group): ?>
             <h2><?php echo htmlspecialchars($group['project']['name'] ?? 'Proyecto'); ?></h2>
+            <?php if (!empty($group['project']['team_names'])): ?>
+                <p class="project-meta"><?php echo htmlspecialchars(implode(', ', $group['project']['team_names'])); ?></p>
+            <?php endif; ?>
             <div class="table-wrap">
                 <table class="fixed-table">
                     <thead>
