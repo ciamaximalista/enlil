@@ -117,6 +117,25 @@ function enlil_telegram_post_json(string $token, string $method, array $payload)
     ];
 }
 
+function enlil_telegram_extract_migrate_chat_id(array $result): string {
+    if (empty($result['body']) || !is_string($result['body'])) {
+        return '';
+    }
+    $data = json_decode($result['body'], true);
+    if (!is_array($data)) {
+        return '';
+    }
+    $params = $data['parameters'] ?? null;
+    if (!is_array($params)) {
+        return '';
+    }
+    $migrate = $params['migrate_to_chat_id'] ?? '';
+    if ($migrate === '' || !is_numeric((string)$migrate)) {
+        return '';
+    }
+    return (string)$migrate;
+}
+
 function enlil_telegram_clip_checklist_text(string $text, int $limit = 100): string {
     if ($limit <= 0) {
         return '';

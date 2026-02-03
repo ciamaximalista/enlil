@@ -3,6 +3,7 @@ require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/layout.php';
 require_once __DIR__ . '/includes/bot.php';
 require_once __DIR__ . '/includes/telegram.php';
+require_once __DIR__ . '/includes/task_updates.php';
 
 enlil_require_login();
 
@@ -141,6 +142,50 @@ enlil_page_header('Panel');
                 <h2>Calendarios</h2>
                 <p>Consulta tareas por proyecto o por persona.</p>
             </a>
+        </div>
+
+        <?php $updates24h = enlil_task_updates_last_24h(); ?>
+        <div class="section-card">
+            <h2>Tareas cumplidas en las últimas 24 horas</h2>
+            <?php if (!$updates24h): ?>
+                <p class="muted">No hay tareas cumplidas en las últimas 24 horas.</p>
+            <?php else: ?>
+                <?php foreach ($updates24h as $group): ?>
+                    <h3><?php echo htmlspecialchars($group['project']['name'] ?? 'Proyecto'); ?></h3>
+                    <div class="table-wrap">
+                        <table class="fixed-table">
+                            <thead>
+                                <tr>
+                                    <th>Objetivo</th>
+                                    <th>Tarea</th>
+                                    <th>Persona</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($group['rows'] as $row): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($row['objective']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['task']); ?></td>
+                                        <td>
+                                            <div class="name-cell">
+                                                <?php if ($row['avatar']): ?>
+                                                    <img class="avatar small" src="<?php echo htmlspecialchars($row['avatar']); ?>" alt="">
+                                                <?php else: ?>
+                                                    <?php
+                                                    $initial = $row['person'] !== '' ? (function_exists('mb_substr') ? mb_substr($row['person'], 0, 1) : substr($row['person'], 0, 1)) : 'P';
+                                                    ?>
+                                                    <span class="avatar small placeholder"><?php echo htmlspecialchars($initial); ?></span>
+                                                <?php endif; ?>
+                                                <div><?php echo htmlspecialchars($row['person']); ?></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </main>
 <?php enlil_page_footer(); ?>

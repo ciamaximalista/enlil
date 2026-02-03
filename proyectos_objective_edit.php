@@ -27,6 +27,7 @@ $projectPeople = array_values(array_filter($people, function ($person) use ($pro
 $selectedTeams = $project['team_ids'];
 
 $objective = null;
+ $objectiveAllTasks = [];
 foreach ($project['objectives'] as $obj) {
     if ((int)$obj['id'] === $objectiveId) {
         $objective = $obj;
@@ -43,6 +44,12 @@ if ($isNew) {
         'depends_on' => [],
         'tasks' => [],
     ];
+}
+if (!empty($objective['tasks'])) {
+    $objectiveAllTasks = $objective['tasks'];
+    $objective['tasks'] = array_values(array_filter($objective['tasks'], function ($task) {
+        return empty($task['parent_id']);
+    }));
 }
 
 $errors = [];
@@ -85,6 +92,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $objectiveId = $isNew ? $maxObjectiveId + 1 : $objectiveId;
 
+    $existingObjective = null;
+    foreach ($project['objectives'] as $obj) {
+        if ((int)$obj['id'] === $objectiveId) {
+            $existingObjective = $obj;
+            break;
+        }
+    }
+    $existingTasks = $existingObjective['tasks'] ?? [];
+    $existingDerived = array_values(array_filter($existingTasks, function ($task) {
+        return !empty($task['parent_id']);
+    }));
+
     $tasks = [];
     foreach ($tasksInput as $tid => $tdata) {
         $taskName = trim((string)($tdata['name'] ?? ''));
@@ -97,6 +116,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         if ($taskName === '') {
             continue;
+        }
+        $recurrence = (string)($tdata['recurrence'] ?? 'puntual');
+        if (!in_array($recurrence, ['puntual', 'semanal', 'mensual', 'mensual_semana'], true)) {
+            $recurrence = 'puntual';
         }
         $taskId = ctype_digit((string)$tid) ? (int)$tid : ++$maxTaskId;
         $taskDependsRaw = $tdata['depends_on'] ?? [];
@@ -115,9 +138,126 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'name' => $taskName,
             'due_date' => trim((string)($tdata['due_date'] ?? '')),
             'status' => $status,
+            'recurrence' => $recurrence,
+            'parent_id' => 0,
             'depends_on' => $taskDepends,
             'responsible_ids' => $responsibleIds,
         ];
+    }
+
+    $recurringTasks = [];
+    $cutoff = date('Y-m-d');
+    $existingByParentDate = [];
+    foreach ($existingDerived as $task) {
+        $due = (string)($task['due_date'] ?? '');
+        $status = (string)($task['status'] ?? '');
+        $parentId = (int)($task['parent_id'] ?? 0);
+        if ($parentId <= 0 || $due === '') {
+            continue;
+        }
+        $keep = false;
+        if ($status === 'done') {
+            $keep = true;
+        } elseif ($due < $cutoff) {
+            $keep = true;
+        }
+        if ($keep) {
+            $recurringTasks[] = $task;
+            if (!isset($existingByParentDate[$parentId])) {
+                $existingByParentDate[$parentId] = [];
+            }
+            $existingByParentDate[$parentId][$due] = $task;
+        }
+    }
+
+    $objectiveEnd = $dueDate;
+    $weekdayOrdinal = function (string $date): array {
+        $ts = strtotime($date);
+        if ($ts === false) {
+            return [0, 0];
+        }
+        $weekday = (int)date('N', $ts); // 1..7
+        $day = (int)date('j', $ts);
+        $ordinal = (int)ceil($day / 7);
+        return [$ordinal, $weekday];
+    };
+    $nthWeekdayDate = function (int $year, int $month, int $ordinal, int $weekday): string {
+        if ($ordinal <= 0 || $weekday <= 0) {
+            return '';
+        }
+        $firstDayTs = strtotime($year . '-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-01');
+        if ($firstDayTs === false) {
+            return '';
+        }
+        $firstWeekday = (int)date('N', $firstDayTs);
+        $offset = ($weekday - $firstWeekday + 7) % 7;
+        $day = 1 + $offset + 7 * ($ordinal - 1);
+        $daysInMonth = (int)date('t', $firstDayTs);
+        if ($day > $daysInMonth) {
+            $lastDayTs = strtotime($year . '-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-' . str_pad((string)$daysInMonth, 2, '0', STR_PAD_LEFT));
+            if ($lastDayTs === false) {
+                return '';
+            }
+            $lastWeekday = (int)date('N', $lastDayTs);
+            $backOffset = ($lastWeekday - $weekday + 7) % 7;
+            $day = $daysInMonth - $backOffset;
+        }
+        return $year . '-' . str_pad((string)$month, 2, '0', STR_PAD_LEFT) . '-' . str_pad((string)$day, 2, '0', STR_PAD_LEFT);
+    };
+    if ($objectiveEnd !== '') {
+        foreach ($tasks as $baseTask) {
+            $recurrence = $baseTask['recurrence'] ?? 'puntual';
+            if ($recurrence === 'puntual') {
+                continue;
+            }
+            $startDate = $baseTask['due_date'] ?? '';
+            if ($startDate === '') {
+                continue;
+            }
+            $parentId = (int)$baseTask['id'];
+            $current = $startDate;
+            $baseDay = (int)substr($startDate, 8, 2);
+            [$baseOrdinal, $baseWeekday] = $weekdayOrdinal($startDate);
+            while (true) {
+                if ($recurrence === 'semanal') {
+                    $nextTs = strtotime('+7 days', strtotime($current));
+                } elseif ($recurrence === 'mensual') {
+                    $currTs = strtotime($current);
+                    $nextMonth = (int)date('n', strtotime('+1 month', $currTs));
+                    $nextYear = (int)date('Y', strtotime('+1 month', $currTs));
+                    $daysInMonth = (int)date('t', strtotime($nextYear . '-' . str_pad((string)$nextMonth, 2, '0', STR_PAD_LEFT) . '-01'));
+                    $nextDay = min($baseDay, $daysInMonth);
+                    $nextTs = strtotime($nextYear . '-' . str_pad((string)$nextMonth, 2, '0', STR_PAD_LEFT) . '-' . str_pad((string)$nextDay, 2, '0', STR_PAD_LEFT));
+                } else {
+                    $currTs = strtotime($current);
+                    $nextMonth = (int)date('n', strtotime('+1 month', $currTs));
+                    $nextYear = (int)date('Y', strtotime('+1 month', $currTs));
+                    $nextDate = $nthWeekdayDate($nextYear, $nextMonth, $baseOrdinal, $baseWeekday);
+                    $nextTs = $nextDate !== '' ? strtotime($nextDate) : 0;
+                }
+                if (!$nextTs) {
+                    break;
+                }
+                $current = date('Y-m-d', $nextTs);
+                if ($current > $objectiveEnd) {
+                    break;
+                }
+                if (isset($existingByParentDate[$parentId]) && isset($existingByParentDate[$parentId][$current])) {
+                    continue;
+                }
+                $maxTaskId++;
+                $recurringTasks[] = [
+                    'id' => $maxTaskId,
+                    'name' => $baseTask['name'],
+                    'due_date' => $current,
+                    'status' => 'pending',
+                    'recurrence' => 'derivada',
+                    'parent_id' => $parentId,
+                    'depends_on' => [],
+                    'responsible_ids' => $baseTask['responsible_ids'],
+                ];
+            }
+        }
     }
 
     $objective = [
@@ -125,8 +265,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'name' => $name,
         'due_date' => $dueDate,
         'depends_on' => $dependsOn,
-        'tasks' => $tasks,
+        'tasks' => array_values(array_merge($tasks, $recurringTasks)),
     ];
+
+    if ($errors) {
+        $objective['tasks'] = array_values(array_filter($objective['tasks'], function ($task) {
+            return empty($task['parent_id']);
+        }));
+    }
 
     if (!$errors) {
         $objectives = [];
@@ -330,6 +476,15 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                 <label>Fecha límite
                                     <input type="date" name="tasks[<?php echo $taskId; ?>][due_date]" value="<?php echo htmlspecialchars($task['due_date']); ?>">
                                 </label>
+                                <label>Periodicidad
+                                    <?php $recurrence = in_array(($task['recurrence'] ?? ''), ['puntual', 'semanal', 'mensual', 'mensual_semana'], true) ? $task['recurrence'] : 'puntual'; ?>
+                                    <select name="tasks[<?php echo $taskId; ?>][recurrence]">
+                                        <option value="puntual" <?php echo $recurrence === 'puntual' ? 'selected' : ''; ?>>Puntual</option>
+                                        <option value="semanal" <?php echo $recurrence === 'semanal' ? 'selected' : ''; ?>>Semanal</option>
+                                        <option value="mensual" <?php echo $recurrence === 'mensual' ? 'selected' : ''; ?>>Mensual</option>
+                                        <option value="mensual_semana" <?php echo $recurrence === 'mensual_semana' ? 'selected' : ''; ?>>Como hoy de cada mes</option>
+                                    </select>
+                                </label>
                                 <label>Estado
                                     <select name="tasks[<?php echo $taskId; ?>][status]">
                                         <option value="pending" <?php echo $task['status'] !== 'done' ? 'selected' : ''; ?>>No realizada</option>
@@ -397,6 +552,15 @@ enlil_page_header($isNew ? 'Nuevo objetivo' : 'Editar objetivo');
                                 </label>
                                 <label>Fecha límite
                                     <input type="date" name="tasks[<?php echo $taskId; ?>][due_date]" value="<?php echo htmlspecialchars($task['due_date']); ?>">
+                                </label>
+                                <label>Periodicidad
+                                    <?php $recurrence = in_array(($task['recurrence'] ?? ''), ['puntual', 'semanal', 'mensual', 'mensual_semana'], true) ? $task['recurrence'] : 'puntual'; ?>
+                                    <select name="tasks[<?php echo $taskId; ?>][recurrence]">
+                                        <option value="puntual" <?php echo $recurrence === 'puntual' ? 'selected' : ''; ?>>Puntual</option>
+                                        <option value="semanal" <?php echo $recurrence === 'semanal' ? 'selected' : ''; ?>>Semanal</option>
+                                        <option value="mensual" <?php echo $recurrence === 'mensual' ? 'selected' : ''; ?>>Mensual</option>
+                                        <option value="mensual_semana" <?php echo $recurrence === 'mensual_semana' ? 'selected' : ''; ?>>Como hoy de cada mes</option>
+                                    </select>
                                 </label>
                                 <label>Estado
                                     <select name="tasks[<?php echo $taskId; ?>][status]">
@@ -512,6 +676,14 @@ function createTaskCard() {
         </label>
         <label>Fecha límite
             <input type="date" name="tasks[${tid}][due_date]">
+        </label>
+        <label>Periodicidad
+            <select name="tasks[${tid}][recurrence]">
+                <option value="puntual">Puntual</option>
+                <option value="semanal">Semanal</option>
+                <option value="mensual">Mensual</option>
+                <option value="mensual_semana">Como hoy de cada mes</option>
+            </select>
         </label>
         <label>Estado
             <select name="tasks[${tid}][status]">

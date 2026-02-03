@@ -348,7 +348,11 @@ foreach ($project['team_ids'] as $teamId) {
     }
     $groupId = trim((string)($teamsById[$teamId]['telegram_group'] ?? ''));
     if ($groupId !== '') {
-        $targets[] = ['name' => $teamsById[$teamId]['name'], 'group' => $groupId];
+        $targets[] = [
+            'id' => (int)$teamId,
+            'name' => $teamsById[$teamId]['name'],
+            'group' => $groupId,
+        ];
     }
 }
 
@@ -366,6 +370,14 @@ foreach ($targets as $target) {
         'parse_mode' => 'HTML',
     ];
     $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
+    if (!$result['ok']) {
+        $migratedId = enlil_telegram_extract_migrate_chat_id($result);
+        if ($migratedId !== '') {
+            enlil_teams_update_group_id((int)$target['id'], $migratedId);
+            $payload['chat_id'] = $migratedId;
+            $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
+        }
+    }
     if (!$result['ok']) {
         $code = $result['http_code'] ? 'HTTP ' . $result['http_code'] : 'sin respuesta';
         $detail = '';

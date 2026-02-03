@@ -111,6 +111,8 @@ function enlil_projects_get(int $projectId): ?array {
                             'due_date' => (string)$task->due_date,
                             'status' => (string)$task->status,
                             'completed_at' => isset($task->completed_at) ? (string)$task->completed_at : '',
+                            'recurrence' => isset($task->recurrence) ? (string)$task->recurrence : '',
+                            'parent_id' => isset($task->parent_id) ? (int)$task->parent_id : 0,
                             'depends_on' => $taskDepends,
                             'responsible_ids' => $responsibleIds,
                         ];
@@ -298,6 +300,12 @@ function enlil_projects_update(int $projectId, string $name, string $description
                     $taskNode->addChild('name', $task['name']);
                     $taskNode->addChild('due_date', $task['due_date']);
                     $taskNode->addChild('status', $task['status']);
+                    if (!empty($task['recurrence'])) {
+                        $taskNode->addChild('recurrence', $task['recurrence']);
+                    }
+                    if (!empty($task['parent_id'])) {
+                        $taskNode->addChild('parent_id', (string)$task['parent_id']);
+                    }
                     if (!empty($task['completed_at'])) {
                         $taskNode->addChild('completed_at', $task['completed_at']);
                     }

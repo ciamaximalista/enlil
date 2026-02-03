@@ -322,6 +322,15 @@ table {
     font-size: 14px;
 }
 
+.fixed-table {
+    table-layout: fixed;
+}
+
+.fixed-table th,
+.fixed-table td {
+    width: 33.33%;
+}
+
 thead th {
     text-align: left;
     padding: 12px;

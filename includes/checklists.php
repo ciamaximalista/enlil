@@ -84,6 +84,33 @@ function enlil_checklist_recent(int $limit = 10): array {
     return array_slice($events, 0, $limit);
 }
 
+function enlil_checklist_events_all(): array {
+    $path = enlil_checklist_xml_path();
+    if (!file_exists($path)) {
+        return [];
+    }
+    $xml = @simplexml_load_file($path);
+    if (!$xml) {
+        return [];
+    }
+    $events = [];
+    foreach ($xml->event as $event) {
+        $events[] = [
+            'created_at' => (string)$event->created_at,
+            'person_id' => (string)$event->person_id,
+            'telegram_user' => (string)$event->telegram_user,
+            'telegram_user_id' => (string)$event->telegram_user_id,
+            'team_id' => (string)$event->team_id,
+            'chat_id' => (string)$event->chat_id,
+            'message_id' => (string)$event->message_id,
+            'done_ids' => (string)$event->done_ids,
+            'not_done_ids' => (string)$event->not_done_ids,
+            'done_state_ids' => (string)($event->done_state_ids ?? ''),
+        ];
+    }
+    return $events;
+}
+
 function enlil_checklist_last_done_state(string $chatId, string $messageId): array {
     $path = enlil_checklist_xml_path();
     if (!file_exists($path)) {

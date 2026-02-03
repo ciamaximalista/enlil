@@ -10,6 +10,7 @@ Sistema de organización de proyectos (PHP + XML + JS) con administración únic
 - Objetivos y tareas con organización por líneas de dependencias (matriz visual).
 - Vista de proyecto con organigrama de objetivos y tareas por niveles.
 - Edición de objetivos en vistas individuales con tareas y responsables.
+- Tareas recurrentes: puntual, semanal, mensual y "como hoy de cada mes" (por ordinal del día de semana).
 - Calendarios por proyecto y por persona (vista semanal/mensual).
 - Comparador de calendarios entre personas seleccionadas.
 - Envío de mensajes a grupos con tareas pendientes (horizonte 15 días).

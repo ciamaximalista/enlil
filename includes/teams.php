@@ -188,3 +188,53 @@ function enlil_teams_update_business_connection(int $id, string $connectionId): 
     chmod($path, 0660);
     return true;
 }
+
+function enlil_teams_update_group_id(int $id, string $telegramGroup): bool {
+    $path = enlil_teams_xml_path();
+    if (!file_exists($path)) {
+        return false;
+    }
+
+    $xml = @simplexml_load_file($path);
+    if (!$xml) {
+        throw new RuntimeException('No se pudo leer el XML de equipos.');
+    }
+
+    $updated = false;
+    foreach ($xml->team as $team) {
+        if ((int)$team['id'] === $id) {
+            $team->telegram_group = $telegramGroup;
+            if (!isset($team->telegram_bot_token)) {
+                $team->addChild('telegram_bot_token', '');
+            }
+            if (!isset($team->business_connection_id)) {
+                $team->addChild('business_connection_id', '');
+            }
+            $updated = true;
+            break;
+        }
+    }
+
+    if (!$updated) {
+        return false;
+    }
+
+    $tempPath = $path . '.tmp';
+    $fp = fopen($tempPath, 'wb');
+    if (!$fp) {
+        throw new RuntimeException('No se pudo crear el XML temporal de equipos.');
+    }
+    if (!flock($fp, LOCK_EX)) {
+        fclose($fp);
+        throw new RuntimeException('No se pudo bloquear el XML temporal de equipos.');
+    }
+
+    fwrite($fp, $xml->asXML());
+    fflush($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+
+    rename($tempPath, $path);
+    chmod($path, 0660);
+    return true;
+}

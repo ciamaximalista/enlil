@@ -34,7 +34,7 @@ function enlil_bot_command_keyboard(): array {
     return [
         'keyboard' => [
             ['/objetivos', '/mi_calendario'],
-            ['/calendario_proyectos'],
+            ['/calendario_proyectos', '/24h'],
         ],
         'resize_keyboard' => true,
         'one_time_keyboard' => false,
@@ -346,7 +346,7 @@ if (is_array($message)) {
             if ($person) {
                 $payload = [
                     'chat_id' => $chatId,
-                    'text' => "Hola, aquí tienes los comandos disponibles:",
+                    'text' => "Hola, aquí tienes los comandos disponibles:\n/objetivos\n/mi_calendario\n/calendario_proyectos\n/24h",
                     'reply_markup' => enlil_bot_command_keyboard(),
                 ];
                 enlil_telegram_post_json($token, 'sendMessage', $payload);
@@ -356,7 +356,7 @@ if (is_array($message)) {
             exit;
         }
 
-        if (in_array($cmd, ['/objetivos', '/mi_calendario', '/calendario_proyectos'], true)) {
+        if (in_array($cmd, ['/objetivos', '/mi_calendario', '/calendario_proyectos', '/24h'], true)) {
             $person = enlil_find_person_from_message($from);
             if (!$person) {
                 $payload = [
@@ -378,10 +378,14 @@ if (is_array($message)) {
                 $tokenValue = enlil_token_create((int)$person['id'], 'mi_calendario');
                 $url = $baseUrl . '/public_mi_calendario.php?token=' . rawurlencode($tokenValue);
                 $textReply = "Aquí tienes tu calendario:\n" . $url . "\n\nEl enlace dura 10 minutos.";
-            } else {
+            } elseif ($cmd === '/calendario_proyectos') {
                 $tokenValue = enlil_token_create((int)$person['id'], 'calendario_proyectos');
                 $url = $baseUrl . '/public_calendario_proyectos.php?token=' . rawurlencode($tokenValue);
                 $textReply = "Aquí tienes los calendarios de tus proyectos:\n" . $url . "\n\nEl enlace dura 10 minutos.";
+            } else {
+                $tokenValue = enlil_token_create((int)$person['id'], 'tareas_24h');
+                $url = $baseUrl . '/public_24h.php?token=' . rawurlencode($tokenValue);
+                $textReply = "Aquí tienes las tareas cumplidas en las últimas 24 horas:\n" . $url . "\n\nEl enlace dura 10 minutos.";
             }
             $payload = [
                 'chat_id' => $chatId,
