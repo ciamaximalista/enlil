@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/avatars.php';
+require_once __DIR__ . '/includes/bot.php';
 
 enlil_require_login();
 enlil_start_session();
 
 $stats = enlil_avatar_refresh_all();
+$botInfo = enlil_bot_save(enlil_bot_token());
 // prevent misleading refresh when duplicated Telegram IDs exist
 $people = enlil_people_all();
 $seen = [];

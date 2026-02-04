@@ -108,6 +108,21 @@ function enlil_task_groups_person(array $tasks): array {
     ];
 }
 
+function enlil_compare_tasks_chrono(array $a, array $b): int {
+    $da = (string)($a['due_date'] ?? '');
+    $db = (string)($b['due_date'] ?? '');
+    if ($da === $db) {
+        return strcasecmp((string)($a['name'] ?? ''), (string)($b['name'] ?? ''));
+    }
+    if ($da === '') {
+        return 1;
+    }
+    if ($db === '') {
+        return -1;
+    }
+    return strcmp($da, $db);
+}
+
 $success = 0;
 $failed = 0;
 $failDetails = [];
@@ -201,6 +216,16 @@ if ($token === '') {
                 foreach ($groups['independent'] as $task) {
                     $mentioned[$task['id']] = $task;
                 }
+                // Fallback: include any pending task not captured by chain/independent logic.
+                foreach ($pending as $task) {
+                    $tid = (int)($task['id'] ?? 0);
+                    if ($tid <= 0) {
+                        continue;
+                    }
+                    if (!isset($mentioned[$tid])) {
+                        $mentioned[$tid] = $task;
+                    }
+                }
                 foreach ($mentioned as $task) {
                     if (!in_array($personId, $task['responsible_ids'] ?? [], true)) {
                         continue;
@@ -233,6 +258,9 @@ if ($token === '') {
         foreach ($tasksByProject as $projectId => $projectData) {
             $projectName = $projectData['name'] ?? '';
             $tasks = $projectData['tasks'] ?? [];
+            usort($tasks, function ($a, $b) {
+                return enlil_compare_tasks_chrono($a['task'] ?? [], $b['task'] ?? []);
+            });
             $existingMessageIds = enlil_checklist_map_list((string)$chatId, (int)$projectId);
             if ($existingMessageIds) {
                 $deletePayload = [

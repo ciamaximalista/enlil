@@ -36,7 +36,7 @@ enlil_page_header('Tareas 24h', false);
                 <p class="project-meta"><?php echo htmlspecialchars(implode(', ', $group['project']['team_names'])); ?></p>
             <?php endif; ?>
             <div class="table-wrap">
-                <table class="fixed-table">
+                <table class="fixed-table cols-3">
                     <thead>
                         <tr>
                             <th>Objetivo</th>

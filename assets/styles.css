@@ -332,9 +332,27 @@ table {
     table-layout: fixed;
 }
 
-.fixed-table th,
-.fixed-table td {
+.fixed-table.cols-3 th,
+.fixed-table.cols-3 td {
     width: 33.33%;
+}
+
+.fixed-table.cols-4 th,
+.fixed-table.cols-4 td {
+    width: 25%;
+}
+
+.fixed-table.cols-5 th,
+.fixed-table.cols-5 td {
+    width: 20%;
+}
+
+.task-row-done td {
+    background: #e8f4ff;
+}
+
+.task-row-pending td {
+    background: #fff3f3;
 }
 
 thead th {

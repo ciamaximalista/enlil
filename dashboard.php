@@ -39,7 +39,7 @@ enlil_page_header('Panel');
 ?>
     <main class="container">
         <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['admin_username'] ?? ''); ?></h1>
-        <p>Listo para organizar tus proyectos en Enlil.</p>
+        <p>⛈⛈⛈⛈ Enlil te protegerá de las tormentas ⛈⛈⛈⛈</p>
 
         <div class="section-card">
             <h2>Bot de Telegram de la instalación</h2>
@@ -156,7 +156,7 @@ enlil_page_header('Panel');
                         <p class="project-meta"><?php echo htmlspecialchars(implode(', ', $group['project']['team_names'])); ?></p>
                     <?php endif; ?>
                     <div class="table-wrap">
-                        <table class="fixed-table">
+                        <table class="fixed-table cols-3">
                             <thead>
                                 <tr>
                                     <th>Objetivo</th>
@@ -186,6 +186,14 @@ enlil_page_header('Panel');
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
+        </div>
+
+        <div class="section-card">
+            <h2>Buscador de tareas</h2>
+            <form method="get" action="/tareas_buscar.php" style="display:flex; gap:8px; align-items:center;">
+                <input type="text" name="q" placeholder="Buscar por título de tarea" style="flex:1; min-width:420px;" required>
+                <button type="submit" class="btn secondary">Buscar</button>
+            </form>
         </div>
     </main>
 <?php enlil_page_footer(); ?>

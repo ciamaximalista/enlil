@@ -93,6 +93,21 @@ function enlil_task_groups(array $tasks): array {
     ];
 }
 
+function enlil_compare_tasks_chrono(array $a, array $b): int {
+    $da = (string)($a['due_date'] ?? '');
+    $db = (string)($b['due_date'] ?? '');
+    if ($da === $db) {
+        return strcasecmp((string)($a['name'] ?? ''), (string)($b['name'] ?? ''));
+    }
+    if ($da === '') {
+        return 1;
+    }
+    if ($db === '') {
+        return -1;
+    }
+    return strcmp($da, $db);
+}
+
 $monthsEs = [
     1 => 'enero',
     2 => 'febrero',
@@ -255,9 +270,31 @@ foreach ($projects as $project) {
                 }
             }
         }
+        $chainMeta = [];
+        foreach ($chainRoots as $rootId => $rootTask) {
+            $firstDue = '9999-12-31';
+            foreach (($groups['columns'][$rootId] ?? []) as $colTask) {
+                $due = (string)($colTask['due_date'] ?? '');
+                if ($due !== '' && $due < $firstDue) {
+                    $firstDue = $due;
+                }
+            }
+            $chainMeta[] = [
+                'root_id' => (int)$rootId,
+                'root_task' => $rootTask,
+                'first_due' => $firstDue,
+            ];
+        }
+        usort($chainMeta, function ($a, $b) {
+            if ($a['first_due'] === $b['first_due']) {
+                return ((int)$a['root_id']) <=> ((int)$b['root_id']);
+            }
+            return strcmp((string)$a['first_due'], (string)$b['first_due']);
+        });
 
         $hasChainLines = false;
-        foreach ($chainRoots as $rootTask) {
+        foreach ($chainMeta as $chain) {
+            $rootTask = $chain['root_task'];
             $responsibles = $rootTask['responsible_ids'] ?? [];
             $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
             $taskName = enlil_escape_html($rootTask['name'] ?? '');
@@ -292,11 +329,39 @@ foreach ($projects as $project) {
         }
 
         $independent = $groups['independent'];
+        $addedExtrasHeading = false;
         if ($independent) {
             if ($hasChainLines) {
                 $lines[] = 'Además:';
+                $addedExtrasHeading = true;
             }
             foreach ($independent as $task) {
+                $responsibles = $task['responsible_ids'] ?? [];
+                $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
+                $taskName = enlil_escape_html($task['name'] ?? '');
+                $taskDue = enlil_escape_html(enlil_format_date_es($task['due_date'] ?? '', $monthsEs));
+                $lines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' antes del ' . $taskDue . '.';
+                $mentionedTasks[$objectiveId][$task['id']] = $task;
+            }
+        }
+
+        // Fallback: include any pending task that is not part of chain roots/independent.
+        $remaining = [];
+        foreach ($pending as $task) {
+            $tid = (int)($task['id'] ?? 0);
+            if ($tid <= 0) {
+                continue;
+            }
+            if (!isset($mentionedTasks[$objectiveId][$tid])) {
+                $remaining[] = $task;
+            }
+        }
+        if ($remaining) {
+            usort($remaining, 'enlil_compare_tasks_chrono');
+            if (($hasChainLines || $independent) && !$addedExtrasHeading) {
+                $lines[] = 'Además:';
+            }
+            foreach ($remaining as $task) {
                 $responsibles = $task['responsible_ids'] ?? [];
                 $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
                 $taskName = enlil_escape_html($task['name'] ?? '');
@@ -408,6 +473,9 @@ foreach ($projects as $project) {
             }
             $checkTasks = [];
             $taskMeta = [];
+            usort($userTasks, function ($a, $b) {
+                return enlil_compare_tasks_chrono($a['task'] ?? [], $b['task'] ?? []);
+            });
             foreach ($userTasks as $entry) {
                 $task = $entry['task'];
                 $objectiveLabel = $entry['objective'];
