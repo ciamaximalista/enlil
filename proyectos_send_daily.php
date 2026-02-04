@@ -108,6 +108,19 @@ function enlil_compare_tasks_chrono(array $a, array $b): int {
     return strcmp($da, $db);
 }
 
+function enlil_checklist_target_dates(): array {
+    $today = date('Y-m-d');
+    $dates = [
+        $today,
+        date('Y-m-d', strtotime('+1 day')),
+    ];
+    // Si hoy es viernes, incluir también el lunes siguiente.
+    if ((int)date('N') === 5) {
+        $dates[] = date('Y-m-d', strtotime('+3 days'));
+    }
+    return array_values(array_unique($dates));
+}
+
 $monthsEs = [
     1 => 'enero',
     2 => 'febrero',
@@ -423,6 +436,7 @@ foreach ($projects as $project) {
     {
         $botBusinessId = trim((string)enlil_bot_business_connection_id());
         $botOwnerId = trim((string)enlil_bot_business_owner_user_id());
+        $targetDates = enlil_checklist_target_dates();
         if ($botBusinessId === '') {
             continue;
         }
@@ -478,6 +492,10 @@ foreach ($projects as $project) {
             });
             foreach ($userTasks as $entry) {
                 $task = $entry['task'];
+                $dueDate = (string)($task['due_date'] ?? '');
+                if ($dueDate === '' || !in_array($dueDate, $targetDates, true)) {
+                    continue;
+                }
                 $objectiveLabel = $entry['objective'];
                 $dueText = '';
                 if (!empty($task['due_date'])) {

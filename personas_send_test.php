@@ -123,6 +123,19 @@ function enlil_compare_tasks_chrono(array $a, array $b): int {
     return strcmp($da, $db);
 }
 
+function enlil_checklist_target_dates(): array {
+    $today = new DateTimeImmutable('today');
+    $dates = [
+        $today->format('Y-m-d'),
+        $today->modify('+1 day')->format('Y-m-d'),
+    ];
+    // If sending on Friday, include next Monday as well.
+    if ((int)$today->format('N') === 5) {
+        $dates[] = $today->modify('+3 day')->format('Y-m-d');
+    }
+    return array_values(array_unique($dates));
+}
+
 $success = 0;
 $failed = 0;
 $failDetails = [];
@@ -147,6 +160,7 @@ if ($token === '') {
         $failed++;
         $failDetails[] = 'No hay chat privado registrado para este usuario. Debe escribirle al bot.';
     } else {
+        $targetDates = enlil_checklist_target_dates();
         $projects = enlil_projects_all();
         $projectsFull = [];
         foreach ($projects as $proj) {
@@ -275,6 +289,10 @@ if ($token === '') {
             $taskMeta = [];
             foreach ($tasks as $entry) {
                 $task = $entry['task'];
+                $dueDate = (string)($task['due_date'] ?? '');
+                if ($dueDate === '' || !in_array($dueDate, $targetDates, true)) {
+                    continue;
+                }
                 $objectiveLabel = $entry['objective'] ?? '';
                     $dueText = '';
                     if (!empty($task['due_date'])) {

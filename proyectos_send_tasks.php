@@ -168,6 +168,19 @@ function enlil_compare_tasks_chrono(array $a, array $b): int {
     return strcmp($da, $db);
 }
 
+function enlil_checklist_target_dates(): array {
+    $today = date('Y-m-d');
+    $dates = [
+        $today,
+        date('Y-m-d', strtotime('+1 day')),
+    ];
+    // Si hoy es viernes, incluir también el lunes siguiente.
+    if ((int)date('N') === 5) {
+        $dates[] = date('Y-m-d', strtotime('+3 days'));
+    }
+    return array_values(array_unique($dates));
+}
+
 function enlil_objective_order(array $objectives): array {
     $byId = [];
     $deps = [];
@@ -460,6 +473,7 @@ $userFailures = [];
 {
     $botBusinessId = trim((string)enlil_bot_business_connection_id());
     $botOwnerId = trim((string)enlil_bot_business_owner_user_id());
+    $targetDates = enlil_checklist_target_dates();
     if ($botBusinessId === '') {
         $userFailures[] = 'Bot sin business_connection_id';
     }
@@ -528,6 +542,10 @@ $userFailures = [];
         foreach ($flatTasks as $entry) {
             $objectiveId = (int)($entry['objective_id'] ?? 0);
             $task = $entry['task'] ?? [];
+            $dueDate = (string)($task['due_date'] ?? '');
+            if ($dueDate === '' || !in_array($dueDate, $targetDates, true)) {
+                continue;
+            }
             $objectiveLabel = $objectiveNames[(int)$objectiveId] ?? '';
                 $dueText = '';
                 if (!empty($task['due_date'])) {
