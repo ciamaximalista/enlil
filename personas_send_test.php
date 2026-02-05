@@ -136,6 +136,21 @@ function enlil_checklist_target_dates(): array {
     return array_values(array_unique($dates));
 }
 
+function enlil_checklist_include_due_date(string $dueDate, array $targetDates, string $today): bool {
+    if ($dueDate === '') {
+        return false;
+    }
+    if (in_array($dueDate, $targetDates, true)) {
+        return true;
+    }
+    $dueTs = strtotime($dueDate);
+    $todayTs = strtotime($today);
+    if ($dueTs === false || $todayTs === false) {
+        return false;
+    }
+    return $dueTs < $todayTs;
+}
+
 $success = 0;
 $failed = 0;
 $failDetails = [];
@@ -161,6 +176,7 @@ if ($token === '') {
         $failDetails[] = 'No hay chat privado registrado para este usuario. Debe escribirle al bot.';
     } else {
         $targetDates = enlil_checklist_target_dates();
+        $todayDate = date('Y-m-d');
         $projects = enlil_projects_all();
         $projectsFull = [];
         foreach ($projects as $proj) {
@@ -290,7 +306,7 @@ if ($token === '') {
             foreach ($tasks as $entry) {
                 $task = $entry['task'];
                 $dueDate = (string)($task['due_date'] ?? '');
-                if ($dueDate === '' || !in_array($dueDate, $targetDates, true)) {
+                if (!enlil_checklist_include_due_date($dueDate, $targetDates, $todayDate)) {
                     continue;
                 }
                 $objectiveLabel = $entry['objective'] ?? '';
@@ -354,7 +370,9 @@ if ($token === '') {
                     if (!$userErrorAdded) {
                         $extra = ' (conn=' . $botBusinessId . ', chat=' . $chatId . ')';
                         if ($detail !== '') {
-                            if (stripos($detail, 'messages must not be sent to self') !== false) {
+                            if (stripos($detail, 'BUSINESS_PEER_USAGE_MISSING') !== false) {
+                                $failDetails[] = 'No se puede enviar checklist por Business a este usuario ahora mismo. Debe abrir el chat privado con la cuenta Business que conecta el bot, activar la conexión Business y enviar un mensaje de prueba.' . $extra;
+                            } elseif (stripos($detail, 'messages must not be sent to self') !== false) {
                                 $failDetails[] = 'Telegram no permite enviar checklists al mismo usuario que conectó el bot Business. Esta función es solo para clientes, no para la propia cuenta Business.' . $extra;
                             } else {
                                 $failDetails[] = 'Error al enviar checklist (' . $code . '): ' . $detail . '.' . $extra;

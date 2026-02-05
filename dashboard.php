@@ -13,6 +13,17 @@ $webhookActive = false;
 $editingBot = isset($_GET['edit_bot']) && $_GET['edit_bot'] === '1';
 $botError = '';
 $botSuccess = '';
+$dailyWarnings = [];
+$dailyStatusPath = __DIR__ . '/data/daily_send_status.json';
+if (is_file($dailyStatusPath)) {
+    $raw = @file_get_contents($dailyStatusPath);
+    if (is_string($raw) && $raw !== '') {
+        $decoded = json_decode($raw, true);
+        if (is_array($decoded) && !empty($decoded['warnings']) && is_array($decoded['warnings'])) {
+            $dailyWarnings = $decoded['warnings'];
+        }
+    }
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bot_token'])) {
     $token = trim($_POST['bot_token']);
     if ($token === '') {
@@ -40,6 +51,19 @@ enlil_page_header('Panel');
     <main class="container">
         <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['admin_username'] ?? ''); ?></h1>
         <p>⛈⛈⛈⛈ Enlil te protegerá de las tormentas ⛈⛈⛈⛈</p>
+        <?php if ($dailyWarnings): ?>
+            <div class="alert">
+                <strong>Incidencias en el envío automático diario</strong><br>
+                <?php foreach ($dailyWarnings as $warn): ?>
+                    <?php
+                    $person = trim((string)($warn['person'] ?? 'Usuario'));
+                    $project = trim((string)($warn['project'] ?? ''));
+                    $msg = trim((string)($warn['message'] ?? ''));
+                    ?>
+                    - <?php echo htmlspecialchars($person); ?><?php echo $project !== '' ? ' (' . htmlspecialchars($project) . ')' : ''; ?>: <?php echo htmlspecialchars($msg !== '' ? $msg : 'Error al enviar checklist.'); ?><br>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
 
         <div class="section-card">
             <h2>Bot de Telegram de la instalación</h2>

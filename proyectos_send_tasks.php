@@ -181,6 +181,21 @@ function enlil_checklist_target_dates(): array {
     return array_values(array_unique($dates));
 }
 
+function enlil_checklist_include_due_date(string $dueDate, array $targetDates, string $today): bool {
+    if ($dueDate === '') {
+        return false;
+    }
+    if (in_array($dueDate, $targetDates, true)) {
+        return true;
+    }
+    $dueTs = strtotime($dueDate);
+    $todayTs = strtotime($today);
+    if ($dueTs === false || $todayTs === false) {
+        return false;
+    }
+    return $dueTs < $todayTs;
+}
+
 function enlil_objective_order(array $objectives): array {
     $byId = [];
     $deps = [];
@@ -474,6 +489,7 @@ $userFailures = [];
     $botBusinessId = trim((string)enlil_bot_business_connection_id());
     $botOwnerId = trim((string)enlil_bot_business_owner_user_id());
     $targetDates = enlil_checklist_target_dates();
+    $todayDate = date('Y-m-d');
     if ($botBusinessId === '') {
         $userFailures[] = 'Bot sin business_connection_id';
     }
@@ -543,7 +559,7 @@ $userFailures = [];
             $objectiveId = (int)($entry['objective_id'] ?? 0);
             $task = $entry['task'] ?? [];
             $dueDate = (string)($task['due_date'] ?? '');
-            if ($dueDate === '' || !in_array($dueDate, $targetDates, true)) {
+            if (!enlil_checklist_include_due_date($dueDate, $targetDates, $todayDate)) {
                 continue;
             }
             $objectiveLabel = $objectiveNames[(int)$objectiveId] ?? '';

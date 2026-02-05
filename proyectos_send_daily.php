@@ -8,6 +8,18 @@ require_once __DIR__ . '/includes/customers.php';
 require_once __DIR__ . '/includes/business_connections.php';
 require_once __DIR__ . '/includes/checklist_map.php';
 
+function enlil_daily_status_path(): string {
+    return __DIR__ . '/data/daily_send_status.json';
+}
+
+function enlil_daily_status_save(array $status): void {
+    $json = json_encode($status, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    if (!is_string($json)) {
+        return;
+    }
+    @file_put_contents(enlil_daily_status_path(), $json);
+}
+
 function enlil_format_date_es(string $date, array $monthsEs): string {
     if ($date === '') {
         return '';
@@ -121,6 +133,21 @@ function enlil_checklist_target_dates(): array {
     return array_values(array_unique($dates));
 }
 
+function enlil_checklist_include_due_date(string $dueDate, array $targetDates, string $today): bool {
+    if ($dueDate === '') {
+        return false;
+    }
+    if (in_array($dueDate, $targetDates, true)) {
+        return true;
+    }
+    $dueTs = strtotime($dueDate);
+    $todayTs = strtotime($today);
+    if ($dueTs === false || $todayTs === false) {
+        return false;
+    }
+    return $dueTs < $todayTs;
+}
+
 $monthsEs = [
     1 => 'enero',
     2 => 'febrero',
@@ -138,6 +165,12 @@ $monthsEs = [
 
 $token = enlil_bot_token();
 if ($token === '') {
+    enlil_daily_status_save([
+        'ran_at' => gmdate('c'),
+        'warnings' => [
+            ['message' => 'Bot no configurado.'],
+        ],
+    ]);
     exit(1);
 }
 
@@ -437,6 +470,7 @@ foreach ($projects as $project) {
         $botBusinessId = trim((string)enlil_bot_business_connection_id());
         $botOwnerId = trim((string)enlil_bot_business_owner_user_id());
         $targetDates = enlil_checklist_target_dates();
+        $todayDate = date('Y-m-d');
         if ($botBusinessId === '') {
             continue;
         }
@@ -493,7 +527,7 @@ foreach ($projects as $project) {
             foreach ($userTasks as $entry) {
                 $task = $entry['task'];
                 $dueDate = (string)($task['due_date'] ?? '');
-                if ($dueDate === '' || !in_array($dueDate, $targetDates, true)) {
+                if (!enlil_checklist_include_due_date($dueDate, $targetDates, $todayDate)) {
                     continue;
                 }
                 $objectiveLabel = $entry['objective'];
@@ -543,7 +577,32 @@ foreach ($projects as $project) {
                     }, $checkTasks);
                     enlil_checklist_map_add((string)$chatId, $messageId, (int)$projectFull['id'], 0, $taskIds, $taskMeta);
                 }
+            } else {
+                $detail = '';
+                if (is_array($result) && is_string($result['body'] ?? '')) {
+                    $err = json_decode((string)$result['body'], true);
+                    if (is_array($err) && isset($err['description'])) {
+                        $detail = (string)$err['description'];
+                    }
+                }
+                if (stripos($detail, 'BUSINESS_PEER_USAGE_MISSING') !== false) {
+                    $dailyWarnings[] = [
+                        'type' => 'business_peer_usage_missing',
+                        'project' => (string)($projectFull['name'] ?? ''),
+                        'person' => (string)($info['name'] ?? $info['telegram_user'] ?? 'Usuario'),
+                        'telegram_user' => (string)($info['telegram_user'] ?? ''),
+                        'chat_id' => (string)$chatId,
+                        'message' => 'No se pudo enviar checklist por Business. El usuario debe abrir chat privado con la cuenta Business que conecta el bot, activar conexión Business y enviar un mensaje de prueba.',
+                    ];
+                }
             }
         }
     }
 }
+
+enlil_daily_status_save([
+    'ran_at' => gmdate('c'),
+    'warnings' => $dailyWarnings,
+]);
+
+$dailyWarnings = [];
