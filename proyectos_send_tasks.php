@@ -90,6 +90,19 @@ function enlil_escape_html(string $text): string {
     return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+function enlil_responsibles_text(array $ids, array $peopleById): string {
+    $names = [];
+    foreach ($ids as $rid) {
+        $name = trim((string)($peopleById[(int)$rid] ?? ''));
+        if ($name === '') {
+            continue;
+        }
+        $names[] = $name;
+    }
+    $names = array_values(array_unique($names));
+    return $names ? implode(', ', $names) : 'Alguien';
+}
+
 function enlil_task_groups(array $tasks): array {
     $byId = [];
     $deps = [];
@@ -243,14 +256,13 @@ function enlil_objective_order(array $objectives): array {
     }, $items);
 }
 
-$todayTs = strtotime(date('Y-m-d'));
-$limitTs = strtotime('+15 days', $todayTs);
+$todayDate = date('Y-m-d');
+$targetDates = enlil_checklist_target_dates();
 $todayText = enlil_format_date_es(date('Y-m-d'), $monthsEs);
 
 $lines = [];
 $mentionedTasks = [];
 $lines[] = 'Hoy ' . enlil_escape_html($todayText) . ' en el proyecto <u><b>' . enlil_escape_html($project['name']) . '</b></u>:';
-$overdueLines = [];
 $hasGroupContent = false;
 
 $orderedObjectives = enlil_objective_order($project['objectives'] ?? []);
@@ -259,37 +271,23 @@ foreach ($orderedObjectives as $objective) {
     if (!$tasks) {
         continue;
     }
-    foreach ($tasks as $task) {
-        if (($task['status'] ?? '') === 'done') {
-            continue;
-        }
-        $due = $task['due_date'] ?? '';
-        if ($due === '') {
-            continue;
-        }
-        $dueTs = strtotime($due);
-        if ($dueTs !== false && $dueTs < $todayTs) {
-            $responsibles = $task['responsible_ids'] ?? [];
-            $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
-            $taskName = enlil_escape_html($task['name'] ?? '');
-            $taskDue = enlil_escape_html(enlil_format_date_es($due, $monthsEs));
-            $overdueLines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' (venció el ' . $taskDue . ').';
-        }
-    }
+    $open = [];
     $pending = [];
+    $pendingById = [];
     foreach ($tasks as $task) {
         if (($task['status'] ?? '') === 'done') {
             continue;
         }
-        $due = $task['due_date'] ?? '';
+        $due = (string)($task['due_date'] ?? '');
         if ($due === '') {
             continue;
         }
-        $dueTs = strtotime($due);
-        if ($dueTs === false || $dueTs > $limitTs) {
+        $open[] = $task;
+        if (!enlil_checklist_include_due_date($due, $targetDates, $todayDate)) {
             continue;
         }
         $pending[] = $task;
+        $pendingById[(int)($task['id'] ?? 0)] = true;
     }
     if (!$pending) {
         continue;
@@ -300,12 +298,12 @@ foreach ($orderedObjectives as $objective) {
     $hasGroupContent = true;
     $objectiveId = (int)$objective['id'];
 
-    $groups = enlil_task_groups($pending);
+    $groups = enlil_task_groups($open);
     $children = $groups['children'];
     $chainRoots = [];
     foreach ($groups['columns'] as $rootId => $tasksColumn) {
         foreach ($tasksColumn as $task) {
-            if (empty($task['depends_on'])) {
+            if (empty($task['depends_on']) && isset($pendingById[(int)($task['id'] ?? 0)])) {
                 $chainRoots[$rootId] = $task;
                 break;
             }
@@ -337,16 +335,13 @@ foreach ($orderedObjectives as $objective) {
     foreach ($chainMeta as $chain) {
         $rootTask = $chain['root_task'];
         $responsibles = $rootTask['responsible_ids'] ?? [];
-        $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
+        $responsiblesText = enlil_escape_html(enlil_responsibles_text($responsibles, $peopleById));
         $taskName = enlil_escape_html($rootTask['name'] ?? '');
         $taskDue = enlil_escape_html(enlil_format_date_es($rootTask['due_date'] ?? '', $monthsEs));
         $dependents = $children[(int)$rootTask['id']] ?? [];
         $dependentTask = null;
         if ($dependents) {
-            usort($dependents, function ($a, $b) use ($pending) {
-                return 0;
-            });
-            foreach ($pending as $t) {
+            foreach ($open as $t) {
                 if (in_array((int)$t['id'], $dependents, true)) {
                     if (!$dependentTask || ($t['due_date'] ?? '') < ($dependentTask['due_date'] ?? '9999-12-31')) {
                         $dependentTask = $t;
@@ -356,23 +351,21 @@ foreach ($orderedObjectives as $objective) {
         }
         if ($dependentTask) {
             $depDue = enlil_escape_html(enlil_format_date_es($dependentTask['due_date'] ?? '', $monthsEs));
-            $depNames = [];
-            foreach ($dependentTask['responsible_ids'] ?? [] as $rid) {
-                $depNames[] = enlil_escape_html($peopleById[$rid] ?? 'Alguien');
-            }
-            $depNamesText = $depNames ? implode(', ', $depNames) : 'Alguien';
-            $lines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' antes del ' . $taskDue . ' para que antes del ' . $depDue . ', ' . $depNamesText . ' pueda ' . enlil_escape_html($dependentTask['name'] ?? '') . '.';
+            $depNamesText = enlil_escape_html(enlil_responsibles_text($dependentTask['responsible_ids'] ?? [], $peopleById));
+            $lines[] = '- ' . $responsiblesText . ' tiene que ' . $taskName . ' antes del ' . $taskDue . ' para que antes del ' . $depDue . ', ' . $depNamesText . ' pueda ' . enlil_escape_html($dependentTask['name'] ?? '') . '.';
             $hasChainLines = true;
             $mentionedTasks[$objectiveId][$rootTask['id']] = $rootTask;
             $mentionedTasks[$objectiveId][$dependentTask['id']] = $dependentTask;
         } else {
-            $lines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' antes del ' . $taskDue . '.';
+            $lines[] = '- ' . $responsiblesText . ' tiene que ' . $taskName . ' antes del ' . $taskDue . '.';
             $hasChainLines = true;
             $mentionedTasks[$objectiveId][$rootTask['id']] = $rootTask;
         }
     }
 
-    $independent = $groups['independent'];
+    $independent = array_values(array_filter($groups['independent'], function ($task) use ($pendingById) {
+        return isset($pendingById[(int)($task['id'] ?? 0)]);
+    }));
     $addedExtrasHeading = false;
     if ($independent) {
         if ($hasChainLines) {
@@ -381,10 +374,10 @@ foreach ($orderedObjectives as $objective) {
         }
         foreach ($independent as $task) {
             $responsibles = $task['responsible_ids'] ?? [];
-            $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
+            $responsiblesText = enlil_escape_html(enlil_responsibles_text($responsibles, $peopleById));
             $taskName = enlil_escape_html($task['name'] ?? '');
             $taskDue = enlil_escape_html(enlil_format_date_es($task['due_date'] ?? '', $monthsEs));
-            $lines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' antes del ' . $taskDue . '.';
+            $lines[] = '- ' . $responsiblesText . ' tiene que ' . $taskName . ' antes del ' . $taskDue . '.';
             $mentionedTasks[$objectiveId][$task['id']] = $task;
         }
     }
@@ -407,20 +400,13 @@ foreach ($orderedObjectives as $objective) {
         }
         foreach ($remaining as $task) {
             $responsibles = $task['responsible_ids'] ?? [];
-            $mainResponsible = $responsibles ? ($peopleById[$responsibles[0]] ?? 'Alguien') : 'Alguien';
+            $responsiblesText = enlil_escape_html(enlil_responsibles_text($responsibles, $peopleById));
             $taskName = enlil_escape_html($task['name'] ?? '');
             $taskDue = enlil_escape_html(enlil_format_date_es($task['due_date'] ?? '', $monthsEs));
-            $lines[] = '- ' . enlil_escape_html($mainResponsible) . ' tiene que ' . $taskName . ' antes del ' . $taskDue . '.';
+            $lines[] = '- ' . $responsiblesText . ' tiene que ' . $taskName . ' antes del ' . $taskDue . '.';
             $mentionedTasks[$objectiveId][$task['id']] = $task;
         }
     }
-}
-
-if ($overdueLines) {
-    $lines[] = '';
-    $lines[] = '<b>Tareas retrasadas</b>';
-    $lines = array_merge($lines, $overdueLines);
-    $hasGroupContent = true;
 }
 
 $lines[] = '';
@@ -488,8 +474,6 @@ $userFailures = [];
 {
     $botBusinessId = trim((string)enlil_bot_business_connection_id());
     $botOwnerId = trim((string)enlil_bot_business_owner_user_id());
-    $targetDates = enlil_checklist_target_dates();
-    $todayDate = date('Y-m-d');
     if ($botBusinessId === '') {
         $userFailures[] = 'Bot sin business_connection_id';
     }
