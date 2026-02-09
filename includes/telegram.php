@@ -136,6 +136,25 @@ function enlil_telegram_extract_migrate_chat_id(array $result): string {
     return (string)$migrate;
 }
 
+function enlil_telegram_error_description(array $result): string {
+    if (!is_string($result['body'] ?? '') || (string)$result['body'] === '') {
+        return '';
+    }
+    $data = json_decode((string)$result['body'], true);
+    if (!is_array($data) || !isset($data['description'])) {
+        return '';
+    }
+    return (string)$data['description'];
+}
+
+function enlil_telegram_is_business_peer_missing(array $result): bool {
+    $desc = enlil_telegram_error_description($result);
+    if ($desc === '') {
+        return false;
+    }
+    return stripos($desc, 'BUSINESS_PEER_USAGE_MISSING') !== false;
+}
+
 function enlil_telegram_clip_checklist_text(string $text, int $limit = 100): string {
     if ($limit <= 0) {
         return '';

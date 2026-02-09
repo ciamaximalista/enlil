@@ -7,6 +7,7 @@ require_once __DIR__ . '/includes/bot.php';
 require_once __DIR__ . '/includes/customers.php';
 require_once __DIR__ . '/includes/business_connections.php';
 require_once __DIR__ . '/includes/checklist_map.php';
+require_once __DIR__ . '/includes/tasks_prompts.php';
 
 function enlil_daily_status_path(): string {
     return __DIR__ . '/data/daily_send_status.json';
@@ -187,6 +188,16 @@ if ($token === '') {
     exit(1);
 }
 
+// No enviar mensajes automáticos en fin de semana.
+if ((int)date('N') >= 6) {
+    enlil_daily_status_save([
+        'ran_at' => gmdate('c'),
+        'skipped' => 'weekend',
+        'warnings' => [],
+    ]);
+    exit(0);
+}
+
 $projects = enlil_projects_all();
 $teams = enlil_teams_all();
 $teamsById = [];
@@ -203,10 +214,12 @@ foreach ($people as $person) {
     }
     $peopleById[$person['id']] = $user !== '' ? $user : $person['name'];
     $peopleInfoById[$person['id']] = [
+        'name' => (string)($person['name'] ?? ''),
         'telegram_user' => $user !== '' ? $user : $person['name'],
         'telegram_user_id' => (string)($person['telegram_user_id'] ?? ''),
     ];
 }
+$dailyPromptQueue = [];
 
 function enlil_objective_order(array $objectives): array {
     $byId = [];
@@ -541,49 +554,45 @@ foreach ($projects as $project) {
             if (!$checkTasks) {
                 continue;
             }
-            $payload = [
-                'business_connection_id' => $botBusinessId,
-                'chat_id' => $chatId,
-                'checklist' => [
-                    'title' => $projectFull['name'],
-                    'others_can_mark_tasks_as_done' => true,
-                    'others_can_add_tasks' => false,
-                    'tasks' => $checkTasks,
-                ],
-            ];
-            $result = enlil_telegram_post_json($token, 'sendChecklist', $payload);
-            if (is_array($result) && !empty($result['ok'])) {
-                $data = is_string($result['body']) ? json_decode($result['body'], true) : null;
-                $messageId = '';
-                if (is_array($data) && isset($data['result']['message_id'])) {
-                    $messageId = (string)$data['result']['message_id'];
-                }
-                if ($messageId !== '') {
-                    $taskIds = array_map(function ($t) {
-                        return (int)$t['id'];
-                    }, $checkTasks);
-                    enlil_checklist_map_add((string)$chatId, $messageId, (int)$projectFull['id'], 0, $taskIds, $taskMeta);
-                }
-            } else {
-                $detail = '';
-                if (is_array($result) && is_string($result['body'] ?? '')) {
-                    $err = json_decode((string)$result['body'], true);
-                    if (is_array($err) && isset($err['description'])) {
-                        $detail = (string)$err['description'];
-                    }
-                }
-                if (stripos($detail, 'BUSINESS_PEER_USAGE_MISSING') !== false) {
-                    $dailyWarnings[] = [
-                        'type' => 'business_peer_usage_missing',
-                        'project' => (string)($projectFull['name'] ?? ''),
-                        'person' => (string)($info['name'] ?? $info['telegram_user'] ?? 'Usuario'),
-                        'telegram_user' => (string)($info['telegram_user'] ?? ''),
-                        'chat_id' => (string)$chatId,
-                        'message' => 'No se pudo enviar checklist por Business. El usuario debe abrir chat privado con la cuenta Business que conecta el bot, activar conexión Business y enviar un mensaje de prueba.',
-                    ];
-                }
+            $chatKey = (string)$chatId;
+            if (!isset($dailyPromptQueue[$chatKey])) {
+                $dailyPromptQueue[$chatKey] = [
+                    'person_id' => (int)$personId,
+                    'person_name' => (string)($info['name'] ?? ''),
+                    'chat_id' => (string)$chatId,
+                    'business_connection_id' => (string)$botBusinessId,
+                    'checklists' => [],
+                ];
             }
+            $dailyPromptQueue[$chatKey]['checklists'][] = [
+                'project_id' => (int)$projectFull['id'],
+                'title' => (string)$projectFull['name'],
+                'tasks' => $checkTasks,
+                'task_meta' => $taskMeta,
+            ];
         }
+    }
+}
+
+foreach ($dailyPromptQueue as $chatId => $entry) {
+    enlil_tasks_prompt_set((string)$chatId, $entry);
+    $personName = trim((string)($entry['person_name'] ?? 'Usuario'));
+    $question = "¡Hola " . ($personName !== '' ? $personName : 'Usuario') . "!\n¿Puedo enviarte ya las tareas de hoy? (Sí/No)";
+    $promptResult = enlil_send_text_optional_business(
+        $token,
+        (string)$chatId,
+        $question,
+        (string)($entry['business_connection_id'] ?? '')
+    );
+    if (empty($promptResult['ok'])) {
+        $dailyWarnings[] = [
+            'type' => 'prompt_failed',
+            'project' => '',
+            'person' => (string)($entry['person_name'] ?? 'Usuario'),
+            'telegram_user' => '',
+            'chat_id' => (string)$chatId,
+            'message' => 'No se pudo enviar pregunta previa al checklist' . (($d = enlil_telegram_error_description($promptResult)) !== '' ? (': ' . $d) : '.'),
+        ];
     }
 }
 

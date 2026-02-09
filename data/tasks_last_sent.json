@@ -1,0 +1,138 @@
+{
+    "items": {
+        "8529507400": {
+            "date": "2026-02-09",
+            "sent_at": "2026-02-09T11:40:21+00:00",
+            "checklists": [
+                {
+                    "project_id": 6,
+                    "title": "AEXCID",
+                    "tasks": [
+                        {
+                            "id": 600005,
+                            "text": "Instalación de Nammu (08\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "600005": {
+                            "task_id": 5,
+                            "objective_id": 1,
+                            "name": "Instalación de Nammu"
+                        }
+                    }
+                },
+                {
+                    "project_id": 11,
+                    "title": "Convocatoria Yo Repueblo",
+                    "tasks": [
+                        {
+                            "id": 1100003,
+                            "text": "redactar documentos de la convocatoria (09\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1100003": {
+                            "task_id": 3,
+                            "objective_id": 1,
+                            "name": "redactar documentos de la convocatoria"
+                        }
+                    }
+                },
+                {
+                    "project_id": 12,
+                    "title": "Comunicación Maximalista",
+                    "tasks": [
+                        {
+                            "id": 1200011,
+                            "text": "responder correos atrasados de la Fundación (04\/02)"
+                        },
+                        {
+                            "id": 1200009,
+                            "text": "escribir «Teletrabajo rural: qué necesitas de verdad» (10\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1200011": {
+                            "task_id": 11,
+                            "objective_id": 2,
+                            "name": "responder correos atrasados de la Fundación"
+                        },
+                        "1200009": {
+                            "task_id": 9,
+                            "objective_id": 1,
+                            "name": "escribir «Teletrabajo rural: qué necesitas de verdad»"
+                        }
+                    }
+                },
+                {
+                    "project_id": 13,
+                    "title": "Formación para maximalistas",
+                    "tasks": [
+                        {
+                            "id": 1300003,
+                            "text": "elegir método de clases de inglés (06\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1300003": {
+                            "task_id": 3,
+                            "objective_id": 3,
+                            "name": "elegir método de clases de inglés"
+                        }
+                    }
+                },
+                {
+                    "project_id": 19,
+                    "title": "Maximalistas",
+                    "tasks": [
+                        {
+                            "id": 1900001,
+                            "text": "Ir lunes a las 18:30 al veterinario: vacuna y comprar dos pastillas (09\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1900001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "Ir lunes a las 18:30 al veterinario: vacuna y comprar dos pastillas"
+                        }
+                    }
+                },
+                {
+                    "project_id": 20,
+                    "title": "Educación Financiera",
+                    "tasks": [
+                        {
+                            "id": 2000001,
+                            "text": "Cargar hitos en Enlil (06\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2000001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "Cargar hitos en Enlil"
+                        }
+                    }
+                },
+                {
+                    "project_id": 21,
+                    "title": "Relaciones con otras organizaciones",
+                    "tasks": [
+                        {
+                            "id": 2100001,
+                            "text": "recibir a Israel y compañera de Cais.coop a final de la mañana y comer juntos en casa (10\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2100001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "recibir a Israel y compañera de Cais.coop a final de la mañana y comer juntos en casa"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

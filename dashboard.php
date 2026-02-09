@@ -15,6 +15,16 @@ $botError = '';
 $botSuccess = '';
 $dailyWarnings = [];
 $dailyStatusPath = __DIR__ . '/data/daily_send_status.json';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clear_daily_warnings'])) {
+    if (is_file($dailyStatusPath)) {
+        @unlink($dailyStatusPath);
+        if (is_file($dailyStatusPath)) {
+            @file_put_contents($dailyStatusPath, json_encode(['warnings' => []], JSON_UNESCAPED_UNICODE));
+        }
+    }
+    header('Location: /dashboard.php');
+    exit;
+}
 if (is_file($dailyStatusPath)) {
     $raw = @file_get_contents($dailyStatusPath);
     if (is_string($raw) && $raw !== '') {
@@ -53,7 +63,11 @@ enlil_page_header('Panel');
         <p>⛈⛈⛈⛈ Enlil te protegerá de las tormentas ⛈⛈⛈⛈</p>
         <?php if ($dailyWarnings): ?>
             <div class="alert">
-                <strong>Incidencias en el envío automático diario</strong><br>
+                <strong>Incidencias en el envío automático diario</strong>
+                <form method="post" class="inline-form" style="float:right;">
+                    <button class="btn small danger" type="submit" name="clear_daily_warnings" value="1">Cerrar</button>
+                </form>
+                <br>
                 <?php foreach ($dailyWarnings as $warn): ?>
                     <?php
                     $person = trim((string)($warn['person'] ?? 'Usuario'));

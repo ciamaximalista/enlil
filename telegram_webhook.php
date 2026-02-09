@@ -9,6 +9,8 @@ require_once __DIR__ . '/includes/checklist_map.php';
 require_once __DIR__ . '/includes/projects.php';
 require_once __DIR__ . '/includes/telegram.php';
 require_once __DIR__ . '/includes/tokens.php';
+require_once __DIR__ . '/includes/tasks_prompts.php';
+require_once __DIR__ . '/includes/tasks_delivery.php';
 
 function enlil_find_person_from_message(array $from): ?array {
     $people = enlil_people_all();
@@ -35,10 +37,157 @@ function enlil_bot_command_keyboard(): array {
         'keyboard' => [
             ['/objetivos', '/mi_calendario'],
             ['/calendario_proyectos', '/24h'],
+            ['/tareas'],
         ],
         'resize_keyboard' => true,
         'one_time_keyboard' => false,
         'selective' => true,
+    ];
+}
+
+function enlil_normalize_user_text(string $text): string {
+    $text = trim($text);
+    if ($text === '') {
+        return '';
+    }
+    if (function_exists('mb_strtolower')) {
+        $text = mb_strtolower($text, 'UTF-8');
+    } else {
+        $text = strtolower($text);
+    }
+    $text = str_replace(
+        ['á', 'à', 'ä', 'â', 'ã', 'é', 'è', 'ë', 'ê', 'í', 'ì', 'ï', 'î', 'ó', 'ò', 'ö', 'ô', 'õ', 'ú', 'ù', 'ü', 'û'],
+        ['a', 'a', 'a', 'a', 'a', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u'],
+        $text
+    );
+    return trim($text);
+}
+
+function enlil_is_affirmative_reply(string $text): bool {
+    $norm = enlil_normalize_user_text($text);
+    if ($norm === '') {
+        return false;
+    }
+    return in_array($norm, ['s', 'si'], true);
+}
+
+function enlil_send_current_tasks_to_person(string $token, array $person, string $chatId, string $businessConnectionId = ''): array {
+    $personId = (int)($person['id'] ?? 0);
+    if ($personId <= 0 || $chatId === '') {
+        return [
+            'ok' => false,
+            'message' => 'No te encuentro en Enlil o falta chat privado.',
+            'sent' => 0,
+            'failed' => 1,
+        ];
+    }
+    $checklists = enlil_build_person_checklists($personId, 15, true);
+    if (!$checklists) {
+        $cached = enlil_tasks_last_sent_get_today($chatId);
+        if (is_array($cached) && $cached) {
+            $bundle = [
+                'chat_id' => $chatId,
+                'business_connection_id' => $businessConnectionId,
+                'checklists' => $cached,
+            ];
+            $result = enlil_send_checklists_bundle($token, $bundle);
+            $ok = (int)($result['ok'] ?? 0);
+            $failed = (int)($result['failed'] ?? 0);
+            if ($ok > 0 && $failed === 0) {
+                return [
+                    'ok' => true,
+                    'message' => '',
+                    'sent' => $ok,
+                    'failed' => 0,
+                ];
+            }
+            $parts = [];
+            foreach (($result['errors'] ?? []) as $err) {
+                $desc = trim((string)($err['description'] ?? ''));
+                if ($desc !== '') {
+                    $parts[] = $desc;
+                }
+            }
+            $msg = 'No se pudieron reenviar todas las listas' . ($parts ? (': ' . implode(' | ', $parts)) : '.');
+            enlil_send_text_optional_business($token, $chatId, $msg, $businessConnectionId);
+            return [
+                'ok' => false,
+                'message' => $msg,
+                'sent' => $ok,
+                'failed' => max(1, $failed),
+            ];
+        }
+        return [
+            'ok' => true,
+            'message' => '',
+            'sent' => 0,
+            'failed' => 0,
+        ];
+    }
+    $bundle = [
+        'chat_id' => $chatId,
+        'business_connection_id' => $businessConnectionId,
+        'checklists' => $checklists,
+    ];
+    $result = enlil_send_checklists_bundle($token, $bundle);
+    $ok = (int)($result['ok'] ?? 0);
+    $failed = (int)($result['failed'] ?? 0);
+    if ($ok > 0 && $failed === 0) {
+        return [
+            'ok' => true,
+            'message' => '',
+            'sent' => $ok,
+            'failed' => 0,
+        ];
+    }
+    $parts = [];
+    foreach (($result['errors'] ?? []) as $err) {
+        $desc = trim((string)($err['description'] ?? ''));
+        if ($desc !== '') {
+            $parts[] = $desc;
+        }
+    }
+    $msg = 'No se pudieron enviar todas las listas' . ($parts ? (': ' . implode(' | ', $parts)) : '.');
+    enlil_send_text_optional_business($token, $chatId, $msg, $businessConnectionId);
+    return [
+        'ok' => false,
+        'message' => $msg,
+        'sent' => $ok,
+        'failed' => max(1, $failed),
+    ];
+}
+
+function enlil_send_stored_prompt_checklists(string $token, array $prompt, string $chatId, string $businessConnectionId = ''): array {
+    $checklists = $prompt['checklists'] ?? [];
+    if (!is_array($checklists) || !$checklists || $chatId === '') {
+        return [
+            'ok' => true,
+            'message' => '',
+            'sent' => 0,
+            'failed' => 0,
+        ];
+    }
+    $bundle = [
+        'chat_id' => $chatId,
+        'business_connection_id' => $businessConnectionId,
+        'checklists' => $checklists,
+    ];
+    $result = enlil_send_checklists_bundle($token, $bundle);
+    $ok = (int)($result['ok'] ?? 0);
+    $failed = (int)($result['failed'] ?? 0);
+    if ($ok > 0 && $failed === 0) {
+        return [
+            'ok' => true,
+            'message' => '',
+            'sent' => $ok,
+            'failed' => 0,
+        ];
+    }
+    return [
+        'ok' => false,
+        'message' => 'No se pudieron enviar las listas guardadas.',
+        'sent' => $ok,
+        'failed' => max(1, $failed),
     ];
 }
 
@@ -64,6 +213,271 @@ function enlil_checklist_extract_ids($items): array {
         }
     }
     return array_values(array_unique($ids));
+}
+
+function enlil_person_label(array $person): string {
+    $user = trim((string)($person['telegram_user'] ?? ''));
+    if ($user !== '') {
+        return '@' . ltrim($user, '@');
+    }
+    return (string)($person['name'] ?? 'Alguien');
+}
+
+function enlil_actor_label(array $actorPerson, string $fallbackUsername): string {
+    if (!empty($actorPerson)) {
+        return enlil_person_label($actorPerson);
+    }
+    $u = trim($fallbackUsername);
+    if ($u !== '') {
+        return '@' . ltrim($u, '@');
+    }
+    return 'Alguien';
+}
+
+function enlil_task_due_ts(array $task): int {
+    $due = (string)($task['due_date'] ?? '');
+    if ($due === '') {
+        return PHP_INT_MAX;
+    }
+    $ts = strtotime($due);
+    return $ts === false ? PHP_INT_MAX : $ts;
+}
+
+function enlil_find_next_dependent_task(int $projectId, int $taskId): ?array {
+    if ($projectId <= 0 || $taskId <= 0) {
+        return null;
+    }
+    $project = enlil_projects_get($projectId);
+    if (!$project || empty($project['objectives'])) {
+        return null;
+    }
+    foreach ($project['objectives'] as $objective) {
+        $tasks = $objective['tasks'] ?? [];
+        if (!$tasks) {
+            continue;
+        }
+        $hasCurrent = false;
+        foreach ($tasks as $task) {
+            if ((int)($task['id'] ?? 0) === $taskId) {
+                $hasCurrent = true;
+                break;
+            }
+        }
+        if (!$hasCurrent) {
+            continue;
+        }
+        $candidates = [];
+        foreach ($tasks as $task) {
+            $depends = $task['depends_on'] ?? [];
+            if (!is_array($depends) || !in_array($taskId, array_map('intval', $depends), true)) {
+                continue;
+            }
+            if (($task['status'] ?? '') === 'done') {
+                continue;
+            }
+            $candidates[] = $task;
+        }
+        if (!$candidates) {
+            return null;
+        }
+        usort($candidates, function ($a, $b) {
+            $ta = enlil_task_due_ts($a);
+            $tb = enlil_task_due_ts($b);
+            if ($ta === $tb) {
+                return ((int)($a['id'] ?? 0)) <=> ((int)($b['id'] ?? 0));
+            }
+            return $ta <=> $tb;
+        });
+        return $candidates[0];
+    }
+    return null;
+}
+
+function enlil_find_task_name_in_project(int $projectId, int $taskId): string {
+    if ($projectId <= 0 || $taskId <= 0) {
+        return '';
+    }
+    $project = enlil_projects_get($projectId);
+    if (!$project || empty($project['objectives'])) {
+        return '';
+    }
+    foreach ($project['objectives'] as $objective) {
+        $tasks = $objective['tasks'] ?? [];
+        foreach ($tasks as $task) {
+            if ((int)($task['id'] ?? 0) === $taskId) {
+                return trim((string)($task['name'] ?? ''));
+            }
+        }
+    }
+    return '';
+}
+
+function enlil_notify_dependency_log(array $data): void {
+    $logDir = __DIR__ . '/data';
+    if (!is_dir($logDir)) {
+        return;
+    }
+    $line = [
+        'ts' => date('c'),
+        'event' => 'dependency_notify',
+    ];
+    foreach ($data as $k => $v) {
+        $line[(string)$k] = is_scalar($v) ? (string)$v : json_encode($v);
+    }
+    @file_put_contents($logDir . '/dependency_notify.log', json_encode($line, JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
+}
+
+function enlil_notify_next_responsible(
+    string $token,
+    int $projectId,
+    int $doneTaskId,
+    string $doneTaskName,
+    array $actorPerson,
+    int $actorPersonId,
+    string $fallbackUsername
+): void {
+    if ($projectId <= 0 || $doneTaskId <= 0) {
+        enlil_notify_dependency_log([
+            'status' => 'skip',
+            'reason' => 'invalid_ids',
+            'project_id' => $projectId,
+            'done_task_id' => $doneTaskId,
+        ]);
+        return;
+    }
+    $doneTaskName = trim($doneTaskName);
+    if ($doneTaskName === '') {
+        $doneTaskName = enlil_find_task_name_in_project($projectId, $doneTaskId);
+    }
+    if ($doneTaskName === '') {
+        enlil_notify_dependency_log([
+            'status' => 'skip',
+            'reason' => 'done_task_name_missing',
+            'project_id' => $projectId,
+            'done_task_id' => $doneTaskId,
+        ]);
+        return;
+    }
+    $nextTask = enlil_find_next_dependent_task($projectId, $doneTaskId);
+    if (!$nextTask) {
+        enlil_notify_dependency_log([
+            'status' => 'skip',
+            'reason' => 'no_next_task',
+            'project_id' => $projectId,
+            'done_task_id' => $doneTaskId,
+            'done_task' => $doneTaskName,
+        ]);
+        return;
+    }
+    $nextTaskName = trim((string)($nextTask['name'] ?? ''));
+    if ($nextTaskName === '') {
+        enlil_notify_dependency_log([
+            'status' => 'skip',
+            'reason' => 'next_task_name_missing',
+            'project_id' => $projectId,
+            'done_task_id' => $doneTaskId,
+            'done_task' => $doneTaskName,
+        ]);
+        return;
+    }
+    $responsibleIds = array_map('intval', (array)($nextTask['responsible_ids'] ?? []));
+    if (!$responsibleIds) {
+        enlil_notify_dependency_log([
+            'status' => 'skip',
+            'reason' => 'next_task_without_responsibles',
+            'project_id' => $projectId,
+            'done_task_id' => $doneTaskId,
+            'next_task_id' => (int)($nextTask['id'] ?? 0),
+            'next_task' => $nextTaskName,
+        ]);
+        return;
+    }
+    $people = enlil_people_all();
+    $peopleById = [];
+    foreach ($people as $p) {
+        $peopleById[(int)$p['id']] = $p;
+    }
+
+    $actorLabel = enlil_actor_label($actorPerson, $fallbackUsername);
+    $botBusinessId = trim((string)enlil_bot_business_connection_id());
+    if ($botBusinessId === '') {
+        enlil_notify_dependency_log([
+            'status' => 'skip',
+            'reason' => 'missing_bot_business_connection',
+            'project_id' => $projectId,
+            'done_task_id' => $doneTaskId,
+            'done_task' => $doneTaskName,
+            'next_task' => $nextTaskName,
+        ]);
+        return;
+    }
+
+    foreach ($responsibleIds as $rid) {
+        if ($rid <= 0 || $rid === $actorPersonId || !isset($peopleById[$rid])) {
+            continue;
+        }
+        $targetPerson = $peopleById[$rid];
+        $targetTgId = trim((string)($targetPerson['telegram_user_id'] ?? ''));
+        if ($targetTgId === '') {
+            enlil_notify_dependency_log([
+                'status' => 'skip_recipient',
+                'reason' => 'recipient_without_telegram_user_id',
+                'project_id' => $projectId,
+                'done_task_id' => $doneTaskId,
+                'recipient_person_id' => $rid,
+            ]);
+            continue;
+        }
+        $chatId = '';
+        $customer = enlil_customer_get($targetTgId);
+        if ($customer && !empty($customer['chat_id'])) {
+            $chatId = (string)$customer['chat_id'];
+        }
+        if ($chatId === '') {
+            $biz = enlil_business_get($targetTgId);
+            if ($biz && !empty($biz['user_chat_id'])) {
+                $chatId = (string)$biz['user_chat_id'];
+            }
+        }
+        if ($chatId === '') {
+            enlil_notify_dependency_log([
+                'status' => 'skip_recipient',
+                'reason' => 'recipient_without_private_chat',
+                'project_id' => $projectId,
+                'done_task_id' => $doneTaskId,
+                'recipient_person_id' => $rid,
+                'recipient_telegram_user_id' => $targetTgId,
+            ]);
+            continue;
+        }
+        $payload = [
+            'business_connection_id' => $botBusinessId,
+            'chat_id' => $chatId,
+            'text' => $actorLabel . ' acaba de ' . $doneTaskName . ' como tu necesitabas para poder ' . $nextTaskName . '.',
+        ];
+        $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
+        $errorDescription = '';
+        if (!$result['ok'] && is_string($result['body']) && $result['body'] !== '') {
+            $decoded = json_decode($result['body'], true);
+            if (is_array($decoded) && isset($decoded['description'])) {
+                $errorDescription = (string)$decoded['description'];
+            }
+        }
+        enlil_notify_dependency_log([
+            'status' => $result['ok'] ? 'sent' : 'failed',
+            'project_id' => $projectId,
+            'done_task_id' => $doneTaskId,
+            'done_task' => $doneTaskName,
+            'next_task_id' => (int)($nextTask['id'] ?? 0),
+            'next_task' => $nextTaskName,
+            'actor' => $actorLabel,
+            'recipient_person_id' => $rid,
+            'recipient' => enlil_person_label($targetPerson),
+            'chat_id' => $chatId,
+            'http_code' => (int)($result['http_code'] ?? 0),
+            'error' => $errorDescription,
+        ]);
+    }
 }
 
 // Identify which bot sent this update via token parameter.
@@ -151,14 +565,17 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
 
     $people = enlil_people_all();
     $personId = '';
+    $actorPerson = [];
     foreach ($people as $person) {
         if ($tgUserId !== '' && (string)$person['telegram_user_id'] === $tgUserId) {
             $personId = (string)$person['id'];
+            $actorPerson = $person;
             $tgUsername = ltrim((string)$person['telegram_user'], '@');
             break;
         }
         if ($personId === '' && $tgUsername !== '' && strcasecmp(ltrim((string)$person['telegram_user'], '@'), $tgUsername) === 0) {
             $personId = (string)$person['id'];
+            $actorPerson = $person;
             break;
         }
     }
@@ -245,6 +662,15 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
             if ($updated === 0) {
                 enlil_projects_mark_task_by_id_for_person($decodedTaskId, (int)$personId, 'done', date('c'));
             }
+            enlil_notify_next_responsible(
+                $token,
+                $decodedProjectId,
+                $decodedTaskId,
+                (string)($map['task_meta'][$doneId]['name'] ?? ''),
+                $actorPerson,
+                (int)$personId,
+                (string)$tgUsername
+            );
         }
     }
     foreach ($notDoneIds as $notDoneId) {
@@ -293,10 +719,37 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
                     } else {
                         enlil_projects_mark_task_by_id_in_project((int)$map['project_id'], $realTaskId, 'done', date('c'));
                     }
+                    enlil_notify_next_responsible(
+                        $token,
+                        (int)$map['project_id'],
+                        $realTaskId,
+                        (string)($meta['name'] ?? ''),
+                        $actorPerson,
+                        (int)$personId,
+                        (string)$tgUsername
+                    );
                 } elseif ($mapObjectiveId > 0) {
                     enlil_projects_mark_task_done((int)$map['project_id'], $mapObjectiveId, $doneId, date('c'));
+                    enlil_notify_next_responsible(
+                        $token,
+                        (int)$map['project_id'],
+                        $doneId,
+                        '',
+                        $actorPerson,
+                        (int)$personId,
+                        (string)$tgUsername
+                    );
                 } else {
                     enlil_projects_mark_task_by_id_in_project((int)$map['project_id'], $doneId, 'done', date('c'));
+                    enlil_notify_next_responsible(
+                        $token,
+                        (int)$map['project_id'],
+                        $doneId,
+                        '',
+                        $actorPerson,
+                        (int)$personId,
+                        (string)$tgUsername
+                    );
                 }
             }
             foreach ($notDoneIds as $notDoneId) {
@@ -331,22 +784,34 @@ if (is_array($checkMessage) && isset($checkMessage['checklist_tasks_done'])) {
     exit;
 }
 
-// Bot commands in private chats
-$message = $update['message'] ?? null;
-if (is_array($message)) {
-    $text = trim((string)($message['text'] ?? ''));
-    $chat = $message['chat'] ?? [];
-    $from = $message['from'] ?? [];
+// Bot commands and prompt replies in private chats (normal and business updates)
+$inboundTextMessage = null;
+if (isset($update['message']) && is_array($update['message'])) {
+    $candidate = $update['message'];
+    if (($candidate['chat']['type'] ?? '') === 'private' && trim((string)($candidate['text'] ?? '')) !== '') {
+        $inboundTextMessage = $candidate;
+    }
+}
+if ($inboundTextMessage === null) {
+    $candidate = $update['business_message'] ?? ($update['edited_business_message'] ?? null);
+    if (is_array($candidate) && ($candidate['chat']['type'] ?? '') === 'private' && trim((string)($candidate['text'] ?? '')) !== '') {
+        $inboundTextMessage = $candidate;
+    }
+}
+
+if (is_array($inboundTextMessage)) {
+    $text = trim((string)($inboundTextMessage['text'] ?? ''));
+    $chat = $inboundTextMessage['chat'] ?? [];
+    $from = $inboundTextMessage['from'] ?? [];
     $chatId = (string)($chat['id'] ?? '');
-    $tgUserId = (string)($from['id'] ?? '');
-    if ($chatId !== '' && isset($chat['type']) && $chat['type'] === 'private' && $text !== '') {
+    if ($chatId !== '' && $text !== '') {
         $cmd = strtolower(strtok($text, " \n\r\t"));
         if ($cmd === '/start' || $cmd === '/menu' || $cmd === '/help') {
             $person = enlil_find_person_from_message($from);
             if ($person) {
                 $payload = [
                     'chat_id' => $chatId,
-                    'text' => "Hola, aquí tienes los comandos disponibles:\n/objetivos\n/mi_calendario\n/calendario_proyectos\n/24h",
+                    'text' => "Hola, aquí tienes los comandos disponibles:\n/objetivos\n/mi_calendario\n/calendario_proyectos\n/24h\n/tareas",
                     'reply_markup' => enlil_bot_command_keyboard(),
                 ];
                 enlil_telegram_post_json($token, 'sendMessage', $payload);
@@ -356,7 +821,7 @@ if (is_array($message)) {
             exit;
         }
 
-        if (in_array($cmd, ['/objetivos', '/mi_calendario', '/calendario_proyectos', '/24h'], true)) {
+        if (in_array($cmd, ['/objetivos', '/mi_calendario', '/calendario_proyectos', '/24h', '/tareas'], true)) {
             $person = enlil_find_person_from_message($from);
             if (!$person) {
                 $payload = [
@@ -368,9 +833,24 @@ if (is_array($message)) {
                 echo 'OK';
                 exit;
             }
+            $prompt = enlil_tasks_prompt_get($chatId);
+            $promptBusinessId = is_array($prompt) ? (string)($prompt['business_connection_id'] ?? '') : '';
+            if ($promptBusinessId === '') {
+                $promptBusinessId = trim((string)enlil_bot_business_connection_id());
+            }
+
             $baseHost = $_SERVER['HTTP_HOST'] ?? 'maximalista.org';
             $baseUrl = 'https://' . $baseHost;
-            if ($cmd === '/objetivos') {
+            if ($cmd === '/tareas') {
+                $sendResult = enlil_send_current_tasks_to_person($token, $person, $chatId, $promptBusinessId);
+                if ((int)($sendResult['sent'] ?? 0) === 0 && (int)($sendResult['failed'] ?? 0) === 0 && is_array($prompt)) {
+                    enlil_send_stored_prompt_checklists($token, $prompt, $chatId, $promptBusinessId);
+                }
+                enlil_tasks_prompt_clear($chatId);
+                http_response_code(200);
+                echo 'OK';
+                exit;
+            } elseif ($cmd === '/objetivos') {
                 $tokenValue = enlil_token_create((int)$person['id'], 'objetivos');
                 $url = $baseUrl . '/public_objetivos.php?token=' . rawurlencode($tokenValue);
                 $textReply = "Aquí tienes los mapas de objetivos:\n" . $url . "\n\nEl enlace dura 10 minutos.";
@@ -392,6 +872,54 @@ if (is_array($message)) {
                 'text' => $textReply,
             ];
             enlil_telegram_post_json($token, 'sendMessage', $payload);
+            http_response_code(200);
+            echo 'OK';
+            exit;
+        }
+
+        // Reply to queued daily/manual prompt.
+        $prompt = enlil_tasks_prompt_get($chatId);
+        if (is_array($prompt)) {
+            $person = enlil_find_person_from_message($from);
+            $promptBusinessId = (string)($prompt['business_connection_id'] ?? '');
+            if ($promptBusinessId === '') {
+                $promptBusinessId = trim((string)enlil_bot_business_connection_id());
+            }
+            if (enlil_is_affirmative_reply($text)) {
+                if ($person) {
+                    $sendResult = enlil_send_current_tasks_to_person($token, $person, $chatId, $promptBusinessId);
+                    if ((int)($sendResult['sent'] ?? 0) === 0 && (int)($sendResult['failed'] ?? 0) === 0) {
+                        enlil_send_stored_prompt_checklists($token, $prompt, $chatId, $promptBusinessId);
+                    }
+                } else {
+                    $personId = (int)($prompt['person_id'] ?? 0);
+                    $fallbackPerson = null;
+                    if ($personId > 0) {
+                        foreach (enlil_people_all() as $p) {
+                            if ((int)($p['id'] ?? 0) === $personId) {
+                                $fallbackPerson = $p;
+                                break;
+                            }
+                        }
+                    }
+                    if (is_array($fallbackPerson)) {
+                        $sendResult = enlil_send_current_tasks_to_person($token, $fallbackPerson, $chatId, $promptBusinessId);
+                        if ((int)($sendResult['sent'] ?? 0) === 0 && (int)($sendResult['failed'] ?? 0) === 0) {
+                            enlil_send_stored_prompt_checklists($token, $prompt, $chatId, $promptBusinessId);
+                        }
+                    } else {
+                        enlil_send_stored_prompt_checklists($token, $prompt, $chatId, $promptBusinessId);
+                    }
+                }
+            } else {
+                enlil_send_text_optional_business(
+                    $token,
+                    $chatId,
+                    'Cuando quieras recibir las tareas de hoy basta con que me envíes el comando /tareas',
+                    $promptBusinessId
+                );
+            }
+            enlil_tasks_prompt_clear($chatId);
             http_response_code(200);
             echo 'OK';
             exit;
