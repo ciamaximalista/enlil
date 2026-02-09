@@ -554,13 +554,15 @@ foreach ($projects as $project) {
             if (!$checkTasks) {
                 continue;
             }
+            $targetBusinessId = (string)$botBusinessId;
+
             $chatKey = (string)$chatId;
             if (!isset($dailyPromptQueue[$chatKey])) {
                 $dailyPromptQueue[$chatKey] = [
                     'person_id' => (int)$personId,
                     'person_name' => (string)($info['name'] ?? ''),
                     'chat_id' => (string)$chatId,
-                    'business_connection_id' => (string)$botBusinessId,
+                    'business_connection_id' => $targetBusinessId,
                     'checklists' => [],
                 ];
             }

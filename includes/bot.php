@@ -194,3 +194,13 @@ function enlil_bot_webhook_url(): string {
     }
     return $scheme . '://' . $host . '/telegram_webhook.php?token=' . rawurlencode($token);
 }
+
+function enlil_bot_commands(): array {
+    return [
+        ['command' => 'objetivos', 'description' => 'Ver mapas de objetivos'],
+        ['command' => 'mi_calendario', 'description' => 'Ver mi calendario'],
+        ['command' => 'calendario_proyectos', 'description' => 'Ver calendarios de proyectos'],
+        ['command' => '24h', 'description' => 'Ver tareas cumplidas en 24h'],
+        ['command' => 'tareas', 'description' => 'Recibir tareas de hoy'],
+    ];
+}

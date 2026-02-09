@@ -2,7 +2,7 @@
     "items": {
         "8529507400": {
             "date": "2026-02-09",
-            "sent_at": "2026-02-09T11:40:21+00:00",
+            "sent_at": "2026-02-09T14:19:08+00:00",
             "checklists": [
                 {
                     "project_id": 6,
@@ -115,6 +115,387 @@
                         }
                     }
                 },
+                {
+                    "project_id": 21,
+                    "title": "Relaciones con otras organizaciones",
+                    "tasks": [
+                        {
+                            "id": 2100001,
+                            "text": "recibir a Israel y compañera de Cais.coop a final de la mañana y comer juntos en casa (10\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2100001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "recibir a Israel y compañera de Cais.coop a final de la mañana y comer juntos en casa"
+                        }
+                    }
+                }
+            ]
+        },
+        "466249833": {
+            "date": "2026-02-09",
+            "sent_at": "2026-02-09T15:31:42+00:00",
+            "checklists": [
+                {
+                    "project_id": 4,
+                    "title": "RUDI",
+                    "tasks": [
+                        {
+                            "id": 400003,
+                            "text": "revisar dirección de contacto en Teams (09\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "400003": {
+                            "task_id": 3,
+                            "objective_id": 1,
+                            "name": "revisar dirección de contacto en Teams"
+                        }
+                    }
+                },
+                {
+                    "project_id": 6,
+                    "title": "AEXCID",
+                    "tasks": [
+                        {
+                            "id": 600004,
+                            "text": "Estudiar Cooperativas Peruanas (05\/02)"
+                        },
+                        {
+                            "id": 600006,
+                            "text": "Elaboración de cuestionario (09\/02)"
+                        },
+                        {
+                            "id": 600007,
+                            "text": "Envío del cuestionario (09\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "600004": {
+                            "task_id": 4,
+                            "objective_id": 1,
+                            "name": "Estudiar Cooperativas Peruanas"
+                        },
+                        "600006": {
+                            "task_id": 6,
+                            "objective_id": 1,
+                            "name": "Elaboración de cuestionario"
+                        },
+                        "600007": {
+                            "task_id": 7,
+                            "objective_id": 1,
+                            "name": "Envío del cuestionario"
+                        }
+                    }
+                },
+                {
+                    "project_id": 13,
+                    "title": "Formación para maximalistas",
+                    "tasks": [
+                        {
+                            "id": 1300003,
+                            "text": "elegir método de clases de inglés (06\/02)"
+                        },
+                        {
+                            "id": 1300005,
+                            "text": "Estudiar documentación de servidor (08\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1300003": {
+                            "task_id": 3,
+                            "objective_id": 3,
+                            "name": "elegir método de clases de inglés"
+                        },
+                        "1300005": {
+                            "task_id": 5,
+                            "objective_id": 2,
+                            "name": "Estudiar documentación de servidor"
+                        }
+                    }
+                },
+                {
+                    "project_id": 16,
+                    "title": "Rural NEB Fest",
+                    "tasks": [
+                        {
+                            "id": 1600001,
+                            "text": "escribir a Cristina Cortés y Julián Expósito Dip. Badajoz (09\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1600001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "escribir a Cristina Cortés y Julián Expósito Dip. Badajoz"
+                        }
+                    }
+                },
+                {
+                    "project_id": 20,
+                    "title": "Educación Financiera",
+                    "tasks": [
+                        {
+                            "id": 2000001,
+                            "text": "Cargar hitos en Enlil (06\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2000001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "Cargar hitos en Enlil"
+                        }
+                    }
+                },
+                {
+                    "project_id": 21,
+                    "title": "Relaciones con otras organizaciones",
+                    "tasks": [
+                        {
+                            "id": 2100001,
+                            "text": "recibir a Israel y compañera de Cais.coop a final de la mañana y comer juntos en casa (10\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2100001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "recibir a Israel y compañera de Cais.coop a final de la mañana y comer juntos en casa"
+                        }
+                    }
+                },
+                {
+                    "project_id": 22,
+                    "title": "Proyecto Montessori - Ricardo Leal",
+                    "tasks": [
+                        {
+                            "id": 2200002,
+                            "text": "Enviar y solicitar contraste a Carmen, Paula y Verónica (05\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2200002": {
+                            "task_id": 2,
+                            "objective_id": 1,
+                            "name": "Enviar y solicitar contraste a Carmen, Paula y Verónica"
+                        }
+                    }
+                }
+            ]
+        },
+        "419281139": {
+            "date": "2026-02-09",
+            "sent_at": "2026-02-09T12:36:50+00:00",
+            "checklists": [
+                {
+                    "project_id": 6,
+                    "title": "AEXCID",
+                    "tasks": [
+                        {
+                            "id": 600004,
+                            "text": "Estudiar Cooperativas Peruanas (05\/02)"
+                        },
+                        {
+                            "id": 600006,
+                            "text": "Elaboración de cuestionario (09\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "600004": {
+                            "task_id": 4,
+                            "objective_id": 1,
+                            "name": "Estudiar Cooperativas Peruanas"
+                        },
+                        "600006": {
+                            "task_id": 6,
+                            "objective_id": 1,
+                            "name": "Elaboración de cuestionario"
+                        }
+                    }
+                },
+                {
+                    "project_id": 8,
+                    "title": "Rehabilitaciones y desarrollos rurales",
+                    "tasks": [
+                        {
+                            "id": 800007,
+                            "text": "Hacer el pago del olivar a Inmaculada Franco (09\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "800007": {
+                            "task_id": 7,
+                            "objective_id": 1,
+                            "name": "Hacer el pago del olivar a Inmaculada Franco"
+                        }
+                    }
+                },
+                {
+                    "project_id": 18,
+                    "title": "Administración",
+                    "tasks": [
+                        {
+                            "id": 1800005,
+                            "text": "Llamar al Santander para firma FIOC (04\/02)"
+                        },
+                        {
+                            "id": 1800001,
+                            "text": "Preparar documentación cambio patronato (04\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1800005": {
+                            "task_id": 5,
+                            "objective_id": 1,
+                            "name": "Llamar al Santander para firma FIOC"
+                        },
+                        "1800001": {
+                            "task_id": 1,
+                            "objective_id": 2,
+                            "name": "Preparar documentación cambio patronato"
+                        }
+                    }
+                },
+                {
+                    "project_id": 19,
+                    "title": "Maximalistas",
+                    "tasks": [
+                        {
+                            "id": 1900001,
+                            "text": "Ir lunes a las 18:30 al veterinario: vacuna y comprar dos pastillas (09\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1900001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "Ir lunes a las 18:30 al veterinario: vacuna y comprar dos pastillas"
+                        }
+                    }
+                },
+                {
+                    "project_id": 20,
+                    "title": "Educación Financiera",
+                    "tasks": [
+                        {
+                            "id": 2000001,
+                            "text": "Cargar hitos en Enlil (06\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2000001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "Cargar hitos en Enlil"
+                        }
+                    }
+                },
+                {
+                    "project_id": 21,
+                    "title": "Relaciones con otras organizaciones",
+                    "tasks": [
+                        {
+                            "id": 2100001,
+                            "text": "recibir a Israel y compañera de Cais.coop a final de la mañana y comer juntos en casa (10\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2100001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "recibir a Israel y compañera de Cais.coop a final de la mañana y comer juntos en casa"
+                        }
+                    }
+                }
+            ]
+        },
+        "1925990926": {
+            "date": "2026-02-09",
+            "sent_at": "2026-02-09T12:47:24+00:00",
+            "checklists": [
+                {
+                    "project_id": 12,
+                    "title": "Comunicación Maximalista",
+                    "tasks": [
+                        {
+                            "id": 1200005,
+                            "text": "encontrar fecha para podcast (03\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1200005": {
+                            "task_id": 5,
+                            "objective_id": 1,
+                            "name": "encontrar fecha para podcast"
+                        }
+                    }
+                }
+            ]
+        },
+        "536997643": {
+            "date": "2026-02-09",
+            "sent_at": "2026-02-09T12:47:38+00:00",
+            "checklists": [
+                {
+                    "project_id": 8,
+                    "title": "Rehabilitaciones y desarrollos rurales",
+                    "tasks": [
+                        {
+                            "id": 800005,
+                            "text": "Documentar la Agrupación de las fincas que serán la base de La Candela (10\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "800005": {
+                            "task_id": 5,
+                            "objective_id": 1,
+                            "name": "Documentar la Agrupación de las fincas que serán la base de La Candela"
+                        }
+                    }
+                },
+                {
+                    "project_id": 12,
+                    "title": "Comunicación Maximalista",
+                    "tasks": [
+                        {
+                            "id": 1200003,
+                            "text": "escribir un post presentando la Arquitectura Maximalista (01\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1200003": {
+                            "task_id": 3,
+                            "objective_id": 1,
+                            "name": "escribir un post presentando la Arquitectura Maximalista"
+                        }
+                    }
+                },
+                {
+                    "project_id": 23,
+                    "title": "CSCAE - «Nuevas maneras del habitar»",
+                    "tasks": [
+                        {
+                            "id": 2300001,
+                            "text": "Responder a encuesta «¿Qué entiendes por nuevas maneras del habitar?» (10\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "2300001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "Responder a encuesta «¿Qué entiendes por nuevas maneras del habitar?»"
+                        }
+                    }
+                }
+            ]
+        },
+        "517282848": {
+            "date": "2026-02-09",
+            "sent_at": "2026-02-09T15:31:42+00:00",
+            "checklists": [
                 {
                     "project_id": 21,
                     "title": "Relaciones con otras organizaciones",

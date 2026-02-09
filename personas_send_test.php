@@ -75,15 +75,16 @@ if ($token === '') {
             $failed++;
             $failDetails[] = 'No hay tareas pendientes para este usuario.';
         } else {
+            $targetBusinessId = (string)$botBusinessId;
             enlil_tasks_prompt_set((string)$chatId, [
                 'person_id' => (int)$personId,
                 'person_name' => (string)($person['name'] ?? ''),
                 'chat_id' => (string)$chatId,
-                'business_connection_id' => (string)$botBusinessId,
+                'business_connection_id' => $targetBusinessId,
                 'checklists' => $checklists,
             ]);
             $question = "¡Hola " . trim((string)($person['name'] ?? 'Usuario')) . "!\n¿Puedo enviarte ya las tareas de hoy? (Sí/No)";
-            $promptResult = enlil_send_text_optional_business($token, (string)$chatId, $question, (string)$botBusinessId);
+            $promptResult = enlil_send_text_optional_business($token, (string)$chatId, $question, $targetBusinessId);
             if (!empty($promptResult['ok'])) {
                 $success++;
             } else {

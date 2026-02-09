@@ -17,7 +17,15 @@ if ($token === '' || $url === '') {
 
 $result = enlil_telegram_post($token, 'setWebhook', ['url' => $url]);
 if ($result['ok']) {
-    $_SESSION['flash_success'] = 'Webhook activado.';
+    $commandsResult = enlil_telegram_post_json($token, 'setMyCommands', [
+        'commands' => enlil_bot_commands(),
+    ]);
+    if (!empty($commandsResult['ok'])) {
+        $_SESSION['flash_success'] = 'Webhook activado y menú de comandos actualizado.';
+    } else {
+        $code = $commandsResult['http_code'] ? 'HTTP ' . $commandsResult['http_code'] : 'sin respuesta';
+        $_SESSION['flash_success'] = 'Webhook activado. No se pudo actualizar el menú de comandos (' . $code . ').';
+    }
 } else {
     $code = $result['http_code'] ? 'HTTP ' . $result['http_code'] : 'sin respuesta';
     $_SESSION['flash_error'] = 'No se pudo activar el webhook (' . $code . ').';

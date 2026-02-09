@@ -155,6 +155,22 @@ function enlil_telegram_is_business_peer_missing(array $result): bool {
     return stripos($desc, 'BUSINESS_PEER_USAGE_MISSING') !== false;
 }
 
+function enlil_telegram_is_premium_required(array $result): bool {
+    $desc = enlil_telegram_error_description($result);
+    if ($desc === '') {
+        return false;
+    }
+    return stripos($desc, 'PREMIUM_ACCOUNT_REQUIRED') !== false;
+}
+
+function enlil_telegram_is_messages_to_self(array $result): bool {
+    $desc = enlil_telegram_error_description($result);
+    if ($desc === '') {
+        return false;
+    }
+    return stripos($desc, 'messages must not be sent to self') !== false;
+}
+
 function enlil_telegram_clip_checklist_text(string $text, int $limit = 100): string {
     if ($limit <= 0) {
         return '';

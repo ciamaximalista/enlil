@@ -81,6 +81,9 @@ function enlil_send_current_tasks_to_person(string $token, array $person, string
             'failed' => 1,
         ];
     }
+    if ($businessConnectionId === '') {
+        $businessConnectionId = trim((string)enlil_bot_business_connection_id());
+    }
     $checklists = enlil_build_person_checklists($personId, 15, true);
     if (!$checklists) {
         $cached = enlil_tasks_last_sent_get_today($chatId);
@@ -101,14 +104,7 @@ function enlil_send_current_tasks_to_person(string $token, array $person, string
                     'failed' => 0,
                 ];
             }
-            $parts = [];
-            foreach (($result['errors'] ?? []) as $err) {
-                $desc = trim((string)($err['description'] ?? ''));
-                if ($desc !== '') {
-                    $parts[] = $desc;
-                }
-            }
-            $msg = 'No se pudieron reenviar todas las listas' . ($parts ? (': ' . implode(' | ', $parts)) : '.');
+            $msg = enlil_checklist_send_error_message($result);
             enlil_send_text_optional_business($token, $chatId, $msg, $businessConnectionId);
             return [
                 'ok' => false,
@@ -140,14 +136,7 @@ function enlil_send_current_tasks_to_person(string $token, array $person, string
             'failed' => 0,
         ];
     }
-    $parts = [];
-    foreach (($result['errors'] ?? []) as $err) {
-        $desc = trim((string)($err['description'] ?? ''));
-        if ($desc !== '') {
-            $parts[] = $desc;
-        }
-    }
-    $msg = 'No se pudieron enviar todas las listas' . ($parts ? (': ' . implode(' | ', $parts)) : '.');
+    $msg = enlil_checklist_send_error_message($result);
     enlil_send_text_optional_business($token, $chatId, $msg, $businessConnectionId);
     return [
         'ok' => false,
@@ -450,12 +439,20 @@ function enlil_notify_next_responsible(
             ]);
             continue;
         }
+        $notifyText = $actorLabel . ' acaba de ' . $doneTaskName . ' como tu necesitabas para poder ' . $nextTaskName . '.';
         $payload = [
             'business_connection_id' => $botBusinessId,
             'chat_id' => $chatId,
-            'text' => $actorLabel . ' acaba de ' . $doneTaskName . ' como tu necesitabas para poder ' . $nextTaskName . '.',
+            'text' => $notifyText,
         ];
         $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
+        if (empty($result['ok']) && enlil_telegram_is_business_peer_missing($result)) {
+            // Fallback to normal private message when Business peer usage is unavailable.
+            $result = enlil_telegram_post_json($token, 'sendMessage', [
+                'chat_id' => $chatId,
+                'text' => $notifyText,
+            ]);
+        }
         $errorDescription = '';
         if (!$result['ok'] && is_string($result['body']) && $result['body'] !== '') {
             $decoded = json_decode($result['body'], true);
@@ -533,6 +530,16 @@ if (is_array($connection) && isset($connection['id'])) {
 $businessMessage = $update['business_message'] ?? ($update['edited_business_message'] ?? null);
 if (is_array($businessMessage)) {
     $chat = $businessMessage['chat'] ?? [];
+    $connId = (string)($businessMessage['business_connection_id'] ?? '');
+    $from = $businessMessage['from'] ?? [];
+    $fromUserId = (string)($from['id'] ?? '');
+    if ($connId !== '' && $fromUserId !== '') {
+        $chatForConn = $businessMessage['chat'] ?? [];
+        $chatForConnId = (string)($chatForConn['id'] ?? '');
+        if ($chatForConnId !== '') {
+            enlil_business_save($fromUserId, $connId, $chatForConnId);
+        }
+    }
     if (is_array($chat) && isset($chat['type']) && $chat['type'] === 'private') {
         $tgUserId = (string)($chat['id'] ?? '');
         $tgUsername = (string)($chat['username'] ?? '');
@@ -834,10 +841,7 @@ if (is_array($inboundTextMessage)) {
                 exit;
             }
             $prompt = enlil_tasks_prompt_get($chatId);
-            $promptBusinessId = is_array($prompt) ? (string)($prompt['business_connection_id'] ?? '') : '';
-            if ($promptBusinessId === '') {
-                $promptBusinessId = trim((string)enlil_bot_business_connection_id());
-            }
+            $promptBusinessId = trim((string)enlil_bot_business_connection_id());
 
             $baseHost = $_SERVER['HTTP_HOST'] ?? 'maximalista.org';
             $baseUrl = 'https://' . $baseHost;
@@ -881,10 +885,7 @@ if (is_array($inboundTextMessage)) {
         $prompt = enlil_tasks_prompt_get($chatId);
         if (is_array($prompt)) {
             $person = enlil_find_person_from_message($from);
-            $promptBusinessId = (string)($prompt['business_connection_id'] ?? '');
-            if ($promptBusinessId === '') {
-                $promptBusinessId = trim((string)enlil_bot_business_connection_id());
-            }
+            $promptBusinessId = trim((string)enlil_bot_business_connection_id());
             if (enlil_is_affirmative_reply($text)) {
                 if ($person) {
                     $sendResult = enlil_send_current_tasks_to_person($token, $person, $chatId, $promptBusinessId);
