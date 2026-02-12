@@ -84,7 +84,22 @@ if ($token === '') {
                 'checklists' => $checklists,
             ]);
             $question = "¡Hola " . trim((string)($person['name'] ?? 'Usuario')) . "!\n¿Puedo enviarte ya las tareas de hoy? (Sí/No)";
-            $promptResult = enlil_send_text_optional_business($token, (string)$chatId, $question, $targetBusinessId);
+            $promptResult = enlil_send_text_optional_business(
+                $token,
+                (string)$chatId,
+                $question,
+                $targetBusinessId,
+                [
+                    'keyboard' => [
+                        ['/objetivos', '/mi_calendario'],
+                        ['/calendario_proyectos', '/24h'],
+                        ['/tareas'],
+                    ],
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => false,
+                    'selective' => true,
+                ]
+            );
             if (!empty($promptResult['ok'])) {
                 $success++;
             } else {

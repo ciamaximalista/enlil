@@ -167,15 +167,26 @@ function enlil_tasks_last_sent_get_today(string $chatId): ?array {
     return $checklists;
 }
 
-function enlil_send_text_optional_business(string $token, string $chatId, string $text, string $businessConnectionId = ''): array {
+function enlil_send_text_optional_business(
+    string $token,
+    string $chatId,
+    string $text,
+    string $businessConnectionId = '',
+    ?array $replyMarkup = null
+): array {
     if ($chatId === '' || $text === '') {
         return ['ok' => false, 'http_code' => 0, 'body' => ''];
     }
+    $basePayload = [
+        'chat_id' => $chatId,
+        'text' => $text,
+    ];
+    if (is_array($replyMarkup) && $replyMarkup) {
+        $basePayload['reply_markup'] = $replyMarkup;
+    }
     if ($businessConnectionId !== '') {
-        $payload = [
+        $payload = $basePayload + [
             'business_connection_id' => $businessConnectionId,
-            'chat_id' => $chatId,
-            'text' => $text,
         ];
         $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
         if (!empty($result['ok'])) {
@@ -185,10 +196,7 @@ function enlil_send_text_optional_business(string $token, string $chatId, string
             return $result;
         }
     }
-    return enlil_telegram_post_json($token, 'sendMessage', [
-        'chat_id' => $chatId,
-        'text' => $text,
-    ]);
+    return enlil_telegram_post_json($token, 'sendMessage', $basePayload);
 }
 
 function enlil_send_checklists_bundle(string $token, array $bundle): array {

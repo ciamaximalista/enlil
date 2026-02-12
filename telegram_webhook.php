@@ -41,8 +41,21 @@ function enlil_bot_command_keyboard(): array {
         ],
         'resize_keyboard' => true,
         'one_time_keyboard' => false,
-        'selective' => true,
     ];
+}
+
+function enlil_sync_bot_commands_best_effort(string $token): void {
+    if ($token === '') {
+        return;
+    }
+    static $synced = false;
+    if ($synced) {
+        return;
+    }
+    $synced = true;
+    @enlil_telegram_post_json($token, 'setMyCommands', [
+        'commands' => enlil_bot_commands(),
+    ]);
 }
 
 function enlil_normalize_user_text(string $text): string {
@@ -55,6 +68,12 @@ function enlil_normalize_user_text(string $text): string {
     } else {
         $text = strtolower($text);
     }
+    // Keep only letters/numbers/spaces so variants like "si.", "si!" or "si :)" are accepted.
+    $clean = @preg_replace('/[^\p{L}\p{N}\s]/u', ' ', $text);
+    if (is_string($clean)) {
+        $text = $clean;
+    }
+    $text = preg_replace('/\s+/', ' ', $text);
     $text = str_replace(
         ['á', 'à', 'ä', 'â', 'ã', 'é', 'è', 'ë', 'ê', 'í', 'ì', 'ï', 'î', 'ó', 'ò', 'ö', 'ô', 'õ', 'ú', 'ù', 'ü', 'û'],
         ['a', 'a', 'a', 'a', 'a', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u'],
@@ -812,6 +831,7 @@ if (is_array($inboundTextMessage)) {
     $from = $inboundTextMessage['from'] ?? [];
     $chatId = (string)($chat['id'] ?? '');
     if ($chatId !== '' && $text !== '') {
+        enlil_sync_bot_commands_best_effort($token);
         $cmd = strtolower(strtok($text, " \n\r\t"));
         if ($cmd === '/start' || $cmd === '/menu' || $cmd === '/help') {
             $person = enlil_find_person_from_message($from);
@@ -846,10 +866,14 @@ if (is_array($inboundTextMessage)) {
             $baseHost = $_SERVER['HTTP_HOST'] ?? 'maximalista.org';
             $baseUrl = 'https://' . $baseHost;
             if ($cmd === '/tareas') {
-                $sendResult = enlil_send_current_tasks_to_person($token, $person, $chatId, $promptBusinessId);
-                if ((int)($sendResult['sent'] ?? 0) === 0 && (int)($sendResult['failed'] ?? 0) === 0 && is_array($prompt)) {
-                    enlil_send_stored_prompt_checklists($token, $prompt, $chatId, $promptBusinessId);
-                }
+                enlil_send_text_optional_business(
+                    $token,
+                    $chatId,
+                    'Te envio tus tareas de hoy.',
+                    $promptBusinessId,
+                    enlil_bot_command_keyboard()
+                );
+                enlil_send_current_tasks_to_person($token, $person, $chatId, $promptBusinessId);
                 enlil_tasks_prompt_clear($chatId);
                 http_response_code(200);
                 echo 'OK';
@@ -874,6 +898,7 @@ if (is_array($inboundTextMessage)) {
             $payload = [
                 'chat_id' => $chatId,
                 'text' => $textReply,
+                'reply_markup' => enlil_bot_command_keyboard(),
             ];
             enlil_telegram_post_json($token, 'sendMessage', $payload);
             http_response_code(200);
@@ -888,10 +913,7 @@ if (is_array($inboundTextMessage)) {
             $promptBusinessId = trim((string)enlil_bot_business_connection_id());
             if (enlil_is_affirmative_reply($text)) {
                 if ($person) {
-                    $sendResult = enlil_send_current_tasks_to_person($token, $person, $chatId, $promptBusinessId);
-                    if ((int)($sendResult['sent'] ?? 0) === 0 && (int)($sendResult['failed'] ?? 0) === 0) {
-                        enlil_send_stored_prompt_checklists($token, $prompt, $chatId, $promptBusinessId);
-                    }
+                    enlil_send_current_tasks_to_person($token, $person, $chatId, $promptBusinessId);
                 } else {
                     $personId = (int)($prompt['person_id'] ?? 0);
                     $fallbackPerson = null;
@@ -904,12 +926,7 @@ if (is_array($inboundTextMessage)) {
                         }
                     }
                     if (is_array($fallbackPerson)) {
-                        $sendResult = enlil_send_current_tasks_to_person($token, $fallbackPerson, $chatId, $promptBusinessId);
-                        if ((int)($sendResult['sent'] ?? 0) === 0 && (int)($sendResult['failed'] ?? 0) === 0) {
-                            enlil_send_stored_prompt_checklists($token, $prompt, $chatId, $promptBusinessId);
-                        }
-                    } else {
-                        enlil_send_stored_prompt_checklists($token, $prompt, $chatId, $promptBusinessId);
+                        enlil_send_current_tasks_to_person($token, $fallbackPerson, $chatId, $promptBusinessId);
                     }
                 }
             } else {
@@ -924,6 +941,25 @@ if (is_array($inboundTextMessage)) {
             http_response_code(200);
             echo 'OK';
             exit;
+        }
+
+        // If there is no pending prompt but user answers "si", send today's tasks directly.
+        if (enlil_is_affirmative_reply($text)) {
+            $person = enlil_find_person_from_message($from);
+            if ($person) {
+                $promptBusinessId = trim((string)enlil_bot_business_connection_id());
+                enlil_send_text_optional_business(
+                    $token,
+                    $chatId,
+                    'Te envio tus tareas de hoy.',
+                    $promptBusinessId,
+                    enlil_bot_command_keyboard()
+                );
+                enlil_send_current_tasks_to_person($token, $person, $chatId, $promptBusinessId);
+                http_response_code(200);
+                echo 'OK';
+                exit;
+            }
         }
     }
 }

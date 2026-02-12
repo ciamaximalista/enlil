@@ -584,7 +584,17 @@ foreach ($dailyPromptQueue as $chatId => $entry) {
         $token,
         (string)$chatId,
         $question,
-        (string)($entry['business_connection_id'] ?? '')
+        (string)($entry['business_connection_id'] ?? ''),
+        [
+            'keyboard' => [
+                ['/objetivos', '/mi_calendario'],
+                ['/calendario_proyectos', '/24h'],
+                ['/tareas'],
+            ],
+            'resize_keyboard' => true,
+            'one_time_keyboard' => false,
+            'selective' => true,
+        ]
     );
     if (empty($promptResult['ok'])) {
         $dailyWarnings[] = [
