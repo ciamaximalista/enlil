@@ -7,6 +7,7 @@ require_once __DIR__ . '/includes/people.php';
 require_once __DIR__ . '/includes/avatars.php';
 
 enlil_require_login();
+enlil_start_session();
 
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
@@ -18,6 +19,10 @@ if (!$project) {
     header('Location: /proyectos_list.php');
     exit;
 }
+
+$flashSuccess = $_SESSION['flash_success'] ?? '';
+$flashError = $_SESSION['flash_error'] ?? '';
+unset($_SESSION['flash_success'], $_SESSION['flash_error']);
 
 $teams = enlil_teams_all();
 $teamsById = [];
@@ -412,9 +417,20 @@ enlil_page_header('Proyecto');
             </div>
             <div class="actions">
                 <a class="btn secondary" href="/proyectos_list.php">Volver</a>
+                <form class="inline-form" method="post" action="/proyectos_cleanup_old_done.php" data-confirm="Se borrarán tareas cumplidas hace más de 30 días en este proyecto. ¿Continuar?">
+                    <input type="hidden" name="project_id" value="<?php echo (int)$project['id']; ?>">
+                    <button class="btn secondary" type="submit">Borrar &gt; 30 días</button>
+                </form>
                 <a class="btn" href="/proyectos_objective_edit.php?project_id=<?php echo (int)$project['id']; ?>">Añadir objetivo</a>
             </div>
         </div>
+
+        <?php if ($flashSuccess): ?>
+            <div class="alert success"><?php echo htmlspecialchars($flashSuccess); ?></div>
+        <?php endif; ?>
+        <?php if ($flashError): ?>
+            <div class="alert"><?php echo htmlspecialchars($flashError); ?></div>
+        <?php endif; ?>
 
         <div class="section-card">
             <h2>Objetivos</h2>

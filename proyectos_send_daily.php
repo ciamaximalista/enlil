@@ -7,6 +7,7 @@ require_once __DIR__ . '/includes/bot.php';
 require_once __DIR__ . '/includes/customers.php';
 require_once __DIR__ . '/includes/business_connections.php';
 require_once __DIR__ . '/includes/checklist_map.php';
+require_once __DIR__ . '/includes/checklists.php';
 require_once __DIR__ . '/includes/tasks_prompts.php';
 
 function enlil_daily_status_path(): string {
@@ -19,6 +20,59 @@ function enlil_daily_status_save(array $status): void {
         return;
     }
     @file_put_contents(enlil_daily_status_path(), $json);
+}
+
+function enlil_evening_status_path(): string {
+    return __DIR__ . '/data/evening_send_status.json';
+}
+
+function enlil_evening_status_load(): array {
+    $path = enlil_evening_status_path();
+    if (!is_file($path)) {
+        return [];
+    }
+    $raw = @file_get_contents($path);
+    if (!is_string($raw) || trim($raw) === '') {
+        return [];
+    }
+    $decoded = json_decode($raw, true);
+    return is_array($decoded) ? $decoded : [];
+}
+
+function enlil_evening_status_save(array $status): void {
+    $json = json_encode($status, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    if (!is_string($json)) {
+        return;
+    }
+    @file_put_contents(enlil_evening_status_path(), $json);
+}
+
+function enlil_parse_ids_csv(string $csv): array {
+    if ($csv === '') {
+        return [];
+    }
+    $out = [];
+    foreach (explode(',', $csv) as $part) {
+        $part = trim($part);
+        if ($part !== '' && ctype_digit($part)) {
+            $out[] = (int)$part;
+        }
+    }
+    return array_values(array_unique($out));
+}
+
+function enlil_find_task_name_by_id(array $project, int $taskId): string {
+    if ($taskId <= 0) {
+        return '';
+    }
+    foreach (($project['objectives'] ?? []) as $objective) {
+        foreach (($objective['tasks'] ?? []) as $task) {
+            if ((int)($task['id'] ?? 0) === $taskId) {
+                return trim((string)($task['name'] ?? ''));
+            }
+        }
+    }
+    return '';
 }
 
 function enlil_format_date_es(string $date, array $monthsEs): string {
@@ -188,12 +242,184 @@ if ($token === '') {
     exit(1);
 }
 
+$now = new DateTimeImmutable('now');
+$isEveningRun = ((int)$now->format('G') === 20);
+
 // No enviar mensajes automáticos en fin de semana.
-if ((int)date('N') >= 6) {
+if (!$isEveningRun && (int)date('N') >= 6) {
     enlil_daily_status_save([
         'ran_at' => gmdate('c'),
         'skipped' => 'weekend',
         'warnings' => [],
+    ]);
+    exit(0);
+}
+
+if ($isEveningRun) {
+    // Nunca enviar resumen nocturno en sábado o domingo.
+    if ((int)$now->format('N') >= 6) {
+        enlil_daily_status_save([
+            'ran_at' => gmdate('c'),
+            'skipped' => 'weekend_evening',
+            'warnings' => [],
+            'mode' => 'evening_summary',
+        ]);
+        exit(0);
+    }
+
+    $today = $now->format('Y-m-d');
+    $already = enlil_evening_status_load();
+    if (($already['last_sent_date'] ?? '') === $today) {
+        exit(0);
+    }
+
+    $windowEnd = $now->setTime(20, 0, 0);
+    // Los lunes incluir todo desde el viernes a las 20:00.
+    if ((int)$now->format('N') === 1) {
+        $windowStart = $windowEnd->modify('-3 days');
+    } else {
+        $windowStart = $windowEnd->modify('-1 day');
+    }
+    $startTs = $windowStart->getTimestamp();
+    $endTs = $windowEnd->getTimestamp();
+
+    $projectsCache = [];
+    $teamTasks = []; // [teamId => [key => ['name' => string, 'ts' => int]]]
+
+    foreach (enlil_checklist_events_all() as $event) {
+        $createdAt = trim((string)($event['created_at'] ?? ''));
+        $createdTs = $createdAt !== '' ? strtotime($createdAt) : false;
+        if ($createdTs === false || $createdTs < $startTs || $createdTs >= $endTs) {
+            continue;
+        }
+        $doneIds = enlil_parse_ids_csv((string)($event['done_ids'] ?? ''));
+        if (!$doneIds) {
+            continue;
+        }
+        $chatId = trim((string)($event['chat_id'] ?? ''));
+        $messageId = trim((string)($event['message_id'] ?? ''));
+        $map = null;
+        if ($chatId !== '' && $messageId !== '') {
+            $map = enlil_checklist_map_get($chatId, $messageId);
+        }
+        $taskMeta = is_array($map['task_meta'] ?? null) ? $map['task_meta'] : [];
+
+        foreach ($doneIds as $doneId) {
+            [$decodedProjectId, $decodedTaskId] = enlil_checklist_decode_task_id((int)$doneId);
+            $projectId = $decodedProjectId > 0 ? $decodedProjectId : (int)($map['project_id'] ?? 0);
+            $taskId = $decodedTaskId > 0 ? $decodedTaskId : (int)($taskMeta[$doneId]['task_id'] ?? 0);
+            if ($projectId <= 0) {
+                continue;
+            }
+            if (!isset($projectsCache[$projectId])) {
+                $projectsCache[$projectId] = enlil_projects_get($projectId);
+            }
+            $project = $projectsCache[$projectId];
+            if (!$project) {
+                continue;
+            }
+            $teamIds = array_map('intval', (array)($project['team_ids'] ?? []));
+            if (!$teamIds) {
+                continue;
+            }
+
+            $taskName = '';
+            if (isset($taskMeta[$doneId]['name'])) {
+                $taskName = trim((string)$taskMeta[$doneId]['name']);
+            }
+            if ($taskName === '' && $taskId > 0) {
+                $taskName = enlil_find_task_name_by_id($project, $taskId);
+            }
+            if ($taskName === '') {
+                continue;
+            }
+            $key = $projectId . ':' . mb_strtolower($taskName, 'UTF-8');
+            foreach ($teamIds as $teamId) {
+                if ($teamId <= 0) {
+                    continue;
+                }
+                if (!isset($teamTasks[$teamId][$key]) || (int)$teamTasks[$teamId][$key]['ts'] > $createdTs) {
+                    $teamTasks[$teamId][$key] = [
+                        'name' => $taskName,
+                        'ts' => $createdTs,
+                    ];
+                }
+            }
+        }
+    }
+
+    $teams = enlil_teams_all();
+    $teamsById = [];
+    foreach ($teams as $team) {
+        $teamsById[(int)($team['id'] ?? 0)] = $team;
+    }
+
+    $warnings = [];
+    foreach ($teamTasks as $teamId => $items) {
+        $team = $teamsById[(int)$teamId] ?? null;
+        if (!$team) {
+            continue;
+        }
+        $groupId = trim((string)($team['telegram_group'] ?? ''));
+        if ($groupId === '') {
+            continue;
+        }
+        usort($items, function ($a, $b) {
+            $ta = (int)($a['ts'] ?? 0);
+            $tb = (int)($b['ts'] ?? 0);
+            if ($ta === $tb) {
+                return strcasecmp((string)($a['name'] ?? ''), (string)($b['name'] ?? ''));
+            }
+            return $ta <=> $tb;
+        });
+        $lines = [
+            'Hoy ha sido un buen día!',
+            '',
+            'Sacamos adelante las siguientes tareas:',
+        ];
+        foreach ($items as $item) {
+            $name = trim((string)($item['name'] ?? ''));
+            if ($name === '') {
+                continue;
+            }
+            $lines[] = '✅ ' . $name;
+        }
+        if (count($lines) <= 3) {
+            continue;
+        }
+        $lines[] = '';
+        $lines[] = 'Enhorabuena, ha sido otro día maximalista, ahora descansad y soñad que mañana nos harán falta más sueños y más energía.';
+        $payload = [
+            'chat_id' => $groupId,
+            'text' => implode("\n", $lines),
+        ];
+        $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
+        if (!$result['ok']) {
+            $migratedId = enlil_telegram_extract_migrate_chat_id($result);
+            if ($migratedId !== '') {
+                enlil_teams_update_group_id((int)$teamId, $migratedId);
+                $payload['chat_id'] = $migratedId;
+                $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
+            }
+        }
+        if (!$result['ok']) {
+            $warnings[] = [
+                'type' => 'evening_team_failed',
+                'team' => (string)($team['name'] ?? ''),
+                'chat_id' => $groupId,
+                'message' => 'No se pudo enviar resumen de fin de día' . (($d = enlil_telegram_error_description($result)) !== '' ? (': ' . $d) : '.'),
+            ];
+        }
+    }
+
+    enlil_evening_status_save([
+        'last_sent_date' => $today,
+        'sent_at' => gmdate('c'),
+    ]);
+    enlil_daily_status_save([
+        'ran_at' => gmdate('c'),
+        'warnings' => $warnings,
+        'mode' => 'evening_summary',
     ]);
     exit(0);
 }

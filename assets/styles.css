@@ -280,6 +280,10 @@ nav a {
     display: inline-block;
 }
 
+.team-send-form .btn {
+    margin: 4px 0;
+}
+
 .btn.secondary {
     background: transparent;
     color: var(--accent-2);

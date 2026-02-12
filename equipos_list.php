@@ -109,9 +109,10 @@ enlil_page_header('Equipos');
                                     </div>
                                 </td>
                                 <td>
-                                    <form class="inline-form" method="post" action="/equipos_send_test.php">
+                                    <form class="inline-form team-send-form" method="post" action="/equipos_send_test.php">
                                         <input type="hidden" name="team_id" value="<?php echo (int)$team['id']; ?>">
-                                        <button class="btn small" type="submit">Enviar</button>
+                                        <button class="btn small" type="submit" name="mode" value="morning">Enviar mensaje 7:00</button>
+                                        <button class="btn small" type="submit" name="mode" value="evening">Enviar mensaje 20:00</button>
                                     </form>
                                 </td>
                                 <td>

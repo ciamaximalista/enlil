@@ -6,6 +6,8 @@ require_once __DIR__ . '/includes/bot.php';
 require_once __DIR__ . '/includes/teams.php';
 require_once __DIR__ . '/includes/projects.php';
 require_once __DIR__ . '/includes/people.php';
+require_once __DIR__ . '/includes/checklists.php';
+require_once __DIR__ . '/includes/checklist_map.php';
 
 function enlil_format_date_es(string $date, array $monthsEs): string {
     if ($date === '') {
@@ -236,6 +238,34 @@ function enlil_objective_order(array $objectives): array {
     }, $items);
 }
 
+function enlil_parse_ids_csv(string $csv): array {
+    if ($csv === '') {
+        return [];
+    }
+    $out = [];
+    foreach (explode(',', $csv) as $part) {
+        $part = trim($part);
+        if ($part !== '' && ctype_digit($part)) {
+            $out[] = (int)$part;
+        }
+    }
+    return array_values(array_unique($out));
+}
+
+function enlil_find_task_name_by_id(array $project, int $taskId): string {
+    if ($taskId <= 0) {
+        return '';
+    }
+    foreach (($project['objectives'] ?? []) as $objective) {
+        foreach (($objective['tasks'] ?? []) as $task) {
+            if ((int)($task['id'] ?? 0) === $taskId) {
+                return trim((string)($task['name'] ?? ''));
+            }
+        }
+    }
+    return '';
+}
+
 enlil_require_login();
 enlil_start_session();
 
@@ -245,6 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $teamId = isset($_POST['team_id']) ? (int)$_POST['team_id'] : 0;
+$mode = trim((string)($_POST['mode'] ?? 'morning'));
 $teams = enlil_teams_all();
 $team = null;
 foreach ($teams as $t) {
@@ -270,6 +301,146 @@ if ($token === '') {
 $groupId = trim((string)($team['telegram_group'] ?? ''));
 if ($groupId === '') {
     $_SESSION['flash_error'] = 'Este equipo no tiene ID de grupo de Telegram.';
+    header('Location: /equipos_list.php');
+    exit;
+}
+
+if ($mode === 'evening') {
+    $now = new DateTimeImmutable('now');
+    if ((int)$now->format('N') >= 6) {
+        $_SESSION['flash_error'] = 'En fin de semana no se envía el mensaje de las 20:00.';
+        header('Location: /equipos_list.php');
+        exit;
+    }
+
+    $windowEnd = $now->setTime(20, 0, 0);
+    $windowStart = ((int)$now->format('N') === 1)
+        ? $windowEnd->modify('-3 days')
+        : $windowEnd->modify('-1 day');
+    $startTs = $windowStart->getTimestamp();
+    $endTs = $windowEnd->getTimestamp();
+
+    $projectsCache = [];
+    $tasks = []; // key => ['name' => string, 'ts' => int]
+
+    foreach (enlil_checklist_events_all() as $event) {
+        $createdAt = trim((string)($event['created_at'] ?? ''));
+        $createdTs = $createdAt !== '' ? strtotime($createdAt) : false;
+        if ($createdTs === false || $createdTs < $startTs || $createdTs >= $endTs) {
+            continue;
+        }
+        $doneIds = enlil_parse_ids_csv((string)($event['done_ids'] ?? ''));
+        if (!$doneIds) {
+            continue;
+        }
+        $chatId = trim((string)($event['chat_id'] ?? ''));
+        $messageId = trim((string)($event['message_id'] ?? ''));
+        $map = null;
+        if ($chatId !== '' && $messageId !== '') {
+            $map = enlil_checklist_map_get($chatId, $messageId);
+        }
+        $taskMeta = is_array($map['task_meta'] ?? null) ? $map['task_meta'] : [];
+
+        foreach ($doneIds as $doneId) {
+            [$decodedProjectId, $decodedTaskId] = enlil_checklist_decode_task_id((int)$doneId);
+            $projectId = $decodedProjectId > 0 ? $decodedProjectId : (int)($map['project_id'] ?? 0);
+            $taskId = $decodedTaskId > 0 ? $decodedTaskId : (int)($taskMeta[$doneId]['task_id'] ?? 0);
+            if ($projectId <= 0) {
+                continue;
+            }
+            if (!isset($projectsCache[$projectId])) {
+                $projectsCache[$projectId] = enlil_projects_get($projectId);
+            }
+            $project = $projectsCache[$projectId];
+            if (!$project) {
+                continue;
+            }
+            if (!in_array((int)$teamId, array_map('intval', (array)($project['team_ids'] ?? [])), true)) {
+                continue;
+            }
+
+            $taskName = '';
+            if (isset($taskMeta[$doneId]['name'])) {
+                $taskName = trim((string)$taskMeta[$doneId]['name']);
+            }
+            if ($taskName === '' && $taskId > 0) {
+                $taskName = enlil_find_task_name_by_id($project, $taskId);
+            }
+            if ($taskName === '') {
+                continue;
+            }
+            $norm = function_exists('mb_strtolower') ? mb_strtolower($taskName, 'UTF-8') : strtolower($taskName);
+            $key = $projectId . ':' . $norm;
+            if (!isset($tasks[$key]) || (int)$tasks[$key]['ts'] > $createdTs) {
+                $tasks[$key] = [
+                    'name' => $taskName,
+                    'ts' => $createdTs,
+                ];
+            }
+        }
+    }
+
+    if (!$tasks) {
+        $_SESSION['flash_error'] = 'No hay tareas cumplidas para este equipo en la ventana del mensaje de las 20:00.';
+        header('Location: /equipos_list.php');
+        exit;
+    }
+
+    $items = array_values($tasks);
+    usort($items, function ($a, $b) {
+        $ta = (int)($a['ts'] ?? 0);
+        $tb = (int)($b['ts'] ?? 0);
+        if ($ta === $tb) {
+            return strcasecmp((string)($a['name'] ?? ''), (string)($b['name'] ?? ''));
+        }
+        return $ta <=> $tb;
+    });
+
+    $lines = [
+        'Hoy ha sido un buen día!',
+        '',
+        'Sacamos adelante las siguientes tareas:',
+    ];
+    foreach ($items as $item) {
+        $name = trim((string)($item['name'] ?? ''));
+        if ($name === '') {
+            continue;
+        }
+        $lines[] = '✅ ' . $name;
+    }
+    $lines[] = '';
+    $lines[] = 'Enhorabuena, ha sido otro día maximalista, ahora descansad y soñad que mañana nos harán falta más sueños y más energía.';
+
+    $payload = [
+        'chat_id' => $groupId,
+        'text' => implode("\n", $lines),
+    ];
+    $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
+    if (!$result['ok']) {
+        $migratedId = enlil_telegram_extract_migrate_chat_id($result);
+        if ($migratedId !== '') {
+            enlil_teams_update_group_id($teamId, $migratedId);
+            $payload['chat_id'] = $migratedId;
+            $result = enlil_telegram_post_json($token, 'sendMessage', $payload);
+        }
+    }
+    if (!$result['ok']) {
+        $code = $result['http_code'] ? 'HTTP ' . $result['http_code'] : 'sin respuesta';
+        $detail = '';
+        if (is_string($result['body']) && $result['body'] !== '') {
+            $data = json_decode($result['body'], true);
+            if (is_array($data) && isset($data['description'])) {
+                $detail = $data['description'];
+            }
+        }
+        $_SESSION['flash_error'] = $detail !== ''
+            ? 'No se pudo enviar el mensaje de las 20:00 (' . $code . '): ' . $detail . '.'
+            : 'No se pudo enviar el mensaje de las 20:00 (' . $code . ').';
+        header('Location: /equipos_list.php');
+        exit;
+    }
+
+    $_SESSION['flash_success'] = 'Mensaje de las 20:00 enviado al grupo.';
     header('Location: /equipos_list.php');
     exit;
 }
