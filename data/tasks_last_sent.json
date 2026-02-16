@@ -1,140 +1,8 @@
 {
     "items": {
-        "8529507400": {
-            "date": "2026-02-12",
-            "sent_at": "2026-02-12T19:34:12+00:00",
-            "checklists": [
-                {
-                    "project_id": 6,
-                    "title": "AEXCID",
-                    "tasks": [
-                        {
-                            "id": 600005,
-                            "text": "Instalación de Nammu (08\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "600005": {
-                            "task_id": 5,
-                            "objective_id": 1,
-                            "name": "Instalación de Nammu"
-                        }
-                    }
-                },
-                {
-                    "project_id": 7,
-                    "title": "Campus Profesional Internacional Ricardo Leal",
-                    "tasks": [
-                        {
-                            "id": 700002,
-                            "text": "Consensuar marco y herramientas de trabajo y hacer primera planificación (11:30) (12\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "700002": {
-                            "task_id": 2,
-                            "objective_id": 1,
-                            "name": "Consensuar marco y herramientas de trabajo y hacer primera planificación (11:30)"
-                        }
-                    }
-                },
-                {
-                    "project_id": 12,
-                    "title": "Comunicación Maximalista",
-                    "tasks": [
-                        {
-                            "id": 1200011,
-                            "text": "responder correos atrasados de la Fundación (04\/02)"
-                        },
-                        {
-                            "id": 1200062,
-                            "text": "responder correos atrasados de la Fundación (11\/02)"
-                        },
-                        {
-                            "id": 1200009,
-                            "text": "escribir «Teletrabajo rural: qué necesitas de verdad» (12\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1200011": {
-                            "task_id": 11,
-                            "objective_id": 2,
-                            "name": "responder correos atrasados de la Fundación"
-                        },
-                        "1200062": {
-                            "task_id": 62,
-                            "objective_id": 2,
-                            "name": "responder correos atrasados de la Fundación"
-                        },
-                        "1200009": {
-                            "task_id": 9,
-                            "objective_id": 1,
-                            "name": "escribir «Teletrabajo rural: qué necesitas de verdad»"
-                        }
-                    }
-                },
-                {
-                    "project_id": 13,
-                    "title": "Formación para maximalistas",
-                    "tasks": [
-                        {
-                            "id": 1300006,
-                            "text": "asistir al taller de software maximalista (13\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1300006": {
-                            "task_id": 6,
-                            "objective_id": 2,
-                            "name": "asistir al taller de software maximalista"
-                        }
-                    }
-                },
-                {
-                    "project_id": 20,
-                    "title": "Educación Financiera",
-                    "tasks": [
-                        {
-                            "id": 2000001,
-                            "text": "Cargar hitos en Enlil (06\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "2000001": {
-                            "task_id": 1,
-                            "objective_id": 1,
-                            "name": "Cargar hitos en Enlil"
-                        }
-                    }
-                }
-            ]
-        },
-        "536997643": {
-            "date": "2026-02-12",
-            "sent_at": "2026-02-12T07:59:20+00:00",
-            "checklists": [
-                {
-                    "project_id": 12,
-                    "title": "Comunicación Maximalista",
-                    "tasks": [
-                        {
-                            "id": 1200003,
-                            "text": "escribir un post presentando la Arquitectura Maximalista (01\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1200003": {
-                            "task_id": 3,
-                            "objective_id": 1,
-                            "name": "escribir un post presentando la Arquitectura Maximalista"
-                        }
-                    }
-                }
-            ]
-        },
         "517282848": {
-            "date": "2026-02-12",
-            "sent_at": "2026-02-12T06:26:39+00:00",
+            "date": "2026-02-16",
+            "sent_at": "2026-02-16T06:11:38+00:00",
             "checklists": [
                 {
                     "project_id": 12,
@@ -172,18 +40,141 @@
                 }
             ]
         },
-        "419281139": {
-            "date": "2026-02-12",
-            "sent_at": "2026-02-12T08:05:04+00:00",
+        "8529507400": {
+            "date": "2026-02-16",
+            "sent_at": "2026-02-16T10:34:17+00:00",
             "checklists": [
                 {
                     "project_id": 2,
                     "title": "SUDOE",
                     "tasks": [
                         {
-                            "id": 200272,
-                            "text": "Completar encuesta para viaje (12\/02)"
+                            "id": 200002,
+                            "text": "Mapeo Centro (17\/02)"
                         },
+                        {
+                            "id": 200001,
+                            "text": "Mapeo Norte (17\/02)"
+                        },
+                        {
+                            "id": 200006,
+                            "text": "Pedido de ayuda a la red rural fest (17\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "200002": {
+                            "task_id": 2,
+                            "objective_id": 1,
+                            "name": "Mapeo Centro"
+                        },
+                        "200001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "Mapeo Norte"
+                        },
+                        "200006": {
+                            "task_id": 6,
+                            "objective_id": 1,
+                            "name": "Pedido de ayuda a la red rural fest"
+                        }
+                    }
+                },
+                {
+                    "project_id": 8,
+                    "title": "Rehabilitaciones y desarrollos rurales",
+                    "tasks": [
+                        {
+                            "id": 800004,
+                            "text": "Organizar cuadrilla de desalambrado y limpieza con Dámaso (17\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "800004": {
+                            "task_id": 4,
+                            "objective_id": 1,
+                            "name": "Organizar cuadrilla de desalambrado y limpieza con Dámaso"
+                        }
+                    }
+                },
+                {
+                    "project_id": 11,
+                    "title": "Convocatoria Yo Repueblo",
+                    "tasks": [
+                        {
+                            "id": 1100004,
+                            "text": "Enviar documentos de la convocatoria (17\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1100004": {
+                            "task_id": 4,
+                            "objective_id": 1,
+                            "name": "Enviar documentos de la convocatoria"
+                        }
+                    }
+                },
+                {
+                    "project_id": 12,
+                    "title": "Comunicación Maximalista",
+                    "tasks": [
+                        {
+                            "id": 1200011,
+                            "text": "responder correos atrasados de la Fundación (04\/02)"
+                        },
+                        {
+                            "id": 1200062,
+                            "text": "responder correos atrasados de la Fundación (11\/02)"
+                        },
+                        {
+                            "id": 1200113,
+                            "text": "escribir sobre «Abundantistas» (17\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1200011": {
+                            "task_id": 11,
+                            "objective_id": 2,
+                            "name": "responder correos atrasados de la Fundación"
+                        },
+                        "1200062": {
+                            "task_id": 62,
+                            "objective_id": 2,
+                            "name": "responder correos atrasados de la Fundación"
+                        },
+                        "1200113": {
+                            "task_id": 113,
+                            "objective_id": 1,
+                            "name": "escribir sobre «Abundantistas»"
+                        }
+                    }
+                },
+                {
+                    "project_id": 18,
+                    "title": "Administración",
+                    "tasks": [
+                        {
+                            "id": 1800006,
+                            "text": "Cálculos de tesorería de cara a mayo (17\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1800006": {
+                            "task_id": 6,
+                            "objective_id": 2,
+                            "name": "Cálculos de tesorería de cara a mayo"
+                        }
+                    }
+                }
+            ]
+        },
+        "419281139": {
+            "date": "2026-02-16",
+            "sent_at": "2026-02-16T10:19:09+00:00",
+            "checklists": [
+                {
+                    "project_id": 2,
+                    "title": "SUDOE",
+                    "tasks": [
                         {
                             "id": 200271,
                             "text": "Leer acta de comité director (12\/02)"
@@ -191,14 +182,21 @@
                         {
                             "id": 200273,
                             "text": "Leer mails de Melissa Gentile (12\/02)"
+                        },
+                        {
+                            "id": 200001,
+                            "text": "Mapeo Norte (16\/02)"
+                        },
+                        {
+                            "id": 200274,
+                            "text": "Completar excel de comunicación (17\/02)"
+                        },
+                        {
+                            "id": 200002,
+                            "text": "Mapeo Centro (17\/02)"
                         }
                     ],
                     "task_meta": {
-                        "200272": {
-                            "task_id": 272,
-                            "objective_id": 4,
-                            "name": "Completar encuesta para viaje"
-                        },
                         "200271": {
                             "task_id": 271,
                             "objective_id": 4,
@@ -208,6 +206,21 @@
                             "task_id": 273,
                             "objective_id": 4,
                             "name": "Leer mails de Melissa Gentile"
+                        },
+                        "200001": {
+                            "task_id": 1,
+                            "objective_id": 1,
+                            "name": "Mapeo Norte"
+                        },
+                        "200274": {
+                            "task_id": 274,
+                            "objective_id": 3,
+                            "name": "Completar excel de comunicación"
+                        },
+                        "200002": {
+                            "task_id": 2,
+                            "objective_id": 1,
+                            "name": "Mapeo Centro"
                         }
                     }
                 },
@@ -226,6 +239,10 @@
                         {
                             "id": 600008,
                             "text": "Agendar reuniones (12\/02)"
+                        },
+                        {
+                            "id": 600009,
+                            "text": "Preparar reuniones (16\/02)"
                         }
                     ],
                     "task_meta": {
@@ -243,40 +260,45 @@
                             "task_id": 8,
                             "objective_id": 1,
                             "name": "Agendar reuniones"
-                        }
-                    }
-                },
-                {
-                    "project_id": 7,
-                    "title": "Campus Profesional Internacional Ricardo Leal",
-                    "tasks": [
-                        {
-                            "id": 700002,
-                            "text": "Consensuar marco y herramientas de trabajo y hacer primera planificación (11:30) (12\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "700002": {
-                            "task_id": 2,
+                        },
+                        "600009": {
+                            "task_id": 9,
                             "objective_id": 1,
-                            "name": "Consensuar marco y herramientas de trabajo y hacer primera planificación (11:30)"
+                            "name": "Preparar reuniones"
                         }
                     }
                 },
                 {
-                    "project_id": 12,
-                    "title": "Comunicación Maximalista",
+                    "project_id": 8,
+                    "title": "Rehabilitaciones y desarrollos rurales",
                     "tasks": [
                         {
-                            "id": 1200008,
-                            "text": "escribir post con la firma de la compra de la Candela (12\/02)"
+                            "id": 800004,
+                            "text": "Organizar cuadrilla de desalambrado y limpieza con Dámaso (16\/02)"
                         }
                     ],
                     "task_meta": {
-                        "1200008": {
-                            "task_id": 8,
-                            "objective_id": 2,
-                            "name": "escribir post con la firma de la compra de la Candela"
+                        "800004": {
+                            "task_id": 4,
+                            "objective_id": 1,
+                            "name": "Organizar cuadrilla de desalambrado y limpieza con Dámaso"
+                        }
+                    }
+                },
+                {
+                    "project_id": 11,
+                    "title": "Convocatoria Yo Repueblo",
+                    "tasks": [
+                        {
+                            "id": 1100004,
+                            "text": "Enviar documentos de la convocatoria (16\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "1100004": {
+                            "task_id": 4,
+                            "objective_id": 1,
+                            "name": "Enviar documentos de la convocatoria"
                         }
                     }
                 },
@@ -287,10 +309,6 @@
                         {
                             "id": 1300001,
                             "text": "realizar propuesta a Belén (11\/02)"
-                        },
-                        {
-                            "id": 1300006,
-                            "text": "asistir al taller de software maximalista (13\/02)"
                         }
                     ],
                     "task_meta": {
@@ -298,11 +316,6 @@
                             "task_id": 1,
                             "objective_id": 1,
                             "name": "realizar propuesta a Belén"
-                        },
-                        "1300006": {
-                            "task_id": 6,
-                            "objective_id": 2,
-                            "name": "asistir al taller de software maximalista"
                         }
                     }
                 },
@@ -319,12 +332,12 @@
                             "text": "Preparar documentación cambio patronato (04\/02)"
                         },
                         {
-                            "id": 1800008,
-                            "text": "Revisar y presentar cuentas en plataforma protectorado (10\/02)"
-                        },
-                        {
                             "id": 1800003,
                             "text": "Legitimar firmas en notario (11\/02)"
+                        },
+                        {
+                            "id": 1800006,
+                            "text": "Cálculos de tesorería de cara a mayo (17\/02)"
                         }
                     ],
                     "task_meta": {
@@ -338,193 +351,15 @@
                             "objective_id": 2,
                             "name": "Preparar documentación cambio patronato"
                         },
-                        "1800008": {
-                            "task_id": 8,
-                            "objective_id": 2,
-                            "name": "Revisar y presentar cuentas en plataforma protectorado"
-                        },
                         "1800003": {
                             "task_id": 3,
                             "objective_id": 2,
                             "name": "Legitimar firmas en notario"
-                        }
-                    }
-                },
-                {
-                    "project_id": 20,
-                    "title": "Educación Financiera",
-                    "tasks": [
-                        {
-                            "id": 2000001,
-                            "text": "Cargar hitos en Enlil (06\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "2000001": {
-                            "task_id": 1,
-                            "objective_id": 1,
-                            "name": "Cargar hitos en Enlil"
-                        }
-                    }
-                }
-            ]
-        },
-        "466249833": {
-            "date": "2026-02-12",
-            "sent_at": "2026-02-12T12:34:48+00:00",
-            "checklists": [
-                {
-                    "project_id": 4,
-                    "title": "RUDI",
-                    "tasks": [
-                        {
-                            "id": 400003,
-                            "text": "revisar dirección de contacto en Teams (09\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "400003": {
-                            "task_id": 3,
-                            "objective_id": 1,
-                            "name": "revisar dirección de contacto en Teams"
-                        }
-                    }
-                },
-                {
-                    "project_id": 6,
-                    "title": "AEXCID",
-                    "tasks": [
-                        {
-                            "id": 600004,
-                            "text": "Estudiar Cooperativas Peruanas (05\/02)"
                         },
-                        {
-                            "id": 600006,
-                            "text": "Elaboración de cuestionario (09\/02)"
-                        },
-                        {
-                            "id": 600007,
-                            "text": "Envío del cuestionario (09\/02)"
-                        },
-                        {
-                            "id": 600008,
-                            "text": "Agendar reuniones (12\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "600004": {
-                            "task_id": 4,
-                            "objective_id": 1,
-                            "name": "Estudiar Cooperativas Peruanas"
-                        },
-                        "600006": {
-                            "task_id": 6,
-                            "objective_id": 1,
-                            "name": "Elaboración de cuestionario"
-                        },
-                        "600007": {
-                            "task_id": 7,
-                            "objective_id": 1,
-                            "name": "Envío del cuestionario"
-                        },
-                        "600008": {
-                            "task_id": 8,
-                            "objective_id": 1,
-                            "name": "Agendar reuniones"
-                        }
-                    }
-                },
-                {
-                    "project_id": 8,
-                    "title": "Rehabilitaciones y desarrollos rurales",
-                    "tasks": [
-                        {
-                            "id": 800003,
-                            "text": "Firmar las escrituras en el Notario (11\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "800003": {
-                            "task_id": 3,
-                            "objective_id": 1,
-                            "name": "Firmar las escrituras en el Notario"
-                        }
-                    }
-                },
-                {
-                    "project_id": 13,
-                    "title": "Formación para maximalistas",
-                    "tasks": [
-                        {
-                            "id": 1300005,
-                            "text": "Estudiar documentación de servidor (08\/02)"
-                        },
-                        {
-                            "id": 1300006,
-                            "text": "asistir al taller de software maximalista (13\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1300005": {
-                            "task_id": 5,
-                            "objective_id": 2,
-                            "name": "Estudiar documentación de servidor"
-                        },
-                        "1300006": {
+                        "1800006": {
                             "task_id": 6,
                             "objective_id": 2,
-                            "name": "asistir al taller de software maximalista"
-                        }
-                    }
-                },
-                {
-                    "project_id": 16,
-                    "title": "Rural NEB Fest",
-                    "tasks": [
-                        {
-                            "id": 1600001,
-                            "text": "escribir a Cristina Cortés y Julián Expósito Dip. Badajoz (09\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1600001": {
-                            "task_id": 1,
-                            "objective_id": 1,
-                            "name": "escribir a Cristina Cortés y Julián Expósito Dip. Badajoz"
-                        }
-                    }
-                },
-                {
-                    "project_id": 20,
-                    "title": "Educación Financiera",
-                    "tasks": [
-                        {
-                            "id": 2000001,
-                            "text": "Cargar hitos en Enlil (06\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "2000001": {
-                            "task_id": 1,
-                            "objective_id": 1,
-                            "name": "Cargar hitos en Enlil"
-                        }
-                    }
-                },
-                {
-                    "project_id": 22,
-                    "title": "Proyecto Montessori - Ricardo Leal",
-                    "tasks": [
-                        {
-                            "id": 2200003,
-                            "text": "Fijar nueva reunión para planificación conjunta del despliegue (12\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "2200003": {
-                            "task_id": 3,
-                            "objective_id": 1,
-                            "name": "Fijar nueva reunión para planificación conjunta del despliegue"
+                            "name": "Cálculos de tesorería de cara a mayo"
                         }
                     }
                 }

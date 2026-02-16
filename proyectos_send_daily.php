@@ -10,6 +10,18 @@ require_once __DIR__ . '/includes/checklist_map.php';
 require_once __DIR__ . '/includes/checklists.php';
 require_once __DIR__ . '/includes/tasks_prompts.php';
 
+// Align automatic send windows with local operational time.
+$configuredTimezone = trim((string)getenv('ENLIL_TIMEZONE'));
+if ($configuredTimezone === '') {
+    $configuredTimezone = 'Europe/Madrid';
+}
+try {
+    new DateTimeZone($configuredTimezone);
+    date_default_timezone_set($configuredTimezone);
+} catch (Throwable $e) {
+    date_default_timezone_set('UTC');
+}
+
 function enlil_daily_status_path(): string {
     return __DIR__ . '/data/daily_send_status.json';
 }
@@ -446,6 +458,7 @@ foreach ($people as $person) {
     ];
 }
 $dailyPromptQueue = [];
+$dailyWarnings = [];
 
 function enlil_objective_order(array $objectives): array {
     $byId = [];
@@ -815,7 +828,7 @@ foreach ($dailyPromptQueue as $chatId => $entry) {
             'keyboard' => [
                 ['/objetivos', '/mi_calendario'],
                 ['/calendario_proyectos', '/24h'],
-                ['/tareas'],
+                ['/tareas', '/libera_el_dia'],
             ],
             'resize_keyboard' => true,
             'one_time_keyboard' => false,

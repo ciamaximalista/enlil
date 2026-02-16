@@ -37,7 +37,7 @@ function enlil_bot_command_keyboard(): array {
         'keyboard' => [
             ['/objetivos', '/mi_calendario'],
             ['/calendario_proyectos', '/24h'],
-            ['/tareas'],
+            ['/tareas', '/libera_el_dia'],
         ],
         'resize_keyboard' => true,
         'one_time_keyboard' => false,
@@ -838,7 +838,7 @@ if (is_array($inboundTextMessage)) {
             if ($person) {
                 $payload = [
                     'chat_id' => $chatId,
-                    'text' => "Hola, aquí tienes los comandos disponibles:\n/objetivos\n/mi_calendario\n/calendario_proyectos\n/24h\n/tareas",
+                    'text' => "Hola, aquí tienes los comandos disponibles:\n/objetivos\n/mi_calendario\n/calendario_proyectos\n/24h\n/tareas\n/libera_el_dia",
                     'reply_markup' => enlil_bot_command_keyboard(),
                 ];
                 enlil_telegram_post_json($token, 'sendMessage', $payload);
@@ -848,7 +848,7 @@ if (is_array($inboundTextMessage)) {
             exit;
         }
 
-        if (in_array($cmd, ['/objetivos', '/mi_calendario', '/calendario_proyectos', '/24h', '/tareas'], true)) {
+        if (in_array($cmd, ['/objetivos', '/mi_calendario', '/calendario_proyectos', '/24h', '/tareas', '/libera_el_dia'], true)) {
             $person = enlil_find_person_from_message($from);
             if (!$person) {
                 $payload = [
@@ -865,7 +865,25 @@ if (is_array($inboundTextMessage)) {
 
             $baseHost = $_SERVER['HTTP_HOST'] ?? 'maximalista.org';
             $baseUrl = 'https://' . $baseHost;
-            if ($cmd === '/tareas') {
+            if ($cmd === '/libera_el_dia') {
+                $result = enlil_projects_defer_person_today_tasks((int)$person['id']);
+                $moved = (int)($result['moved'] ?? 0);
+                if ($moved > 0) {
+                    $dest = !empty($result['is_friday']) ? 'al lunes' : 'a manana';
+                    $textReply = 'He movido ' . $moved . ' tarea' . ($moved === 1 ? '' : 's') . ' pendiente' . ($moved === 1 ? '' : 's') . ' de hoy ' . $dest . '.';
+                } else {
+                    $textReply = 'No tienes tareas pendientes de hoy para mover. Las tareas atrasadas no se mueven.';
+                }
+                $payload = [
+                    'chat_id' => $chatId,
+                    'text' => $textReply,
+                    'reply_markup' => enlil_bot_command_keyboard(),
+                ];
+                enlil_telegram_post_json($token, 'sendMessage', $payload);
+                http_response_code(200);
+                echo 'OK';
+                exit;
+            } elseif ($cmd === '/tareas') {
                 enlil_send_text_optional_business(
                     $token,
                     $chatId,

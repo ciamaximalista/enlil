@@ -546,3 +546,97 @@ function enlil_projects_mark_task_by_id_in_project(int $projectId, int $taskId, 
     }
     return $updated;
 }
+
+function enlil_projects_defer_person_today_tasks(int $personId, string $timezone = ''): array {
+    if ($personId <= 0) {
+        return [
+            'moved' => 0,
+            'today' => '',
+            'target_date' => '',
+            'is_friday' => false,
+        ];
+    }
+
+    if ($timezone === '') {
+        $timezone = trim((string)getenv('ENLIL_TIMEZONE'));
+    }
+    if ($timezone === '') {
+        $timezone = 'Europe/Madrid';
+    }
+    try {
+        $tz = new DateTimeZone($timezone);
+    } catch (Throwable $e) {
+        $tz = new DateTimeZone('UTC');
+    }
+
+    $now = new DateTimeImmutable('now', $tz);
+    $today = $now->format('Y-m-d');
+    $isFriday = ((int)$now->format('N') === 5);
+    $targetDate = $now->modify($isFriday ? '+3 days' : '+1 day')->format('Y-m-d');
+
+    $path = enlil_projects_xml_path();
+    if (!file_exists($path)) {
+        return [
+            'moved' => 0,
+            'today' => $today,
+            'target_date' => $targetDate,
+            'is_friday' => $isFriday,
+        ];
+    }
+
+    $xml = @simplexml_load_file($path);
+    if (!$xml) {
+        return [
+            'moved' => 0,
+            'today' => $today,
+            'target_date' => $targetDate,
+            'is_friday' => $isFriday,
+        ];
+    }
+
+    $moved = 0;
+    foreach ($xml->project as $project) {
+        if (!isset($project->objectives)) {
+            continue;
+        }
+        foreach ($project->objectives->objective as $objective) {
+            if (!isset($objective->tasks)) {
+                continue;
+            }
+            foreach ($objective->tasks->task as $task) {
+                $status = trim((string)$task->status);
+                if ($status === 'done') {
+                    continue;
+                }
+                if ((string)$task->due_date !== $today) {
+                    continue;
+                }
+                $isResponsible = false;
+                if (isset($task->responsibles)) {
+                    foreach ($task->responsibles->person_id as $pid) {
+                        if ((int)$pid === $personId) {
+                            $isResponsible = true;
+                            break;
+                        }
+                    }
+                }
+                if (!$isResponsible) {
+                    continue;
+                }
+                $task->due_date = $targetDate;
+                $moved++;
+            }
+        }
+    }
+
+    if ($moved > 0) {
+        enlil_projects_save_xml($xml);
+    }
+
+    return [
+        'moved' => $moved,
+        'today' => $today,
+        'target_date' => $targetDate,
+        'is_friday' => $isFriday,
+    ];
+}

@@ -16,13 +16,14 @@ Sistema de organización de proyectos (PHP + XML + JS) con administración únic
 - Envío de mensajes a grupos con tareas pendientes (horizonte 15 días).
 - Envío de checklists individuales por objetivo a responsables.
 - Seguimiento de tareas completadas desde Telegram (se marca en XML).
+- Comando de bot `/libera_el_dia`: mueve tareas pendientes de hoy al siguiente día (o al lunes si hoy es viernes), sin mover atrasadas.
 - Automatización diaria de envíos a las 07:00.
 - Sección de “Tareas retrasadas” cuando corresponde.
 - Vistas públicas con token temporal (10 min) para bot:
   - Mapas de objetivos.
   - Calendario personal.
   - Calendario de proyectos vinculados.
-- Bot con menú de comandos en chat privado (/start, /menu, /help).
+- Bot con menú de comandos en chat privado (/start, /menu, /help, /tareas, /libera_el_dia).
 
 ## Requisitos
 - PHP 8+ (sin base de datos: se usa XML).

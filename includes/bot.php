@@ -202,5 +202,6 @@ function enlil_bot_commands(): array {
         ['command' => 'calendario_proyectos', 'description' => 'Ver calendarios de proyectos'],
         ['command' => '24h', 'description' => 'Ver tareas cumplidas en 24h'],
         ['command' => 'tareas', 'description' => 'Recibir tareas de hoy'],
+        ['command' => 'libera_el_dia', 'description' => 'Pasar tareas de hoy a manana'],
     ];
 }

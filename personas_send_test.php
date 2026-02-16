@@ -93,7 +93,7 @@ if ($token === '') {
                     'keyboard' => [
                         ['/objetivos', '/mi_calendario'],
                         ['/calendario_proyectos', '/24h'],
-                        ['/tareas'],
+                        ['/tareas', '/libera_el_dia'],
                     ],
                     'resize_keyboard' => true,
                     'one_time_keyboard' => false,
