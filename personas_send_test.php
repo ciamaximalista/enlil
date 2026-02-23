@@ -84,7 +84,7 @@ if ($token === '') {
                 'checklists' => $checklists,
             ]);
             $question = "¡Hola " . trim((string)($person['name'] ?? 'Usuario')) . "!\n¿Puedo enviarte ya las tareas de hoy? (Sí/No)";
-            $promptResult = enlil_send_text_optional_business(
+            $promptResult = enlil_send_text_business_only(
                 $token,
                 (string)$chatId,
                 $question,

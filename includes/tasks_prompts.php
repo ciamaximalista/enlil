@@ -199,6 +199,27 @@ function enlil_send_text_optional_business(
     return enlil_telegram_post_json($token, 'sendMessage', $basePayload);
 }
 
+function enlil_send_text_business_only(
+    string $token,
+    string $chatId,
+    string $text,
+    string $businessConnectionId,
+    ?array $replyMarkup = null
+): array {
+    if ($chatId === '' || $text === '' || $businessConnectionId === '') {
+        return ['ok' => false, 'http_code' => 0, 'body' => ''];
+    }
+    $payload = [
+        'business_connection_id' => $businessConnectionId,
+        'chat_id' => $chatId,
+        'text' => $text,
+    ];
+    if (is_array($replyMarkup) && $replyMarkup) {
+        $payload['reply_markup'] = $replyMarkup;
+    }
+    return enlil_telegram_post_json($token, 'sendMessage', $payload);
+}
+
 function enlil_send_checklists_bundle(string $token, array $bundle): array {
     $chatId = (string)($bundle['chat_id'] ?? '');
     $businessConnectionId = (string)($bundle['business_connection_id'] ?? '');
@@ -366,7 +387,7 @@ function enlil_checklist_send_error_message(array $resultSummary): string {
             $botInfo = function_exists('enlil_bot_get') ? enlil_bot_get() : [];
             $botUsername = trim((string)($botInfo['username'] ?? ''));
             $botMention = $botUsername !== '' ? ('@' . ltrim($botUsername, '@')) : 'el bot de esta instalación';
-            return 'No puedo enviarte checklist todavía desde la cuenta business. Escríbeme primero por privado a ' . $selfMention . ' y luego pon /tareas al bot (' . $botMention . '), no al self.';
+            return 'No puedo enviarte checklist todavía desde la cuenta business. Escríbeme primero por privado a ' . $selfMention . ' y luego pon /tareas aquí mismo. Si prefieres, también funciona en ' . $botMention . '.';
         }
         if (stripos($desc, 'messages must not be sent to self') !== false) {
             return 'No pude enviarte checklist por el canal business. Inténtalo de nuevo en un momento.';

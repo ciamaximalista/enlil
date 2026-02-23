@@ -819,7 +819,7 @@ foreach ($dailyPromptQueue as $chatId => $entry) {
     enlil_tasks_prompt_set((string)$chatId, $entry);
     $personName = trim((string)($entry['person_name'] ?? 'Usuario'));
     $question = "¡Hola " . ($personName !== '' ? $personName : 'Usuario') . "!\n¿Puedo enviarte ya las tareas de hoy? (Sí/No)";
-    $promptResult = enlil_send_text_optional_business(
+    $promptResult = enlil_send_text_business_only(
         $token,
         (string)$chatId,
         $question,

@@ -1,8 +1,8 @@
 {
     "items": {
         "517282848": {
-            "date": "2026-02-16",
-            "sent_at": "2026-02-16T06:11:38+00:00",
+            "date": "2026-02-23",
+            "sent_at": "2026-02-23T07:23:34+00:00",
             "checklists": [
                 {
                     "project_id": 12,
@@ -26,90 +26,116 @@
                     "title": "Formación para maximalistas",
                     "tasks": [
                         {
-                            "id": 1300006,
-                            "text": "asistir al taller de software maximalista (13\/02)"
+                            "id": 1300007,
+                            "text": "Asistir al Adler Café sobre imaginación - Victoria Armet - 18 horas (22\/02)"
                         }
                     ],
                     "task_meta": {
-                        "1300006": {
-                            "task_id": 6,
-                            "objective_id": 2,
-                            "name": "asistir al taller de software maximalista"
+                        "1300007": {
+                            "task_id": 7,
+                            "objective_id": 4,
+                            "name": "Asistir al Adler Café sobre imaginación - Victoria Armet - 18 horas"
                         }
                     }
                 }
             ]
         },
         "8529507400": {
-            "date": "2026-02-16",
-            "sent_at": "2026-02-16T10:34:17+00:00",
+            "date": "2026-02-23",
+            "sent_at": "2026-02-23T08:07:57+00:00",
             "checklists": [
                 {
                     "project_id": 2,
                     "title": "SUDOE",
                     "tasks": [
                         {
-                            "id": 200002,
-                            "text": "Mapeo Centro (17\/02)"
+                            "id": 200007,
+                            "text": "escribir artículo para newsletter SUDOE (20\/02)"
                         },
                         {
-                            "id": 200001,
-                            "text": "Mapeo Norte (17\/02)"
-                        },
-                        {
-                            "id": 200006,
-                            "text": "Pedido de ayuda a la red rural fest (17\/02)"
+                            "id": 200005,
+                            "text": "Complementar el mapeo ronda dos y cerrar llamadas (23\/02)"
                         }
                     ],
                     "task_meta": {
-                        "200002": {
-                            "task_id": 2,
-                            "objective_id": 1,
-                            "name": "Mapeo Centro"
+                        "200007": {
+                            "task_id": 7,
+                            "objective_id": 3,
+                            "name": "escribir artículo para newsletter SUDOE"
                         },
-                        "200001": {
+                        "200005": {
+                            "task_id": 5,
+                            "objective_id": 1,
+                            "name": "Complementar el mapeo ronda dos y cerrar llamadas"
+                        }
+                    }
+                },
+                {
+                    "project_id": 3,
+                    "title": "CERV",
+                    "tasks": [
+                        {
+                            "id": 300003,
+                            "text": "concertar entrevistas para contratrar a alguien que ejecute el CERV (23\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "300003": {
+                            "task_id": 3,
+                            "objective_id": 5,
+                            "name": "concertar entrevistas para contratrar a alguien que ejecute el CERV"
+                        }
+                    }
+                },
+                {
+                    "project_id": 7,
+                    "title": "Campus Profesional Internacional Ricardo Leal",
+                    "tasks": [
+                        {
+                            "id": 700006,
+                            "text": "Estudiar proceso de homologación para PRL 90 en Fundación del Metal (20\/02)"
+                        },
+                        {
+                            "id": 700011,
+                            "text": "Retomar estudio del grupo industrial austriaco - Instalaciones en la Suiza rural como socios (24\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "700006": {
+                            "task_id": 6,
+                            "objective_id": 2,
+                            "name": "Estudiar proceso de homologación para PRL 90 en Fundación del Metal"
+                        },
+                        "700011": {
+                            "task_id": 11,
+                            "objective_id": 4,
+                            "name": "Retomar estudio del grupo industrial austriaco - Instalaciones en la Suiza rural como socios"
+                        }
+                    }
+                },
+                {
+                    "project_id": 9,
+                    "title": "Dinamización de redes europeas",
+                    "tasks": [
+                        {
+                            "id": 900002,
+                            "text": "Elaborar ficha de Repoblación para sesión de Networking NEB en Bruselas (24\/02)"
+                        },
+                        {
+                            "id": 900001,
+                            "text": "NEB Facility 2026 - jornada informativa de la convocatoria (24\/02)"
+                        }
+                    ],
+                    "task_meta": {
+                        "900002": {
+                            "task_id": 2,
+                            "objective_id": 2,
+                            "name": "Elaborar ficha de Repoblación para sesión de Networking NEB en Bruselas"
+                        },
+                        "900001": {
                             "task_id": 1,
                             "objective_id": 1,
-                            "name": "Mapeo Norte"
-                        },
-                        "200006": {
-                            "task_id": 6,
-                            "objective_id": 1,
-                            "name": "Pedido de ayuda a la red rural fest"
-                        }
-                    }
-                },
-                {
-                    "project_id": 8,
-                    "title": "Rehabilitaciones y desarrollos rurales",
-                    "tasks": [
-                        {
-                            "id": 800004,
-                            "text": "Organizar cuadrilla de desalambrado y limpieza con Dámaso (17\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "800004": {
-                            "task_id": 4,
-                            "objective_id": 1,
-                            "name": "Organizar cuadrilla de desalambrado y limpieza con Dámaso"
-                        }
-                    }
-                },
-                {
-                    "project_id": 11,
-                    "title": "Convocatoria Yo Repueblo",
-                    "tasks": [
-                        {
-                            "id": 1100004,
-                            "text": "Enviar documentos de la convocatoria (17\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1100004": {
-                            "task_id": 4,
-                            "objective_id": 1,
-                            "name": "Enviar documentos de la convocatoria"
+                            "name": "NEB Facility 2026 - jornada informativa de la convocatoria"
                         }
                     }
                 },
@@ -118,33 +144,15 @@
                     "title": "Comunicación Maximalista",
                     "tasks": [
                         {
-                            "id": 1200011,
-                            "text": "responder correos atrasados de la Fundación (04\/02)"
-                        },
-                        {
-                            "id": 1200062,
-                            "text": "responder correos atrasados de la Fundación (11\/02)"
-                        },
-                        {
-                            "id": 1200113,
-                            "text": "escribir sobre «Abundantistas» (17\/02)"
+                            "id": 1200118,
+                            "text": "escribir artículo sobre RUDI para memoria (23\/02)"
                         }
                     ],
                     "task_meta": {
-                        "1200011": {
-                            "task_id": 11,
+                        "1200118": {
+                            "task_id": 118,
                             "objective_id": 2,
-                            "name": "responder correos atrasados de la Fundación"
-                        },
-                        "1200062": {
-                            "task_id": 62,
-                            "objective_id": 2,
-                            "name": "responder correos atrasados de la Fundación"
-                        },
-                        "1200113": {
-                            "task_id": 113,
-                            "objective_id": 1,
-                            "name": "escribir sobre «Abundantistas»"
+                            "name": "escribir artículo sobre RUDI para memoria"
                         }
                     }
                 },
@@ -155,6 +163,10 @@
                         {
                             "id": 1800006,
                             "text": "Cálculos de tesorería de cara a mayo (17\/02)"
+                        },
+                        {
+                            "id": 1800010,
+                            "text": "Incorporar el Sello de la Economía Social a la web (22\/02)"
                         }
                     ],
                     "task_meta": {
@@ -162,204 +174,11 @@
                             "task_id": 6,
                             "objective_id": 2,
                             "name": "Cálculos de tesorería de cara a mayo"
-                        }
-                    }
-                }
-            ]
-        },
-        "419281139": {
-            "date": "2026-02-16",
-            "sent_at": "2026-02-16T10:19:09+00:00",
-            "checklists": [
-                {
-                    "project_id": 2,
-                    "title": "SUDOE",
-                    "tasks": [
-                        {
-                            "id": 200271,
-                            "text": "Leer acta de comité director (12\/02)"
                         },
-                        {
-                            "id": 200273,
-                            "text": "Leer mails de Melissa Gentile (12\/02)"
-                        },
-                        {
-                            "id": 200001,
-                            "text": "Mapeo Norte (16\/02)"
-                        },
-                        {
-                            "id": 200274,
-                            "text": "Completar excel de comunicación (17\/02)"
-                        },
-                        {
-                            "id": 200002,
-                            "text": "Mapeo Centro (17\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "200271": {
-                            "task_id": 271,
-                            "objective_id": 4,
-                            "name": "Leer acta de comité director"
-                        },
-                        "200273": {
-                            "task_id": 273,
-                            "objective_id": 4,
-                            "name": "Leer mails de Melissa Gentile"
-                        },
-                        "200001": {
-                            "task_id": 1,
+                        "1800010": {
+                            "task_id": 10,
                             "objective_id": 1,
-                            "name": "Mapeo Norte"
-                        },
-                        "200274": {
-                            "task_id": 274,
-                            "objective_id": 3,
-                            "name": "Completar excel de comunicación"
-                        },
-                        "200002": {
-                            "task_id": 2,
-                            "objective_id": 1,
-                            "name": "Mapeo Centro"
-                        }
-                    }
-                },
-                {
-                    "project_id": 6,
-                    "title": "AEXCID",
-                    "tasks": [
-                        {
-                            "id": 600004,
-                            "text": "Estudiar Cooperativas Peruanas (05\/02)"
-                        },
-                        {
-                            "id": 600006,
-                            "text": "Elaboración de cuestionario (09\/02)"
-                        },
-                        {
-                            "id": 600008,
-                            "text": "Agendar reuniones (12\/02)"
-                        },
-                        {
-                            "id": 600009,
-                            "text": "Preparar reuniones (16\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "600004": {
-                            "task_id": 4,
-                            "objective_id": 1,
-                            "name": "Estudiar Cooperativas Peruanas"
-                        },
-                        "600006": {
-                            "task_id": 6,
-                            "objective_id": 1,
-                            "name": "Elaboración de cuestionario"
-                        },
-                        "600008": {
-                            "task_id": 8,
-                            "objective_id": 1,
-                            "name": "Agendar reuniones"
-                        },
-                        "600009": {
-                            "task_id": 9,
-                            "objective_id": 1,
-                            "name": "Preparar reuniones"
-                        }
-                    }
-                },
-                {
-                    "project_id": 8,
-                    "title": "Rehabilitaciones y desarrollos rurales",
-                    "tasks": [
-                        {
-                            "id": 800004,
-                            "text": "Organizar cuadrilla de desalambrado y limpieza con Dámaso (16\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "800004": {
-                            "task_id": 4,
-                            "objective_id": 1,
-                            "name": "Organizar cuadrilla de desalambrado y limpieza con Dámaso"
-                        }
-                    }
-                },
-                {
-                    "project_id": 11,
-                    "title": "Convocatoria Yo Repueblo",
-                    "tasks": [
-                        {
-                            "id": 1100004,
-                            "text": "Enviar documentos de la convocatoria (16\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1100004": {
-                            "task_id": 4,
-                            "objective_id": 1,
-                            "name": "Enviar documentos de la convocatoria"
-                        }
-                    }
-                },
-                {
-                    "project_id": 13,
-                    "title": "Formación para maximalistas",
-                    "tasks": [
-                        {
-                            "id": 1300001,
-                            "text": "realizar propuesta a Belén (11\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1300001": {
-                            "task_id": 1,
-                            "objective_id": 1,
-                            "name": "realizar propuesta a Belén"
-                        }
-                    }
-                },
-                {
-                    "project_id": 18,
-                    "title": "Administración",
-                    "tasks": [
-                        {
-                            "id": 1800005,
-                            "text": "Llamar al Santander para firma FIOC (04\/02)"
-                        },
-                        {
-                            "id": 1800001,
-                            "text": "Preparar documentación cambio patronato (04\/02)"
-                        },
-                        {
-                            "id": 1800003,
-                            "text": "Legitimar firmas en notario (11\/02)"
-                        },
-                        {
-                            "id": 1800006,
-                            "text": "Cálculos de tesorería de cara a mayo (17\/02)"
-                        }
-                    ],
-                    "task_meta": {
-                        "1800005": {
-                            "task_id": 5,
-                            "objective_id": 1,
-                            "name": "Llamar al Santander para firma FIOC"
-                        },
-                        "1800001": {
-                            "task_id": 1,
-                            "objective_id": 2,
-                            "name": "Preparar documentación cambio patronato"
-                        },
-                        "1800003": {
-                            "task_id": 3,
-                            "objective_id": 2,
-                            "name": "Legitimar firmas en notario"
-                        },
-                        "1800006": {
-                            "task_id": 6,
-                            "objective_id": 2,
-                            "name": "Cálculos de tesorería de cara a mayo"
+                            "name": "Incorporar el Sello de la Economía Social a la web"
                         }
                     }
                 }
